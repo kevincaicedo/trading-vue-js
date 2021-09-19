@@ -31,7 +31,7 @@ export default class DCCore extends DCEvents {
     }
 
     // Init Data Structure v1.1
-    init_data($root) {
+    init_data() {
 
         if (!('chart' in this.data)) {
             this.tv.$set(this.data, 'chart', {
@@ -49,7 +49,7 @@ export default class DCCore extends DCEvents {
         }
 
         if (!this.data.chart.settings) {
-            this.tv.$set(this.data.chart,'settings', {})
+            this.tv.$set(this.data.chart, 'settings', {})
         }
 
         // Remove ohlcv cuz we have Data v1.1^
@@ -69,7 +69,7 @@ export default class DCCore extends DCEvents {
 
     // Range change callback (called by TradingVue)
     // TODO: improve (reliablity + chunk with limited size)
-    async range_changed(range, tf, check=false) {
+    async range_changed(range, tf, check = false) {
 
         if (!this.loader) return
         if (!this.loading) {
@@ -348,10 +348,10 @@ export default class DCCore extends DCEvents {
         if (!data.length) return obj.v
 
         let r1 = [obj.v[0][0], obj.v[obj.v.length - 1][0]]
-        let r2 = [data[0][0],  data[data.length - 1][0]]
+        let r2 = [data[0][0], data[data.length - 1][0]]
 
         // Overlap
-        let o = [Math.max(r1[0],r2[0]), Math.min(r1[1],r2[1])]
+        let o = [Math.max(r1[0], r2[0]), Math.min(r1[1], r2[1])]
 
         if (o[1] >= o[0]) {
 
@@ -437,7 +437,7 @@ export default class DCCore extends DCEvents {
 
             return Object.assign(dst, o)
 
-        // The overlap is on the right
+            // The overlap is on the right
         } else if (last(src) > last(dst)) {
 
             // Psh(...) is faster but can overflow the stack
@@ -448,7 +448,7 @@ export default class DCCore extends DCEvents {
                 return dst.concat(o, src)
             }
 
-        // The overlap is on the left
+            // The overlap is on the left
         } else if (src[0][0] < dst[0][0]) {
 
             // Push(...) is faster but can overflow the stack
@@ -459,7 +459,7 @@ export default class DCCore extends DCEvents {
                 return src.concat(o, dst)
             }
 
-        } else {  return []  }
+        } else { return [] }
 
     }
 

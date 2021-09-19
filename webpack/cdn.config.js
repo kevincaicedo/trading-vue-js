@@ -1,4 +1,4 @@
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const WWPlugin = require('./ww_plugin.js')
@@ -18,26 +18,26 @@ module.exports = [{
     },
     module: {
         rules: [{
-                test: /\.vue$/,
-                exclude: /node_modules/,
-                loader: 'vue-loader'
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    'vue-style-loader',
-                    'css-loader'
-                ]
-            },
-            {
-                test: /script_ww\.js$/,
-                loader: 'worker-loader'
-            }
+            test: /\.vue$/,
+            exclude: /node_modules/,
+            loader: 'vue-loader'
+        },
+        {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+        },
+        {
+            test: /\.css$/,
+            use: [
+                'vue-style-loader',
+                'css-loader'
+            ]
+        },
+        {
+            test: /script_ww\.js$/,
+            loader: 'worker-loader'
+        }
         ]
     },
     plugins: [
@@ -74,7 +74,7 @@ module.exports = [{
         }
     ],
     devServer: {
-        onListening: function(server) {
+        onListening: function (server) {
             const port = server.listeningApp.address().port
             global.port = port
         }
@@ -88,11 +88,11 @@ module.exports = [{
     },
     module: {
         rules: [
-         {
-           test: /\.js/i,
-           use: 'raw-loader',
-         },
-       ]
+            {
+                test: /\.js/i,
+                use: 'raw-loader',
+            },
+        ]
     },
     optimization: {
         runtimeChunk: true,

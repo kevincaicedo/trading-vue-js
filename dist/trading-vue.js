@@ -1,5 +1,5 @@
 /*!
- * TradingVue.JS - v1.0.2 - Thu Mar 18 2021
+ * TradingVue.JS - v1.0.2 - Sun Sep 19 2021
  *     https://github.com/tvjsx/trading-vue-js
  *     Copyright (c) 2019 C451 Code's All Right;
  *     Licensed under the MIT license
@@ -395,7 +395,7 @@ module.exports.isSortableArrayLike = function (o) {
 
 /***/ }),
 
-/***/ 851:
+/***/ 299:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -419,100 +419,10402 @@ __webpack_require__.d(__webpack_exports__, {
   "primitives": () => (/* binding */ primitives)
 });
 
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/TradingVue.vue?vue&type=template&id=235c0ade&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "trading-vue",
-      style: {
-        color: this.chart_props.colors.text,
-        font: this.font_comp,
-        width: this.width + "px",
-        height: this.height + "px"
-      },
-      attrs: { id: _vm.id },
-      on: { mousedown: _vm.mousedown, mouseleave: _vm.mouseleave }
-    },
-    [
-      _vm.toolbar
-        ? _c(
-            "toolbar",
-            _vm._b(
-              {
-                ref: "toolbar",
-                attrs: { config: _vm.chart_config },
-                on: { "custom-event": _vm.custom_event }
-              },
-              "toolbar",
-              _vm.chart_props,
-              false
-            )
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.controllers.length
-        ? _c("widgets", {
-            ref: "widgets",
-            attrs: {
-              map: _vm.ws,
-              width: _vm.width,
-              height: _vm.height,
-              tv: this,
-              dc: _vm.data
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "chart",
-        _vm._b(
-          {
-            key: _vm.reset,
-            ref: "chart",
-            attrs: { tv_id: _vm.id, config: _vm.chart_config },
-            on: {
-              "custom-event": _vm.custom_event,
-              "range-changed": _vm.range_changed,
-              "legend-button-click": _vm.legend_button
-            }
-          },
-          "chart",
-          _vm.chart_props,
-          false
-        )
-      ),
-      _vm._v(" "),
-      _c(
-        "transition",
-        { attrs: { name: "tvjs-drift" } },
-        [
-          _vm.tip
-            ? _c("the-tip", {
-                attrs: { data: _vm.tip },
-                on: {
-                  "remove-me": function($event) {
-                    _vm.tip = null
-                  }
-                }
-              })
-            : _vm._e()
-        ],
-        1
-      )
-    ],
-    1
-  )
+;// CONCATENATED MODULE: ./node_modules/@vue/shared/dist/shared.esm-bundler.js
+/**
+ * Make a map and return a function for checking if a key
+ * is in that map.
+ * IMPORTANT: all calls of this function must be prefixed with
+ * \/\*#\_\_PURE\_\_\*\/
+ * So that rollup can tree-shake them if necessary.
+ */
+function shared_esm_bundler_makeMap(str, expectsLowerCase) {
+    const map = Object.create(null);
+    const list = str.split(',');
+    for (let i = 0; i < list.length; i++) {
+        map[list[i]] = true;
+    }
+    return expectsLowerCase ? val => !!map[val.toLowerCase()] : val => !!map[val];
 }
-var staticRenderFns = []
-render._withStripped = true
+
+/**
+ * dev only flag -> name mapping
+ */
+const PatchFlagNames = {
+    [1 /* TEXT */]: `TEXT`,
+    [2 /* CLASS */]: `CLASS`,
+    [4 /* STYLE */]: `STYLE`,
+    [8 /* PROPS */]: `PROPS`,
+    [16 /* FULL_PROPS */]: `FULL_PROPS`,
+    [32 /* HYDRATE_EVENTS */]: `HYDRATE_EVENTS`,
+    [64 /* STABLE_FRAGMENT */]: `STABLE_FRAGMENT`,
+    [128 /* KEYED_FRAGMENT */]: `KEYED_FRAGMENT`,
+    [256 /* UNKEYED_FRAGMENT */]: `UNKEYED_FRAGMENT`,
+    [512 /* NEED_PATCH */]: `NEED_PATCH`,
+    [1024 /* DYNAMIC_SLOTS */]: `DYNAMIC_SLOTS`,
+    [2048 /* DEV_ROOT_FRAGMENT */]: `DEV_ROOT_FRAGMENT`,
+    [-1 /* HOISTED */]: `HOISTED`,
+    [-2 /* BAIL */]: `BAIL`
+};
+
+/**
+ * Dev only
+ */
+const slotFlagsText = {
+    [1 /* STABLE */]: 'STABLE',
+    [2 /* DYNAMIC */]: 'DYNAMIC',
+    [3 /* FORWARDED */]: 'FORWARDED'
+};
+
+const GLOBALS_WHITE_LISTED = 'Infinity,undefined,NaN,isFinite,isNaN,parseFloat,parseInt,decodeURI,' +
+    'decodeURIComponent,encodeURI,encodeURIComponent,Math,Number,Date,Array,' +
+    'Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt';
+const isGloballyWhitelisted = /*#__PURE__*/ shared_esm_bundler_makeMap(GLOBALS_WHITE_LISTED);
+
+const range = 2;
+function generateCodeFrame(source, start = 0, end = source.length) {
+    // Split the content into individual lines but capture the newline sequence
+    // that separated each line. This is important because the actual sequence is
+    // needed to properly take into account the full line length for offset
+    // comparison
+    let lines = source.split(/(\r?\n)/);
+    // Separate the lines and newline sequences into separate arrays for easier referencing
+    const newlineSequences = lines.filter((_, idx) => idx % 2 === 1);
+    lines = lines.filter((_, idx) => idx % 2 === 0);
+    let count = 0;
+    const res = [];
+    for (let i = 0; i < lines.length; i++) {
+        count +=
+            lines[i].length +
+                ((newlineSequences[i] && newlineSequences[i].length) || 0);
+        if (count >= start) {
+            for (let j = i - range; j <= i + range || end > count; j++) {
+                if (j < 0 || j >= lines.length)
+                    continue;
+                const line = j + 1;
+                res.push(`${line}${' '.repeat(Math.max(3 - String(line).length, 0))}|  ${lines[j]}`);
+                const lineLength = lines[j].length;
+                const newLineSeqLength = (newlineSequences[j] && newlineSequences[j].length) || 0;
+                if (j === i) {
+                    // push underline
+                    const pad = start - (count - (lineLength + newLineSeqLength));
+                    const length = Math.max(1, end > count ? lineLength - pad : end - start);
+                    res.push(`   |  ` + ' '.repeat(pad) + '^'.repeat(length));
+                }
+                else if (j > i) {
+                    if (end > count) {
+                        const length = Math.max(Math.min(end - count, lineLength), 1);
+                        res.push(`   |  ` + '^'.repeat(length));
+                    }
+                    count += lineLength + newLineSeqLength;
+                }
+            }
+            break;
+        }
+    }
+    return res.join('\n');
+}
+
+/**
+ * On the client we only need to offer special cases for boolean attributes that
+ * have different names from their corresponding dom properties:
+ * - itemscope -> N/A
+ * - allowfullscreen -> allowFullscreen
+ * - formnovalidate -> formNoValidate
+ * - ismap -> isMap
+ * - nomodule -> noModule
+ * - novalidate -> noValidate
+ * - readonly -> readOnly
+ */
+const specialBooleanAttrs = `itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly`;
+const isSpecialBooleanAttr = /*#__PURE__*/ shared_esm_bundler_makeMap(specialBooleanAttrs);
+/**
+ * The full list is needed during SSR to produce the correct initial markup.
+ */
+const isBooleanAttr = /*#__PURE__*/ shared_esm_bundler_makeMap(specialBooleanAttrs +
+    `,async,autofocus,autoplay,controls,default,defer,disabled,hidden,` +
+    `loop,open,required,reversed,scoped,seamless,` +
+    `checked,muted,multiple,selected`);
+/**
+ * Boolean attributes should be included if the value is truthy or ''.
+ * e.g. <select multiple> compiles to { multiple: '' }
+ */
+function includeBooleanAttr(value) {
+    return !!value || value === '';
+}
+const unsafeAttrCharRE = /[>/="'\u0009\u000a\u000c\u0020]/;
+const attrValidationCache = {};
+function isSSRSafeAttrName(name) {
+    if (attrValidationCache.hasOwnProperty(name)) {
+        return attrValidationCache[name];
+    }
+    const isUnsafe = unsafeAttrCharRE.test(name);
+    if (isUnsafe) {
+        console.error(`unsafe attribute name: ${name}`);
+    }
+    return (attrValidationCache[name] = !isUnsafe);
+}
+const propsToAttrMap = {
+    acceptCharset: 'accept-charset',
+    className: 'class',
+    htmlFor: 'for',
+    httpEquiv: 'http-equiv'
+};
+/**
+ * CSS properties that accept plain numbers
+ */
+const isNoUnitNumericStyleProp = /*#__PURE__*/ (/* unused pure expression or super */ null && (shared_esm_bundler_makeMap(`animation-iteration-count,border-image-outset,border-image-slice,` +
+    `border-image-width,box-flex,box-flex-group,box-ordinal-group,column-count,` +
+    `columns,flex,flex-grow,flex-positive,flex-shrink,flex-negative,flex-order,` +
+    `grid-row,grid-row-end,grid-row-span,grid-row-start,grid-column,` +
+    `grid-column-end,grid-column-span,grid-column-start,font-weight,line-clamp,` +
+    `line-height,opacity,order,orphans,tab-size,widows,z-index,zoom,` +
+    // SVG
+    `fill-opacity,flood-opacity,stop-opacity,stroke-dasharray,stroke-dashoffset,` +
+    `stroke-miterlimit,stroke-opacity,stroke-width`)));
+/**
+ * Known attributes, this is used for stringification of runtime static nodes
+ * so that we don't stringify bindings that cannot be set from HTML.
+ * Don't also forget to allow `data-*` and `aria-*`!
+ * Generated from https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+ */
+const isKnownHtmlAttr = /*#__PURE__*/ (/* unused pure expression or super */ null && (shared_esm_bundler_makeMap(`accept,accept-charset,accesskey,action,align,allow,alt,async,` +
+    `autocapitalize,autocomplete,autofocus,autoplay,background,bgcolor,` +
+    `border,buffered,capture,challenge,charset,checked,cite,class,code,` +
+    `codebase,color,cols,colspan,content,contenteditable,contextmenu,controls,` +
+    `coords,crossorigin,csp,data,datetime,decoding,default,defer,dir,dirname,` +
+    `disabled,download,draggable,dropzone,enctype,enterkeyhint,for,form,` +
+    `formaction,formenctype,formmethod,formnovalidate,formtarget,headers,` +
+    `height,hidden,high,href,hreflang,http-equiv,icon,id,importance,integrity,` +
+    `ismap,itemprop,keytype,kind,label,lang,language,loading,list,loop,low,` +
+    `manifest,max,maxlength,minlength,media,min,multiple,muted,name,novalidate,` +
+    `open,optimum,pattern,ping,placeholder,poster,preload,radiogroup,readonly,` +
+    `referrerpolicy,rel,required,reversed,rows,rowspan,sandbox,scope,scoped,` +
+    `selected,shape,size,sizes,slot,span,spellcheck,src,srcdoc,srclang,srcset,` +
+    `start,step,style,summary,tabindex,target,title,translate,type,usemap,` +
+    `value,width,wrap`)));
+/**
+ * Generated from https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute
+ */
+const isKnownSvgAttr = /*#__PURE__*/ (/* unused pure expression or super */ null && (shared_esm_bundler_makeMap(`xmlns,accent-height,accumulate,additive,alignment-baseline,alphabetic,amplitude,` +
+    `arabic-form,ascent,attributeName,attributeType,azimuth,baseFrequency,` +
+    `baseline-shift,baseProfile,bbox,begin,bias,by,calcMode,cap-height,class,` +
+    `clip,clipPathUnits,clip-path,clip-rule,color,color-interpolation,` +
+    `color-interpolation-filters,color-profile,color-rendering,` +
+    `contentScriptType,contentStyleType,crossorigin,cursor,cx,cy,d,decelerate,` +
+    `descent,diffuseConstant,direction,display,divisor,dominant-baseline,dur,dx,` +
+    `dy,edgeMode,elevation,enable-background,end,exponent,fill,fill-opacity,` +
+    `fill-rule,filter,filterRes,filterUnits,flood-color,flood-opacity,` +
+    `font-family,font-size,font-size-adjust,font-stretch,font-style,` +
+    `font-variant,font-weight,format,from,fr,fx,fy,g1,g2,glyph-name,` +
+    `glyph-orientation-horizontal,glyph-orientation-vertical,glyphRef,` +
+    `gradientTransform,gradientUnits,hanging,height,href,hreflang,horiz-adv-x,` +
+    `horiz-origin-x,id,ideographic,image-rendering,in,in2,intercept,k,k1,k2,k3,` +
+    `k4,kernelMatrix,kernelUnitLength,kerning,keyPoints,keySplines,keyTimes,` +
+    `lang,lengthAdjust,letter-spacing,lighting-color,limitingConeAngle,local,` +
+    `marker-end,marker-mid,marker-start,markerHeight,markerUnits,markerWidth,` +
+    `mask,maskContentUnits,maskUnits,mathematical,max,media,method,min,mode,` +
+    `name,numOctaves,offset,opacity,operator,order,orient,orientation,origin,` +
+    `overflow,overline-position,overline-thickness,panose-1,paint-order,path,` +
+    `pathLength,patternContentUnits,patternTransform,patternUnits,ping,` +
+    `pointer-events,points,pointsAtX,pointsAtY,pointsAtZ,preserveAlpha,` +
+    `preserveAspectRatio,primitiveUnits,r,radius,referrerPolicy,refX,refY,rel,` +
+    `rendering-intent,repeatCount,repeatDur,requiredExtensions,requiredFeatures,` +
+    `restart,result,rotate,rx,ry,scale,seed,shape-rendering,slope,spacing,` +
+    `specularConstant,specularExponent,speed,spreadMethod,startOffset,` +
+    `stdDeviation,stemh,stemv,stitchTiles,stop-color,stop-opacity,` +
+    `strikethrough-position,strikethrough-thickness,string,stroke,` +
+    `stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,` +
+    `stroke-miterlimit,stroke-opacity,stroke-width,style,surfaceScale,` +
+    `systemLanguage,tabindex,tableValues,target,targetX,targetY,text-anchor,` +
+    `text-decoration,text-rendering,textLength,to,transform,transform-origin,` +
+    `type,u1,u2,underline-position,underline-thickness,unicode,unicode-bidi,` +
+    `unicode-range,units-per-em,v-alphabetic,v-hanging,v-ideographic,` +
+    `v-mathematical,values,vector-effect,version,vert-adv-y,vert-origin-x,` +
+    `vert-origin-y,viewBox,viewTarget,visibility,width,widths,word-spacing,` +
+    `writing-mode,x,x-height,x1,x2,xChannelSelector,xlink:actuate,xlink:arcrole,` +
+    `xlink:href,xlink:role,xlink:show,xlink:title,xlink:type,xml:base,xml:lang,` +
+    `xml:space,y,y1,y2,yChannelSelector,z,zoomAndPan`)));
+
+function normalizeStyle(value) {
+    if (shared_esm_bundler_isArray(value)) {
+        const res = {};
+        for (let i = 0; i < value.length; i++) {
+            const item = value[i];
+            const normalized = shared_esm_bundler_isString(item)
+                ? parseStringStyle(item)
+                : normalizeStyle(item);
+            if (normalized) {
+                for (const key in normalized) {
+                    res[key] = normalized[key];
+                }
+            }
+        }
+        return res;
+    }
+    else if (shared_esm_bundler_isString(value)) {
+        return value;
+    }
+    else if (shared_esm_bundler_isObject(value)) {
+        return value;
+    }
+}
+const listDelimiterRE = /;(?![^(]*\))/g;
+const propertyDelimiterRE = /:(.+)/;
+function parseStringStyle(cssText) {
+    const ret = {};
+    cssText.split(listDelimiterRE).forEach(item => {
+        if (item) {
+            const tmp = item.split(propertyDelimiterRE);
+            tmp.length > 1 && (ret[tmp[0].trim()] = tmp[1].trim());
+        }
+    });
+    return ret;
+}
+function stringifyStyle(styles) {
+    let ret = '';
+    if (!styles || shared_esm_bundler_isString(styles)) {
+        return ret;
+    }
+    for (const key in styles) {
+        const value = styles[key];
+        const normalizedKey = key.startsWith(`--`) ? key : shared_esm_bundler_hyphenate(key);
+        if (shared_esm_bundler_isString(value) ||
+            (typeof value === 'number' && isNoUnitNumericStyleProp(normalizedKey))) {
+            // only render valid values
+            ret += `${normalizedKey}:${value};`;
+        }
+    }
+    return ret;
+}
+function normalizeClass(value) {
+    let res = '';
+    if (shared_esm_bundler_isString(value)) {
+        res = value;
+    }
+    else if (shared_esm_bundler_isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+            const normalized = normalizeClass(value[i]);
+            if (normalized) {
+                res += normalized + ' ';
+            }
+        }
+    }
+    else if (shared_esm_bundler_isObject(value)) {
+        for (const name in value) {
+            if (value[name]) {
+                res += name + ' ';
+            }
+        }
+    }
+    return res.trim();
+}
+function normalizeProps(props) {
+    if (!props)
+        return null;
+    let { class: klass, style } = props;
+    if (klass && !shared_esm_bundler_isString(klass)) {
+        props.class = normalizeClass(klass);
+    }
+    if (style) {
+        props.style = normalizeStyle(style);
+    }
+    return props;
+}
+
+// These tag configs are shared between compiler-dom and runtime-dom, so they
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element
+const HTML_TAGS = (/* unused pure expression or super */ null && ('html,body,base,head,link,meta,style,title,address,article,aside,footer,' +
+    'header,h1,h2,h3,h4,h5,h6,nav,section,div,dd,dl,dt,figcaption,' +
+    'figure,picture,hr,img,li,main,ol,p,pre,ul,a,b,abbr,bdi,bdo,br,cite,code,' +
+    'data,dfn,em,i,kbd,mark,q,rp,rt,ruby,s,samp,small,span,strong,sub,sup,' +
+    'time,u,var,wbr,area,audio,map,track,video,embed,object,param,source,' +
+    'canvas,script,noscript,del,ins,caption,col,colgroup,table,thead,tbody,td,' +
+    'th,tr,button,datalist,fieldset,form,input,label,legend,meter,optgroup,' +
+    'option,output,progress,select,textarea,details,dialog,menu,' +
+    'summary,template,blockquote,iframe,tfoot'));
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Element
+const SVG_TAGS = (/* unused pure expression or super */ null && ('svg,animate,animateMotion,animateTransform,circle,clipPath,color-profile,' +
+    'defs,desc,discard,ellipse,feBlend,feColorMatrix,feComponentTransfer,' +
+    'feComposite,feConvolveMatrix,feDiffuseLighting,feDisplacementMap,' +
+    'feDistanceLight,feDropShadow,feFlood,feFuncA,feFuncB,feFuncG,feFuncR,' +
+    'feGaussianBlur,feImage,feMerge,feMergeNode,feMorphology,feOffset,' +
+    'fePointLight,feSpecularLighting,feSpotLight,feTile,feTurbulence,filter,' +
+    'foreignObject,g,hatch,hatchpath,image,line,linearGradient,marker,mask,' +
+    'mesh,meshgradient,meshpatch,meshrow,metadata,mpath,path,pattern,' +
+    'polygon,polyline,radialGradient,rect,set,solidcolor,stop,switch,symbol,' +
+    'text,textPath,title,tspan,unknown,use,view'));
+const VOID_TAGS = 'area,base,br,col,embed,hr,img,input,link,meta,param,source,track,wbr';
+const shared_esm_bundler_isHTMLTag = /*#__PURE__*/ (/* unused pure expression or super */ null && (shared_esm_bundler_makeMap(HTML_TAGS)));
+const shared_esm_bundler_isSVGTag = /*#__PURE__*/ (/* unused pure expression or super */ null && (shared_esm_bundler_makeMap(SVG_TAGS)));
+const isVoidTag = /*#__PURE__*/ (/* unused pure expression or super */ null && (shared_esm_bundler_makeMap(VOID_TAGS)));
+
+const escapeRE = /["'&<>]/;
+function escapeHtml(string) {
+    const str = '' + string;
+    const match = escapeRE.exec(str);
+    if (!match) {
+        return str;
+    }
+    let html = '';
+    let escaped;
+    let index;
+    let lastIndex = 0;
+    for (index = match.index; index < str.length; index++) {
+        switch (str.charCodeAt(index)) {
+            case 34: // "
+                escaped = '&quot;';
+                break;
+            case 38: // &
+                escaped = '&amp;';
+                break;
+            case 39: // '
+                escaped = '&#39;';
+                break;
+            case 60: // <
+                escaped = '&lt;';
+                break;
+            case 62: // >
+                escaped = '&gt;';
+                break;
+            default:
+                continue;
+        }
+        if (lastIndex !== index) {
+            html += str.substring(lastIndex, index);
+        }
+        lastIndex = index + 1;
+        html += escaped;
+    }
+    return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
+}
+// https://www.w3.org/TR/html52/syntax.html#comments
+const commentStripRE = /^-?>|<!--|-->|--!>|<!-$/g;
+function escapeHtmlComment(src) {
+    return src.replace(commentStripRE, '');
+}
+
+function looseCompareArrays(a, b) {
+    if (a.length !== b.length)
+        return false;
+    let equal = true;
+    for (let i = 0; equal && i < a.length; i++) {
+        equal = looseEqual(a[i], b[i]);
+    }
+    return equal;
+}
+function looseEqual(a, b) {
+    if (a === b)
+        return true;
+    let aValidType = isDate(a);
+    let bValidType = isDate(b);
+    if (aValidType || bValidType) {
+        return aValidType && bValidType ? a.getTime() === b.getTime() : false;
+    }
+    aValidType = shared_esm_bundler_isArray(a);
+    bValidType = shared_esm_bundler_isArray(b);
+    if (aValidType || bValidType) {
+        return aValidType && bValidType ? looseCompareArrays(a, b) : false;
+    }
+    aValidType = shared_esm_bundler_isObject(a);
+    bValidType = shared_esm_bundler_isObject(b);
+    if (aValidType || bValidType) {
+        /* istanbul ignore if: this if will probably never be called */
+        if (!aValidType || !bValidType) {
+            return false;
+        }
+        const aKeysCount = Object.keys(a).length;
+        const bKeysCount = Object.keys(b).length;
+        if (aKeysCount !== bKeysCount) {
+            return false;
+        }
+        for (const key in a) {
+            const aHasKey = a.hasOwnProperty(key);
+            const bHasKey = b.hasOwnProperty(key);
+            if ((aHasKey && !bHasKey) ||
+                (!aHasKey && bHasKey) ||
+                !looseEqual(a[key], b[key])) {
+                return false;
+            }
+        }
+    }
+    return String(a) === String(b);
+}
+function looseIndexOf(arr, val) {
+    return arr.findIndex(item => looseEqual(item, val));
+}
+
+/**
+ * For converting {{ interpolation }} values to displayed strings.
+ * @private
+ */
+const toDisplayString = (val) => {
+    return val == null
+        ? ''
+        : shared_esm_bundler_isArray(val) ||
+            (shared_esm_bundler_isObject(val) &&
+                (val.toString === objectToString || !shared_esm_bundler_isFunction(val.toString)))
+            ? JSON.stringify(val, replacer, 2)
+            : String(val);
+};
+const replacer = (_key, val) => {
+    // can't use isRef here since @vue/shared has no deps
+    if (val && val.__v_isRef) {
+        return replacer(_key, val.value);
+    }
+    else if (isMap(val)) {
+        return {
+            [`Map(${val.size})`]: [...val.entries()].reduce((entries, [key, val]) => {
+                entries[`${key} =>`] = val;
+                return entries;
+            }, {})
+        };
+    }
+    else if (isSet(val)) {
+        return {
+            [`Set(${val.size})`]: [...val.values()]
+        };
+    }
+    else if (shared_esm_bundler_isObject(val) && !shared_esm_bundler_isArray(val) && !isPlainObject(val)) {
+        return String(val);
+    }
+    return val;
+};
+
+/**
+ * List of @babel/parser plugins that are used for template expression
+ * transforms and SFC script transforms. By default we enable proposals slated
+ * for ES2020. This will need to be updated as the spec moves forward.
+ * Full list at https://babeljs.io/docs/en/next/babel-parser#plugins
+ */
+const babelParserDefaultPlugins = (/* unused pure expression or super */ null && ([
+    'bigInt',
+    'optionalChaining',
+    'nullishCoalescingOperator'
+]));
+const shared_esm_bundler_EMPTY_OBJ = ( false)
+    ? 0
+    : {};
+const shared_esm_bundler_EMPTY_ARR = ( false) ? 0 : [];
+const shared_esm_bundler_NOOP = () => { };
+/**
+ * Always return false.
+ */
+const shared_esm_bundler_NO = () => false;
+const onRE = /^on[^a-z]/;
+const shared_esm_bundler_isOn = (key) => onRE.test(key);
+const isModelListener = (key) => key.startsWith('onUpdate:');
+const shared_esm_bundler_extend = Object.assign;
+const remove = (arr, el) => {
+    const i = arr.indexOf(el);
+    if (i > -1) {
+        arr.splice(i, 1);
+    }
+};
+const shared_esm_bundler_hasOwnProperty = Object.prototype.hasOwnProperty;
+const shared_esm_bundler_hasOwn = (val, key) => shared_esm_bundler_hasOwnProperty.call(val, key);
+const shared_esm_bundler_isArray = Array.isArray;
+const isMap = (val) => toTypeString(val) === '[object Map]';
+const isSet = (val) => toTypeString(val) === '[object Set]';
+const isDate = (val) => val instanceof Date;
+const shared_esm_bundler_isFunction = (val) => typeof val === 'function';
+const shared_esm_bundler_isString = (val) => typeof val === 'string';
+const isSymbol = (val) => typeof val === 'symbol';
+const shared_esm_bundler_isObject = (val) => val !== null && typeof val === 'object';
+const isPromise = (val) => {
+    return shared_esm_bundler_isObject(val) && shared_esm_bundler_isFunction(val.then) && shared_esm_bundler_isFunction(val.catch);
+};
+const objectToString = Object.prototype.toString;
+const toTypeString = (value) => objectToString.call(value);
+const shared_esm_bundler_toRawType = (value) => {
+    // extract "RawType" from strings like "[object RawType]"
+    return toTypeString(value).slice(8, -1);
+};
+const isPlainObject = (val) => toTypeString(val) === '[object Object]';
+const isIntegerKey = (key) => shared_esm_bundler_isString(key) &&
+    key !== 'NaN' &&
+    key[0] !== '-' &&
+    '' + parseInt(key, 10) === key;
+const shared_esm_bundler_isReservedProp = /*#__PURE__*/ shared_esm_bundler_makeMap(
+// the leading comma is intentional so empty string "" is also included
+',key,ref,' +
+    'onVnodeBeforeMount,onVnodeMounted,' +
+    'onVnodeBeforeUpdate,onVnodeUpdated,' +
+    'onVnodeBeforeUnmount,onVnodeUnmounted');
+const cacheStringFunction = (fn) => {
+    const cache = Object.create(null);
+    return ((str) => {
+        const hit = cache[str];
+        return hit || (cache[str] = fn(str));
+    });
+};
+const camelizeRE = /-(\w)/g;
+/**
+ * @private
+ */
+const shared_esm_bundler_camelize = cacheStringFunction((str) => {
+    return str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''));
+});
+const hyphenateRE = /\B([A-Z])/g;
+/**
+ * @private
+ */
+const shared_esm_bundler_hyphenate = cacheStringFunction((str) => str.replace(hyphenateRE, '-$1').toLowerCase());
+/**
+ * @private
+ */
+const shared_esm_bundler_capitalize = cacheStringFunction((str) => str.charAt(0).toUpperCase() + str.slice(1));
+/**
+ * @private
+ */
+const shared_esm_bundler_toHandlerKey = cacheStringFunction((str) => str ? `on${shared_esm_bundler_capitalize(str)}` : ``);
+// compare whether a value has changed, accounting for NaN.
+const shared_esm_bundler_hasChanged = (value, oldValue) => !Object.is(value, oldValue);
+const shared_esm_bundler_invokeArrayFns = (fns, arg) => {
+    for (let i = 0; i < fns.length; i++) {
+        fns[i](arg);
+    }
+};
+const def = (obj, key, value) => {
+    Object.defineProperty(obj, key, {
+        configurable: true,
+        enumerable: false,
+        value
+    });
+};
+const shared_esm_bundler_toNumber = (val) => {
+    const n = parseFloat(val);
+    return isNaN(n) ? val : n;
+};
+let _globalThis;
+const shared_esm_bundler_getGlobalThis = () => {
+    return (_globalThis ||
+        (_globalThis =
+            typeof globalThis !== 'undefined'
+                ? globalThis
+                : typeof self !== 'undefined'
+                    ? self
+                    : typeof window !== 'undefined'
+                        ? window
+                        : typeof __webpack_require__.g !== 'undefined'
+                            ? __webpack_require__.g
+                            : {}));
+};
 
 
-;// CONCATENATED MODULE: ./src/TradingVue.vue?vue&type=template&id=235c0ade&
 
+;// CONCATENATED MODULE: ./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js
+
+
+function reactivity_esm_bundler_warn(msg, ...args) {
+    console.warn(`[Vue warn] ${msg}`, ...args);
+}
+
+let activeEffectScope;
+const effectScopeStack = [];
+class EffectScope {
+    constructor(detached = false) {
+        this.active = true;
+        this.effects = [];
+        this.cleanups = [];
+        if (!detached && activeEffectScope) {
+            this.parent = activeEffectScope;
+            this.index =
+                (activeEffectScope.scopes || (activeEffectScope.scopes = [])).push(this) - 1;
+        }
+    }
+    run(fn) {
+        if (this.active) {
+            try {
+                this.on();
+                return fn();
+            }
+            finally {
+                this.off();
+            }
+        }
+        else if ((false)) {}
+    }
+    on() {
+        if (this.active) {
+            effectScopeStack.push(this);
+            activeEffectScope = this;
+        }
+    }
+    off() {
+        if (this.active) {
+            effectScopeStack.pop();
+            activeEffectScope = effectScopeStack[effectScopeStack.length - 1];
+        }
+    }
+    stop(fromParent) {
+        if (this.active) {
+            this.effects.forEach(e => e.stop());
+            this.cleanups.forEach(cleanup => cleanup());
+            if (this.scopes) {
+                this.scopes.forEach(e => e.stop(true));
+            }
+            // nested scope, dereference from parent to avoid memory leaks
+            if (this.parent && !fromParent) {
+                // optimized O(1) removal
+                const last = this.parent.scopes.pop();
+                if (last && last !== this) {
+                    this.parent.scopes[this.index] = last;
+                    last.index = this.index;
+                }
+            }
+            this.active = false;
+        }
+    }
+}
+function effectScope(detached) {
+    return new EffectScope(detached);
+}
+function recordEffectScope(effect, scope) {
+    scope = scope || activeEffectScope;
+    if (scope && scope.active) {
+        scope.effects.push(effect);
+    }
+}
+function getCurrentScope() {
+    return activeEffectScope;
+}
+function onScopeDispose(fn) {
+    if (activeEffectScope) {
+        activeEffectScope.cleanups.push(fn);
+    }
+    else if ((false)) {}
+}
+
+const createDep = (effects) => {
+    const dep = new Set(effects);
+    dep.w = 0;
+    dep.n = 0;
+    return dep;
+};
+const wasTracked = (dep) => (dep.w & trackOpBit) > 0;
+const newTracked = (dep) => (dep.n & trackOpBit) > 0;
+const initDepMarkers = ({ deps }) => {
+    if (deps.length) {
+        for (let i = 0; i < deps.length; i++) {
+            deps[i].w |= trackOpBit; // set was tracked
+        }
+    }
+};
+const finalizeDepMarkers = (effect) => {
+    const { deps } = effect;
+    if (deps.length) {
+        let ptr = 0;
+        for (let i = 0; i < deps.length; i++) {
+            const dep = deps[i];
+            if (wasTracked(dep) && !newTracked(dep)) {
+                dep.delete(effect);
+            }
+            else {
+                deps[ptr++] = dep;
+            }
+            // clear bits
+            dep.w &= ~trackOpBit;
+            dep.n &= ~trackOpBit;
+        }
+        deps.length = ptr;
+    }
+};
+
+const targetMap = new WeakMap();
+// The number of effects currently being tracked recursively.
+let effectTrackDepth = 0;
+let trackOpBit = 1;
+/**
+ * The bitwise track markers support at most 30 levels op recursion.
+ * This value is chosen to enable modern JS engines to use a SMI on all platforms.
+ * When recursion depth is greater, fall back to using a full cleanup.
+ */
+const maxMarkerBits = 30;
+const effectStack = [];
+let activeEffect;
+const ITERATE_KEY = Symbol(( false) ? 0 : '');
+const MAP_KEY_ITERATE_KEY = Symbol(( false) ? 0 : '');
+class reactivity_esm_bundler_ReactiveEffect {
+    constructor(fn, scheduler = null, scope) {
+        this.fn = fn;
+        this.scheduler = scheduler;
+        this.active = true;
+        this.deps = [];
+        recordEffectScope(this, scope);
+    }
+    run() {
+        if (!this.active) {
+            return this.fn();
+        }
+        if (!effectStack.includes(this)) {
+            try {
+                effectStack.push((activeEffect = this));
+                enableTracking();
+                trackOpBit = 1 << ++effectTrackDepth;
+                if (effectTrackDepth <= maxMarkerBits) {
+                    initDepMarkers(this);
+                }
+                else {
+                    cleanupEffect(this);
+                }
+                return this.fn();
+            }
+            finally {
+                if (effectTrackDepth <= maxMarkerBits) {
+                    finalizeDepMarkers(this);
+                }
+                trackOpBit = 1 << --effectTrackDepth;
+                reactivity_esm_bundler_resetTracking();
+                effectStack.pop();
+                const n = effectStack.length;
+                activeEffect = n > 0 ? effectStack[n - 1] : undefined;
+            }
+        }
+    }
+    stop() {
+        if (this.active) {
+            cleanupEffect(this);
+            if (this.onStop) {
+                this.onStop();
+            }
+            this.active = false;
+        }
+    }
+}
+function cleanupEffect(effect) {
+    const { deps } = effect;
+    if (deps.length) {
+        for (let i = 0; i < deps.length; i++) {
+            deps[i].delete(effect);
+        }
+        deps.length = 0;
+    }
+}
+function effect(fn, options) {
+    if (fn.effect) {
+        fn = fn.effect.fn;
+    }
+    const _effect = new reactivity_esm_bundler_ReactiveEffect(fn);
+    if (options) {
+        extend(_effect, options);
+        if (options.scope)
+            recordEffectScope(_effect, options.scope);
+    }
+    if (!options || !options.lazy) {
+        _effect.run();
+    }
+    const runner = _effect.run.bind(_effect);
+    runner.effect = _effect;
+    return runner;
+}
+function stop(runner) {
+    runner.effect.stop();
+}
+let shouldTrack = true;
+const trackStack = [];
+function reactivity_esm_bundler_pauseTracking() {
+    trackStack.push(shouldTrack);
+    shouldTrack = false;
+}
+function enableTracking() {
+    trackStack.push(shouldTrack);
+    shouldTrack = true;
+}
+function reactivity_esm_bundler_resetTracking() {
+    const last = trackStack.pop();
+    shouldTrack = last === undefined ? true : last;
+}
+function track(target, type, key) {
+    if (!isTracking()) {
+        return;
+    }
+    let depsMap = targetMap.get(target);
+    if (!depsMap) {
+        targetMap.set(target, (depsMap = new Map()));
+    }
+    let dep = depsMap.get(key);
+    if (!dep) {
+        depsMap.set(key, (dep = createDep()));
+    }
+    const eventInfo = ( false)
+        ? 0
+        : undefined;
+    trackEffects(dep, eventInfo);
+}
+function isTracking() {
+    return shouldTrack && activeEffect !== undefined;
+}
+function trackEffects(dep, debuggerEventExtraInfo) {
+    let shouldTrack = false;
+    if (effectTrackDepth <= maxMarkerBits) {
+        if (!newTracked(dep)) {
+            dep.n |= trackOpBit; // set newly tracked
+            shouldTrack = !wasTracked(dep);
+        }
+    }
+    else {
+        // Full cleanup mode.
+        shouldTrack = !dep.has(activeEffect);
+    }
+    if (shouldTrack) {
+        dep.add(activeEffect);
+        activeEffect.deps.push(dep);
+        if (false) {}
+    }
+}
+function reactivity_esm_bundler_trigger(target, type, key, newValue, oldValue, oldTarget) {
+    const depsMap = targetMap.get(target);
+    if (!depsMap) {
+        // never been tracked
+        return;
+    }
+    let deps = [];
+    if (type === "clear" /* CLEAR */) {
+        // collection being cleared
+        // trigger all effects for target
+        deps = [...depsMap.values()];
+    }
+    else if (key === 'length' && shared_esm_bundler_isArray(target)) {
+        depsMap.forEach((dep, key) => {
+            if (key === 'length' || key >= newValue) {
+                deps.push(dep);
+            }
+        });
+    }
+    else {
+        // schedule runs for SET | ADD | DELETE
+        if (key !== void 0) {
+            deps.push(depsMap.get(key));
+        }
+        // also run for iteration key on ADD | DELETE | Map.SET
+        switch (type) {
+            case "add" /* ADD */:
+                if (!shared_esm_bundler_isArray(target)) {
+                    deps.push(depsMap.get(ITERATE_KEY));
+                    if (isMap(target)) {
+                        deps.push(depsMap.get(MAP_KEY_ITERATE_KEY));
+                    }
+                }
+                else if (isIntegerKey(key)) {
+                    // new index added to array -> length changes
+                    deps.push(depsMap.get('length'));
+                }
+                break;
+            case "delete" /* DELETE */:
+                if (!shared_esm_bundler_isArray(target)) {
+                    deps.push(depsMap.get(ITERATE_KEY));
+                    if (isMap(target)) {
+                        deps.push(depsMap.get(MAP_KEY_ITERATE_KEY));
+                    }
+                }
+                break;
+            case "set" /* SET */:
+                if (isMap(target)) {
+                    deps.push(depsMap.get(ITERATE_KEY));
+                }
+                break;
+        }
+    }
+    const eventInfo = ( false)
+        ? 0
+        : undefined;
+    if (deps.length === 1) {
+        if (deps[0]) {
+            if ((false)) {}
+            else {
+                triggerEffects(deps[0]);
+            }
+        }
+    }
+    else {
+        const effects = [];
+        for (const dep of deps) {
+            if (dep) {
+                effects.push(...dep);
+            }
+        }
+        if ((false)) {}
+        else {
+            triggerEffects(createDep(effects));
+        }
+    }
+}
+function triggerEffects(dep, debuggerEventExtraInfo) {
+    // spread into array for stabilization
+    for (const effect of shared_esm_bundler_isArray(dep) ? dep : [...dep]) {
+        if (effect !== activeEffect || effect.allowRecurse) {
+            if (false) {}
+            if (effect.scheduler) {
+                effect.scheduler();
+            }
+            else {
+                effect.run();
+            }
+        }
+    }
+}
+
+const isNonTrackableKeys = /*#__PURE__*/ shared_esm_bundler_makeMap(`__proto__,__v_isRef,__isVue`);
+const builtInSymbols = new Set(Object.getOwnPropertyNames(Symbol)
+    .map(key => Symbol[key])
+    .filter(isSymbol));
+const get = /*#__PURE__*/ createGetter();
+const shallowGet = /*#__PURE__*/ createGetter(false, true);
+const readonlyGet = /*#__PURE__*/ createGetter(true);
+const shallowReadonlyGet = /*#__PURE__*/ createGetter(true, true);
+const arrayInstrumentations = /*#__PURE__*/ createArrayInstrumentations();
+function createArrayInstrumentations() {
+    const instrumentations = {};
+    ['includes', 'indexOf', 'lastIndexOf'].forEach(key => {
+        instrumentations[key] = function (...args) {
+            const arr = reactivity_esm_bundler_toRaw(this);
+            for (let i = 0, l = this.length; i < l; i++) {
+                track(arr, "get" /* GET */, i + '');
+            }
+            // we run the method using the original args first (which may be reactive)
+            const res = arr[key](...args);
+            if (res === -1 || res === false) {
+                // if that didn't work, run it again using raw values.
+                return arr[key](...args.map(reactivity_esm_bundler_toRaw));
+            }
+            else {
+                return res;
+            }
+        };
+    });
+    ['push', 'pop', 'shift', 'unshift', 'splice'].forEach(key => {
+        instrumentations[key] = function (...args) {
+            reactivity_esm_bundler_pauseTracking();
+            const res = reactivity_esm_bundler_toRaw(this)[key].apply(this, args);
+            reactivity_esm_bundler_resetTracking();
+            return res;
+        };
+    });
+    return instrumentations;
+}
+function createGetter(isReadonly = false, shallow = false) {
+    return function get(target, key, receiver) {
+        if (key === "__v_isReactive" /* IS_REACTIVE */) {
+            return !isReadonly;
+        }
+        else if (key === "__v_isReadonly" /* IS_READONLY */) {
+            return isReadonly;
+        }
+        else if (key === "__v_raw" /* RAW */ &&
+            receiver ===
+                (isReadonly
+                    ? shallow
+                        ? shallowReadonlyMap
+                        : readonlyMap
+                    : shallow
+                        ? shallowReactiveMap
+                        : reactiveMap).get(target)) {
+            return target;
+        }
+        const targetIsArray = shared_esm_bundler_isArray(target);
+        if (!isReadonly && targetIsArray && shared_esm_bundler_hasOwn(arrayInstrumentations, key)) {
+            return Reflect.get(arrayInstrumentations, key, receiver);
+        }
+        const res = Reflect.get(target, key, receiver);
+        if (isSymbol(key) ? builtInSymbols.has(key) : isNonTrackableKeys(key)) {
+            return res;
+        }
+        if (!isReadonly) {
+            track(target, "get" /* GET */, key);
+        }
+        if (shallow) {
+            return res;
+        }
+        if (reactivity_esm_bundler_isRef(res)) {
+            // ref unwrapping - does not apply for Array + integer key.
+            const shouldUnwrap = !targetIsArray || !isIntegerKey(key);
+            return shouldUnwrap ? res.value : res;
+        }
+        if (shared_esm_bundler_isObject(res)) {
+            // Convert returned value into a proxy as well. we do the isObject check
+            // here to avoid invalid value warning. Also need to lazy access readonly
+            // and reactive here to avoid circular dependency.
+            return isReadonly ? readonly(res) : reactive(res);
+        }
+        return res;
+    };
+}
+const set = /*#__PURE__*/ createSetter();
+const shallowSet = /*#__PURE__*/ createSetter(true);
+function createSetter(shallow = false) {
+    return function set(target, key, value, receiver) {
+        let oldValue = target[key];
+        if (!shallow) {
+            value = reactivity_esm_bundler_toRaw(value);
+            oldValue = reactivity_esm_bundler_toRaw(oldValue);
+            if (!shared_esm_bundler_isArray(target) && reactivity_esm_bundler_isRef(oldValue) && !reactivity_esm_bundler_isRef(value)) {
+                oldValue.value = value;
+                return true;
+            }
+        }
+        const hadKey = shared_esm_bundler_isArray(target) && isIntegerKey(key)
+            ? Number(key) < target.length
+            : shared_esm_bundler_hasOwn(target, key);
+        const result = Reflect.set(target, key, value, receiver);
+        // don't trigger if target is something up in the prototype chain of original
+        if (target === reactivity_esm_bundler_toRaw(receiver)) {
+            if (!hadKey) {
+                reactivity_esm_bundler_trigger(target, "add" /* ADD */, key, value);
+            }
+            else if (shared_esm_bundler_hasChanged(value, oldValue)) {
+                reactivity_esm_bundler_trigger(target, "set" /* SET */, key, value, oldValue);
+            }
+        }
+        return result;
+    };
+}
+function deleteProperty(target, key) {
+    const hadKey = shared_esm_bundler_hasOwn(target, key);
+    const oldValue = target[key];
+    const result = Reflect.deleteProperty(target, key);
+    if (result && hadKey) {
+        reactivity_esm_bundler_trigger(target, "delete" /* DELETE */, key, undefined, oldValue);
+    }
+    return result;
+}
+function has(target, key) {
+    const result = Reflect.has(target, key);
+    if (!isSymbol(key) || !builtInSymbols.has(key)) {
+        track(target, "has" /* HAS */, key);
+    }
+    return result;
+}
+function ownKeys(target) {
+    track(target, "iterate" /* ITERATE */, shared_esm_bundler_isArray(target) ? 'length' : ITERATE_KEY);
+    return Reflect.ownKeys(target);
+}
+const mutableHandlers = {
+    get,
+    set,
+    deleteProperty,
+    has,
+    ownKeys
+};
+const readonlyHandlers = {
+    get: readonlyGet,
+    set(target, key) {
+        if ((false)) {}
+        return true;
+    },
+    deleteProperty(target, key) {
+        if ((false)) {}
+        return true;
+    }
+};
+const shallowReactiveHandlers = /*#__PURE__*/ shared_esm_bundler_extend({}, mutableHandlers, {
+    get: shallowGet,
+    set: shallowSet
+});
+// Props handlers are special in the sense that it should not unwrap top-level
+// refs (in order to allow refs to be explicitly passed down), but should
+// retain the reactivity of the normal readonly object.
+const shallowReadonlyHandlers = /*#__PURE__*/ shared_esm_bundler_extend({}, readonlyHandlers, {
+    get: shallowReadonlyGet
+});
+
+const toReactive = (value) => shared_esm_bundler_isObject(value) ? reactive(value) : value;
+const toReadonly = (value) => shared_esm_bundler_isObject(value) ? readonly(value) : value;
+const toShallow = (value) => value;
+const getProto = (v) => Reflect.getPrototypeOf(v);
+function get$1(target, key, isReadonly = false, isShallow = false) {
+    // #1772: readonly(reactive(Map)) should return readonly + reactive version
+    // of the value
+    target = target["__v_raw" /* RAW */];
+    const rawTarget = reactivity_esm_bundler_toRaw(target);
+    const rawKey = reactivity_esm_bundler_toRaw(key);
+    if (key !== rawKey) {
+        !isReadonly && track(rawTarget, "get" /* GET */, key);
+    }
+    !isReadonly && track(rawTarget, "get" /* GET */, rawKey);
+    const { has } = getProto(rawTarget);
+    const wrap = isShallow ? toShallow : isReadonly ? toReadonly : toReactive;
+    if (has.call(rawTarget, key)) {
+        return wrap(target.get(key));
+    }
+    else if (has.call(rawTarget, rawKey)) {
+        return wrap(target.get(rawKey));
+    }
+    else if (target !== rawTarget) {
+        // #3602 readonly(reactive(Map))
+        // ensure that the nested reactive `Map` can do tracking for itself
+        target.get(key);
+    }
+}
+function has$1(key, isReadonly = false) {
+    const target = this["__v_raw" /* RAW */];
+    const rawTarget = reactivity_esm_bundler_toRaw(target);
+    const rawKey = reactivity_esm_bundler_toRaw(key);
+    if (key !== rawKey) {
+        !isReadonly && track(rawTarget, "has" /* HAS */, key);
+    }
+    !isReadonly && track(rawTarget, "has" /* HAS */, rawKey);
+    return key === rawKey
+        ? target.has(key)
+        : target.has(key) || target.has(rawKey);
+}
+function size(target, isReadonly = false) {
+    target = target["__v_raw" /* RAW */];
+    !isReadonly && track(reactivity_esm_bundler_toRaw(target), "iterate" /* ITERATE */, ITERATE_KEY);
+    return Reflect.get(target, 'size', target);
+}
+function add(value) {
+    value = reactivity_esm_bundler_toRaw(value);
+    const target = reactivity_esm_bundler_toRaw(this);
+    const proto = getProto(target);
+    const hadKey = proto.has.call(target, value);
+    if (!hadKey) {
+        target.add(value);
+        reactivity_esm_bundler_trigger(target, "add" /* ADD */, value, value);
+    }
+    return this;
+}
+function set$1(key, value) {
+    value = reactivity_esm_bundler_toRaw(value);
+    const target = reactivity_esm_bundler_toRaw(this);
+    const { has, get } = getProto(target);
+    let hadKey = has.call(target, key);
+    if (!hadKey) {
+        key = reactivity_esm_bundler_toRaw(key);
+        hadKey = has.call(target, key);
+    }
+    else if ((false)) {}
+    const oldValue = get.call(target, key);
+    target.set(key, value);
+    if (!hadKey) {
+        reactivity_esm_bundler_trigger(target, "add" /* ADD */, key, value);
+    }
+    else if (shared_esm_bundler_hasChanged(value, oldValue)) {
+        reactivity_esm_bundler_trigger(target, "set" /* SET */, key, value, oldValue);
+    }
+    return this;
+}
+function deleteEntry(key) {
+    const target = reactivity_esm_bundler_toRaw(this);
+    const { has, get } = getProto(target);
+    let hadKey = has.call(target, key);
+    if (!hadKey) {
+        key = reactivity_esm_bundler_toRaw(key);
+        hadKey = has.call(target, key);
+    }
+    else if ((false)) {}
+    const oldValue = get ? get.call(target, key) : undefined;
+    // forward the operation before queueing reactions
+    const result = target.delete(key);
+    if (hadKey) {
+        reactivity_esm_bundler_trigger(target, "delete" /* DELETE */, key, undefined, oldValue);
+    }
+    return result;
+}
+function clear() {
+    const target = reactivity_esm_bundler_toRaw(this);
+    const hadItems = target.size !== 0;
+    const oldTarget = ( false)
+        ? 0
+        : undefined;
+    // forward the operation before queueing reactions
+    const result = target.clear();
+    if (hadItems) {
+        reactivity_esm_bundler_trigger(target, "clear" /* CLEAR */, undefined, undefined, oldTarget);
+    }
+    return result;
+}
+function createForEach(isReadonly, isShallow) {
+    return function forEach(callback, thisArg) {
+        const observed = this;
+        const target = observed["__v_raw" /* RAW */];
+        const rawTarget = reactivity_esm_bundler_toRaw(target);
+        const wrap = isShallow ? toShallow : isReadonly ? toReadonly : toReactive;
+        !isReadonly && track(rawTarget, "iterate" /* ITERATE */, ITERATE_KEY);
+        return target.forEach((value, key) => {
+            // important: make sure the callback is
+            // 1. invoked with the reactive map as `this` and 3rd arg
+            // 2. the value received should be a corresponding reactive/readonly.
+            return callback.call(thisArg, wrap(value), wrap(key), observed);
+        });
+    };
+}
+function createIterableMethod(method, isReadonly, isShallow) {
+    return function (...args) {
+        const target = this["__v_raw" /* RAW */];
+        const rawTarget = reactivity_esm_bundler_toRaw(target);
+        const targetIsMap = isMap(rawTarget);
+        const isPair = method === 'entries' || (method === Symbol.iterator && targetIsMap);
+        const isKeyOnly = method === 'keys' && targetIsMap;
+        const innerIterator = target[method](...args);
+        const wrap = isShallow ? toShallow : isReadonly ? toReadonly : toReactive;
+        !isReadonly &&
+            track(rawTarget, "iterate" /* ITERATE */, isKeyOnly ? MAP_KEY_ITERATE_KEY : ITERATE_KEY);
+        // return a wrapped iterator which returns observed versions of the
+        // values emitted from the real iterator
+        return {
+            // iterator protocol
+            next() {
+                const { value, done } = innerIterator.next();
+                return done
+                    ? { value, done }
+                    : {
+                        value: isPair ? [wrap(value[0]), wrap(value[1])] : wrap(value),
+                        done
+                    };
+            },
+            // iterable protocol
+            [Symbol.iterator]() {
+                return this;
+            }
+        };
+    };
+}
+function createReadonlyMethod(type) {
+    return function (...args) {
+        if ((false)) {}
+        return type === "delete" /* DELETE */ ? false : this;
+    };
+}
+function createInstrumentations() {
+    const mutableInstrumentations = {
+        get(key) {
+            return get$1(this, key);
+        },
+        get size() {
+            return size(this);
+        },
+        has: has$1,
+        add,
+        set: set$1,
+        delete: deleteEntry,
+        clear,
+        forEach: createForEach(false, false)
+    };
+    const shallowInstrumentations = {
+        get(key) {
+            return get$1(this, key, false, true);
+        },
+        get size() {
+            return size(this);
+        },
+        has: has$1,
+        add,
+        set: set$1,
+        delete: deleteEntry,
+        clear,
+        forEach: createForEach(false, true)
+    };
+    const readonlyInstrumentations = {
+        get(key) {
+            return get$1(this, key, true);
+        },
+        get size() {
+            return size(this, true);
+        },
+        has(key) {
+            return has$1.call(this, key, true);
+        },
+        add: createReadonlyMethod("add" /* ADD */),
+        set: createReadonlyMethod("set" /* SET */),
+        delete: createReadonlyMethod("delete" /* DELETE */),
+        clear: createReadonlyMethod("clear" /* CLEAR */),
+        forEach: createForEach(true, false)
+    };
+    const shallowReadonlyInstrumentations = {
+        get(key) {
+            return get$1(this, key, true, true);
+        },
+        get size() {
+            return size(this, true);
+        },
+        has(key) {
+            return has$1.call(this, key, true);
+        },
+        add: createReadonlyMethod("add" /* ADD */),
+        set: createReadonlyMethod("set" /* SET */),
+        delete: createReadonlyMethod("delete" /* DELETE */),
+        clear: createReadonlyMethod("clear" /* CLEAR */),
+        forEach: createForEach(true, true)
+    };
+    const iteratorMethods = ['keys', 'values', 'entries', Symbol.iterator];
+    iteratorMethods.forEach(method => {
+        mutableInstrumentations[method] = createIterableMethod(method, false, false);
+        readonlyInstrumentations[method] = createIterableMethod(method, true, false);
+        shallowInstrumentations[method] = createIterableMethod(method, false, true);
+        shallowReadonlyInstrumentations[method] = createIterableMethod(method, true, true);
+    });
+    return [
+        mutableInstrumentations,
+        readonlyInstrumentations,
+        shallowInstrumentations,
+        shallowReadonlyInstrumentations
+    ];
+}
+const [mutableInstrumentations, readonlyInstrumentations, shallowInstrumentations, shallowReadonlyInstrumentations] = /* #__PURE__*/ createInstrumentations();
+function createInstrumentationGetter(isReadonly, shallow) {
+    const instrumentations = shallow
+        ? isReadonly
+            ? shallowReadonlyInstrumentations
+            : shallowInstrumentations
+        : isReadonly
+            ? readonlyInstrumentations
+            : mutableInstrumentations;
+    return (target, key, receiver) => {
+        if (key === "__v_isReactive" /* IS_REACTIVE */) {
+            return !isReadonly;
+        }
+        else if (key === "__v_isReadonly" /* IS_READONLY */) {
+            return isReadonly;
+        }
+        else if (key === "__v_raw" /* RAW */) {
+            return target;
+        }
+        return Reflect.get(shared_esm_bundler_hasOwn(instrumentations, key) && key in target
+            ? instrumentations
+            : target, key, receiver);
+    };
+}
+const mutableCollectionHandlers = {
+    get: /*#__PURE__*/ createInstrumentationGetter(false, false)
+};
+const shallowCollectionHandlers = {
+    get: /*#__PURE__*/ createInstrumentationGetter(false, true)
+};
+const readonlyCollectionHandlers = {
+    get: /*#__PURE__*/ createInstrumentationGetter(true, false)
+};
+const shallowReadonlyCollectionHandlers = {
+    get: /*#__PURE__*/ createInstrumentationGetter(true, true)
+};
+function checkIdentityKeys(target, has, key) {
+    const rawKey = reactivity_esm_bundler_toRaw(key);
+    if (rawKey !== key && has.call(target, rawKey)) {
+        const type = toRawType(target);
+        console.warn(`Reactive ${type} contains both the raw and reactive ` +
+            `versions of the same object${type === `Map` ? ` as keys` : ``}, ` +
+            `which can lead to inconsistencies. ` +
+            `Avoid differentiating between the raw and reactive versions ` +
+            `of an object and only use the reactive version if possible.`);
+    }
+}
+
+const reactiveMap = new WeakMap();
+const shallowReactiveMap = new WeakMap();
+const readonlyMap = new WeakMap();
+const shallowReadonlyMap = new WeakMap();
+function targetTypeMap(rawType) {
+    switch (rawType) {
+        case 'Object':
+        case 'Array':
+            return 1 /* COMMON */;
+        case 'Map':
+        case 'Set':
+        case 'WeakMap':
+        case 'WeakSet':
+            return 2 /* COLLECTION */;
+        default:
+            return 0 /* INVALID */;
+    }
+}
+function getTargetType(value) {
+    return value["__v_skip" /* SKIP */] || !Object.isExtensible(value)
+        ? 0 /* INVALID */
+        : targetTypeMap(shared_esm_bundler_toRawType(value));
+}
+function reactive(target) {
+    // if trying to observe a readonly proxy, return the readonly version.
+    if (target && target["__v_isReadonly" /* IS_READONLY */]) {
+        return target;
+    }
+    return createReactiveObject(target, false, mutableHandlers, mutableCollectionHandlers, reactiveMap);
+}
+/**
+ * Return a shallowly-reactive copy of the original object, where only the root
+ * level properties are reactive. It also does not auto-unwrap refs (even at the
+ * root level).
+ */
+function shallowReactive(target) {
+    return createReactiveObject(target, false, shallowReactiveHandlers, shallowCollectionHandlers, shallowReactiveMap);
+}
+/**
+ * Creates a readonly copy of the original object. Note the returned copy is not
+ * made reactive, but `readonly` can be called on an already reactive object.
+ */
+function readonly(target) {
+    return createReactiveObject(target, true, readonlyHandlers, readonlyCollectionHandlers, readonlyMap);
+}
+/**
+ * Returns a reactive-copy of the original object, where only the root level
+ * properties are readonly, and does NOT unwrap refs nor recursively convert
+ * returned properties.
+ * This is used for creating the props proxy object for stateful components.
+ */
+function shallowReadonly(target) {
+    return createReactiveObject(target, true, shallowReadonlyHandlers, shallowReadonlyCollectionHandlers, shallowReadonlyMap);
+}
+function createReactiveObject(target, isReadonly, baseHandlers, collectionHandlers, proxyMap) {
+    if (!shared_esm_bundler_isObject(target)) {
+        if ((false)) {}
+        return target;
+    }
+    // target is already a Proxy, return it.
+    // exception: calling readonly() on a reactive object
+    if (target["__v_raw" /* RAW */] &&
+        !(isReadonly && target["__v_isReactive" /* IS_REACTIVE */])) {
+        return target;
+    }
+    // target already has corresponding Proxy
+    const existingProxy = proxyMap.get(target);
+    if (existingProxy) {
+        return existingProxy;
+    }
+    // only a whitelist of value types can be observed.
+    const targetType = getTargetType(target);
+    if (targetType === 0 /* INVALID */) {
+        return target;
+    }
+    const proxy = new Proxy(target, targetType === 2 /* COLLECTION */ ? collectionHandlers : baseHandlers);
+    proxyMap.set(target, proxy);
+    return proxy;
+}
+function reactivity_esm_bundler_isReactive(value) {
+    if (reactivity_esm_bundler_isReadonly(value)) {
+        return reactivity_esm_bundler_isReactive(value["__v_raw" /* RAW */]);
+    }
+    return !!(value && value["__v_isReactive" /* IS_REACTIVE */]);
+}
+function reactivity_esm_bundler_isReadonly(value) {
+    return !!(value && value["__v_isReadonly" /* IS_READONLY */]);
+}
+function isProxy(value) {
+    return reactivity_esm_bundler_isReactive(value) || reactivity_esm_bundler_isReadonly(value);
+}
+function reactivity_esm_bundler_toRaw(observed) {
+    const raw = observed && observed["__v_raw" /* RAW */];
+    return raw ? reactivity_esm_bundler_toRaw(raw) : observed;
+}
+function markRaw(value) {
+    def(value, "__v_skip" /* SKIP */, true);
+    return value;
+}
+
+function trackRefValue(ref) {
+    if (isTracking()) {
+        ref = reactivity_esm_bundler_toRaw(ref);
+        if (!ref.dep) {
+            ref.dep = createDep();
+        }
+        if ((false)) {}
+        else {
+            trackEffects(ref.dep);
+        }
+    }
+}
+function triggerRefValue(ref, newVal) {
+    ref = reactivity_esm_bundler_toRaw(ref);
+    if (ref.dep) {
+        if ((false)) {}
+        else {
+            triggerEffects(ref.dep);
+        }
+    }
+}
+const convert = (val) => isObject(val) ? reactive(val) : val;
+function reactivity_esm_bundler_isRef(r) {
+    return Boolean(r && r.__v_isRef === true);
+}
+function reactivity_esm_bundler_ref(value) {
+    return createRef(value, false);
+}
+function shallowRef(value) {
+    return createRef(value, true);
+}
+class RefImpl {
+    constructor(value, _shallow) {
+        this._shallow = _shallow;
+        this.dep = undefined;
+        this.__v_isRef = true;
+        this._rawValue = _shallow ? value : reactivity_esm_bundler_toRaw(value);
+        this._value = _shallow ? value : convert(value);
+    }
+    get value() {
+        trackRefValue(this);
+        return this._value;
+    }
+    set value(newVal) {
+        newVal = this._shallow ? newVal : reactivity_esm_bundler_toRaw(newVal);
+        if (hasChanged(newVal, this._rawValue)) {
+            this._rawValue = newVal;
+            this._value = this._shallow ? newVal : convert(newVal);
+            triggerRefValue(this, newVal);
+        }
+    }
+}
+function createRef(rawValue, shallow) {
+    if (reactivity_esm_bundler_isRef(rawValue)) {
+        return rawValue;
+    }
+    return new RefImpl(rawValue, shallow);
+}
+function triggerRef(ref) {
+    triggerRefValue(ref, ( false) ? 0 : void 0);
+}
+function unref(ref) {
+    return reactivity_esm_bundler_isRef(ref) ? ref.value : ref;
+}
+const shallowUnwrapHandlers = {
+    get: (target, key, receiver) => unref(Reflect.get(target, key, receiver)),
+    set: (target, key, value, receiver) => {
+        const oldValue = target[key];
+        if (reactivity_esm_bundler_isRef(oldValue) && !reactivity_esm_bundler_isRef(value)) {
+            oldValue.value = value;
+            return true;
+        }
+        else {
+            return Reflect.set(target, key, value, receiver);
+        }
+    }
+};
+function proxyRefs(objectWithRefs) {
+    return reactivity_esm_bundler_isReactive(objectWithRefs)
+        ? objectWithRefs
+        : new Proxy(objectWithRefs, shallowUnwrapHandlers);
+}
+class CustomRefImpl {
+    constructor(factory) {
+        this.dep = undefined;
+        this.__v_isRef = true;
+        const { get, set } = factory(() => trackRefValue(this), () => triggerRefValue(this));
+        this._get = get;
+        this._set = set;
+    }
+    get value() {
+        return this._get();
+    }
+    set value(newVal) {
+        this._set(newVal);
+    }
+}
+function customRef(factory) {
+    return new CustomRefImpl(factory);
+}
+function toRefs(object) {
+    if (false) {}
+    const ret = isArray(object) ? new Array(object.length) : {};
+    for (const key in object) {
+        ret[key] = toRef(object, key);
+    }
+    return ret;
+}
+class ObjectRefImpl {
+    constructor(_object, _key) {
+        this._object = _object;
+        this._key = _key;
+        this.__v_isRef = true;
+    }
+    get value() {
+        return this._object[this._key];
+    }
+    set value(newVal) {
+        this._object[this._key] = newVal;
+    }
+}
+function toRef(object, key) {
+    const val = object[key];
+    return reactivity_esm_bundler_isRef(val) ? val : new ObjectRefImpl(object, key);
+}
+
+class ComputedRefImpl {
+    constructor(getter, _setter, isReadonly) {
+        this._setter = _setter;
+        this.dep = undefined;
+        this._dirty = true;
+        this.__v_isRef = true;
+        this.effect = new reactivity_esm_bundler_ReactiveEffect(getter, () => {
+            if (!this._dirty) {
+                this._dirty = true;
+                triggerRefValue(this);
+            }
+        });
+        this["__v_isReadonly" /* IS_READONLY */] = isReadonly;
+    }
+    get value() {
+        // the computed ref may get wrapped by other proxies e.g. readonly() #3376
+        const self = reactivity_esm_bundler_toRaw(this);
+        trackRefValue(self);
+        if (self._dirty) {
+            self._dirty = false;
+            self._value = self.effect.run();
+        }
+        return self._value;
+    }
+    set value(newValue) {
+        this._setter(newValue);
+    }
+}
+function computed(getterOrOptions, debugOptions) {
+    let getter;
+    let setter;
+    if (shared_esm_bundler_isFunction(getterOrOptions)) {
+        getter = getterOrOptions;
+        setter = ( false)
+            ? 0
+            : shared_esm_bundler_NOOP;
+    }
+    else {
+        getter = getterOrOptions.get;
+        setter = getterOrOptions.set;
+    }
+    const cRef = new ComputedRefImpl(getter, setter, shared_esm_bundler_isFunction(getterOrOptions) || !getterOrOptions.set);
+    if (false) {}
+    return cRef;
+}
+
+var _a;
+const tick = Promise.resolve();
+const queue = (/* unused pure expression or super */ null && ([]));
+let queued = false;
+const scheduler = (fn) => {
+    queue.push(fn);
+    if (!queued) {
+        queued = true;
+        tick.then(flush);
+    }
+};
+const flush = () => {
+    for (let i = 0; i < queue.length; i++) {
+        queue[i]();
+    }
+    queue.length = 0;
+    queued = false;
+};
+class DeferredComputedRefImpl {
+    constructor(getter) {
+        this.dep = undefined;
+        this._dirty = true;
+        this.__v_isRef = true;
+        this[_a] = true;
+        let compareTarget;
+        let hasCompareTarget = false;
+        let scheduled = false;
+        this.effect = new reactivity_esm_bundler_ReactiveEffect(getter, (computedTrigger) => {
+            if (this.dep) {
+                if (computedTrigger) {
+                    compareTarget = this._value;
+                    hasCompareTarget = true;
+                }
+                else if (!scheduled) {
+                    const valueToCompare = hasCompareTarget ? compareTarget : this._value;
+                    scheduled = true;
+                    hasCompareTarget = false;
+                    scheduler(() => {
+                        if (this.effect.active && this._get() !== valueToCompare) {
+                            triggerRefValue(this);
+                        }
+                        scheduled = false;
+                    });
+                }
+                // chained upstream computeds are notified synchronously to ensure
+                // value invalidation in case of sync access; normal effects are
+                // deferred to be triggered in scheduler.
+                for (const e of this.dep) {
+                    if (e.computed) {
+                        e.scheduler(true /* computedTrigger */);
+                    }
+                }
+            }
+            this._dirty = true;
+        });
+        this.effect.computed = true;
+    }
+    _get() {
+        if (this._dirty) {
+            this._dirty = false;
+            return (this._value = this.effect.run());
+        }
+        return this._value;
+    }
+    get value() {
+        trackRefValue(this);
+        // the computed ref may get wrapped by other proxies e.g. readonly() #3376
+        return reactivity_esm_bundler_toRaw(this)._get();
+    }
+}
+_a = "__v_isReadonly" /* IS_READONLY */;
+function deferredComputed(getter) {
+    return new DeferredComputedRefImpl(getter);
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js
+
+
+
+
+
+/* eslint-disable no-restricted-globals */
+let isHmrUpdating = false;
+const hmrDirtyComponents = new Set();
+// Expose the HMR runtime on the global object
+// This makes it entirely tree-shakable without polluting the exports and makes
+// it easier to be used in toolings like vue-loader
+// Note: for a component to be eligible for HMR it also needs the __hmrId option
+// to be set so that its instances can be registered / removed.
+if ((false)) {}
+const map = new Map();
+function registerHMR(instance) {
+    const id = instance.type.__hmrId;
+    let record = map.get(id);
+    if (!record) {
+        createRecord(id);
+        record = map.get(id);
+    }
+    record.add(instance);
+}
+function unregisterHMR(instance) {
+    map.get(instance.type.__hmrId).delete(instance);
+}
+function createRecord(id) {
+    if (map.has(id)) {
+        return false;
+    }
+    map.set(id, new Set());
+    return true;
+}
+function normalizeClassComponent(component) {
+    return isClassComponent(component) ? component.__vccOpts : component;
+}
+function rerender(id, newRender) {
+    const record = map.get(id);
+    if (!record) {
+        return;
+    }
+    [...record].forEach(instance => {
+        if (newRender) {
+            instance.render = newRender;
+            normalizeClassComponent(instance.type).render = newRender;
+        }
+        instance.renderCache = [];
+        // this flag forces child components with slot content to update
+        isHmrUpdating = true;
+        instance.update();
+        isHmrUpdating = false;
+    });
+}
+function reload(id, newComp) {
+    const record = map.get(id);
+    if (!record)
+        return;
+    newComp = normalizeClassComponent(newComp);
+    // create a snapshot which avoids the set being mutated during updates
+    const instances = [...record];
+    for (const instance of instances) {
+        const oldComp = normalizeClassComponent(instance.type);
+        if (!hmrDirtyComponents.has(oldComp)) {
+            // 1. Update existing comp definition to match new one
+            extend(oldComp, newComp);
+            for (const key in oldComp) {
+                if (key !== '__file' && !(key in newComp)) {
+                    delete oldComp[key];
+                }
+            }
+            // 2. mark definition dirty. This forces the renderer to replace the
+            // component on patch.
+            hmrDirtyComponents.add(oldComp);
+        }
+        // 3. invalidate options resolution cache
+        instance.appContext.optionsCache.delete(instance.type);
+        // 4. actually update
+        if (instance.ceReload) {
+            // custom element
+            hmrDirtyComponents.add(oldComp);
+            instance.ceReload(newComp.styles);
+            hmrDirtyComponents.delete(oldComp);
+        }
+        else if (instance.parent) {
+            // 4. Force the parent instance to re-render. This will cause all updated
+            // components to be unmounted and re-mounted. Queue the update so that we
+            // don't end up forcing the same parent to re-render multiple times.
+            queueJob(instance.parent.update);
+            // instance is the inner component of an async custom element
+            // invoke to reset styles
+            if (instance.parent.type.__asyncLoader &&
+                instance.parent.ceReload) {
+                instance.parent.ceReload(newComp.styles);
+            }
+        }
+        else if (instance.appContext.reload) {
+            // root instance mounted via createApp() has a reload method
+            instance.appContext.reload();
+        }
+        else if (typeof window !== 'undefined') {
+            // root instance inside tree created via raw render(). Force reload.
+            window.location.reload();
+        }
+        else {
+            console.warn('[HMR] Root or manually mounted instance modified. Full reload required.');
+        }
+    }
+    // 5. make sure to cleanup dirty hmr components after update
+    queuePostFlushCb(() => {
+        for (const instance of instances) {
+            hmrDirtyComponents.delete(normalizeClassComponent(instance.type));
+        }
+    });
+}
+function tryWrap(fn) {
+    return (id, arg) => {
+        try {
+            return fn(id, arg);
+        }
+        catch (e) {
+            console.error(e);
+            console.warn(`[HMR] Something went wrong during Vue component hot-reload. ` +
+                `Full reload required.`);
+        }
+    };
+}
+
+let devtools;
+function setDevtoolsHook(hook) {
+    devtools = hook;
+}
+function devtoolsInitApp(app, version) {
+    // TODO queue if devtools is undefined
+    if (!devtools)
+        return;
+    devtools.emit("app:init" /* APP_INIT */, app, version, {
+        Fragment: runtime_core_esm_bundler_Fragment,
+        Text,
+        Comment,
+        Static: runtime_core_esm_bundler_Static
+    });
+}
+function devtoolsUnmountApp(app) {
+    if (!devtools)
+        return;
+    devtools.emit("app:unmount" /* APP_UNMOUNT */, app);
+}
+const devtoolsComponentAdded = /*#__PURE__*/ createDevtoolsComponentHook("component:added" /* COMPONENT_ADDED */);
+const devtoolsComponentUpdated = 
+/*#__PURE__*/ createDevtoolsComponentHook("component:updated" /* COMPONENT_UPDATED */);
+const devtoolsComponentRemoved = 
+/*#__PURE__*/ (/* unused pure expression or super */ null && (createDevtoolsComponentHook("component:removed" /* COMPONENT_REMOVED */)));
+function createDevtoolsComponentHook(hook) {
+    return (component) => {
+        if (!devtools)
+            return;
+        devtools.emit(hook, component.appContext.app, component.uid, component.parent ? component.parent.uid : undefined, component);
+    };
+}
+const devtoolsPerfStart = /*#__PURE__*/ (/* unused pure expression or super */ null && (createDevtoolsPerformanceHook("perf:start" /* PERFORMANCE_START */)));
+const devtoolsPerfEnd = /*#__PURE__*/ (/* unused pure expression or super */ null && (createDevtoolsPerformanceHook("perf:end" /* PERFORMANCE_END */)));
+function createDevtoolsPerformanceHook(hook) {
+    return (component, type, time) => {
+        if (!devtools)
+            return;
+        devtools.emit(hook, component.appContext.app, component.uid, component, type, time);
+    };
+}
+function devtoolsComponentEmit(component, event, params) {
+    if (!devtools)
+        return;
+    devtools.emit("component:emit" /* COMPONENT_EMIT */, component.appContext.app, component, event, params);
+}
+
+function emit(instance, event, ...rawArgs) {
+    const props = instance.vnode.props || shared_esm_bundler_EMPTY_OBJ;
+    if ((false)) {}
+    let args = rawArgs;
+    const isModelListener = event.startsWith('update:');
+    // for v-model update:xxx events, apply modifiers on args
+    const modelArg = isModelListener && event.slice(7);
+    if (modelArg && modelArg in props) {
+        const modifiersKey = `${modelArg === 'modelValue' ? 'model' : modelArg}Modifiers`;
+        const { number, trim } = props[modifiersKey] || shared_esm_bundler_EMPTY_OBJ;
+        if (trim) {
+            args = rawArgs.map(a => a.trim());
+        }
+        else if (number) {
+            args = rawArgs.map(shared_esm_bundler_toNumber);
+        }
+    }
+    if (( false) || __VUE_PROD_DEVTOOLS__) {
+        devtoolsComponentEmit(instance, event, args);
+    }
+    if ((false)) {}
+    let handlerName;
+    let handler = props[(handlerName = shared_esm_bundler_toHandlerKey(event))] ||
+        // also try camelCase event handler (#2249)
+        props[(handlerName = shared_esm_bundler_toHandlerKey(shared_esm_bundler_camelize(event)))];
+    // for v-model update:xxx events, also trigger kebab-case equivalent
+    // for props passed via kebab-case
+    if (!handler && isModelListener) {
+        handler = props[(handlerName = shared_esm_bundler_toHandlerKey(shared_esm_bundler_hyphenate(event)))];
+    }
+    if (handler) {
+        callWithAsyncErrorHandling(handler, instance, 6 /* COMPONENT_EVENT_HANDLER */, args);
+    }
+    const onceHandler = props[handlerName + `Once`];
+    if (onceHandler) {
+        if (!instance.emitted) {
+            instance.emitted = {};
+        }
+        else if (instance.emitted[handlerName]) {
+            return;
+        }
+        instance.emitted[handlerName] = true;
+        callWithAsyncErrorHandling(onceHandler, instance, 6 /* COMPONENT_EVENT_HANDLER */, args);
+    }
+}
+function normalizeEmitsOptions(comp, appContext, asMixin = false) {
+    const cache = appContext.emitsCache;
+    const cached = cache.get(comp);
+    if (cached !== undefined) {
+        return cached;
+    }
+    const raw = comp.emits;
+    let normalized = {};
+    // apply mixin/extends props
+    let hasExtends = false;
+    if (__VUE_OPTIONS_API__ && !shared_esm_bundler_isFunction(comp)) {
+        const extendEmits = (raw) => {
+            const normalizedFromExtend = normalizeEmitsOptions(raw, appContext, true);
+            if (normalizedFromExtend) {
+                hasExtends = true;
+                shared_esm_bundler_extend(normalized, normalizedFromExtend);
+            }
+        };
+        if (!asMixin && appContext.mixins.length) {
+            appContext.mixins.forEach(extendEmits);
+        }
+        if (comp.extends) {
+            extendEmits(comp.extends);
+        }
+        if (comp.mixins) {
+            comp.mixins.forEach(extendEmits);
+        }
+    }
+    if (!raw && !hasExtends) {
+        cache.set(comp, null);
+        return null;
+    }
+    if (shared_esm_bundler_isArray(raw)) {
+        raw.forEach(key => (normalized[key] = null));
+    }
+    else {
+        shared_esm_bundler_extend(normalized, raw);
+    }
+    cache.set(comp, normalized);
+    return normalized;
+}
+// Check if an incoming prop key is a declared emit event listener.
+// e.g. With `emits: { click: null }`, props named `onClick` and `onclick` are
+// both considered matched listeners.
+function isEmitListener(options, key) {
+    if (!options || !shared_esm_bundler_isOn(key)) {
+        return false;
+    }
+    key = key.slice(2).replace(/Once$/, '');
+    return (shared_esm_bundler_hasOwn(options, key[0].toLowerCase() + key.slice(1)) ||
+        shared_esm_bundler_hasOwn(options, shared_esm_bundler_hyphenate(key)) ||
+        shared_esm_bundler_hasOwn(options, key));
+}
+
+/**
+ * mark the current rendering instance for asset resolution (e.g.
+ * resolveComponent, resolveDirective) during render
+ */
+let currentRenderingInstance = null;
+let currentScopeId = null;
+/**
+ * Note: rendering calls maybe nested. The function returns the parent rendering
+ * instance if present, which should be restored after the render is done:
+ *
+ * ```js
+ * const prev = setCurrentRenderingInstance(i)
+ * // ...render
+ * setCurrentRenderingInstance(prev)
+ * ```
+ */
+function setCurrentRenderingInstance(instance) {
+    const prev = currentRenderingInstance;
+    currentRenderingInstance = instance;
+    currentScopeId = (instance && instance.type.__scopeId) || null;
+    return prev;
+}
+/**
+ * Set scope id when creating hoisted vnodes.
+ * @private compiler helper
+ */
+function pushScopeId(id) {
+    currentScopeId = id;
+}
+/**
+ * Technically we no longer need this after 3.0.8 but we need to keep the same
+ * API for backwards compat w/ code generated by compilers.
+ * @private
+ */
+function popScopeId() {
+    currentScopeId = null;
+}
+/**
+ * Only for backwards compat
+ * @private
+ */
+const withScopeId = (_id) => withCtx;
+/**
+ * Wrap a slot function to memoize current rendering instance
+ * @private compiler helper
+ */
+function withCtx(fn, ctx = currentRenderingInstance, isNonScopedSlot // false only
+) {
+    if (!ctx)
+        return fn;
+    // already normalized
+    if (fn._n) {
+        return fn;
+    }
+    const renderFnWithContext = (...args) => {
+        // If a user calls a compiled slot inside a template expression (#1745), it
+        // can mess up block tracking, so by default we disable block tracking and
+        // force bail out when invoking a compiled slot (indicated by the ._d flag).
+        // This isn't necessary if rendering a compiled `<slot>`, so we flip the
+        // ._d flag off when invoking the wrapped fn inside `renderSlot`.
+        if (renderFnWithContext._d) {
+            setBlockTracking(-1);
+        }
+        const prevInstance = setCurrentRenderingInstance(ctx);
+        const res = fn(...args);
+        setCurrentRenderingInstance(prevInstance);
+        if (renderFnWithContext._d) {
+            setBlockTracking(1);
+        }
+        if (( false) || __VUE_PROD_DEVTOOLS__) {
+            devtoolsComponentUpdated(ctx);
+        }
+        return res;
+    };
+    // mark normalized to avoid duplicated wrapping
+    renderFnWithContext._n = true;
+    // mark this as compiled by default
+    // this is used in vnode.ts -> normalizeChildren() to set the slot
+    // rendering flag.
+    renderFnWithContext._c = true;
+    // disable block tracking by default
+    renderFnWithContext._d = true;
+    return renderFnWithContext;
+}
+
+/**
+ * dev only flag to track whether $attrs was used during render.
+ * If $attrs was used during render then the warning for failed attrs
+ * fallthrough can be suppressed.
+ */
+let accessedAttrs = false;
+function markAttrsAccessed() {
+    accessedAttrs = true;
+}
+function renderComponentRoot(instance) {
+    const { type: Component, vnode, proxy, withProxy, props, propsOptions: [propsOptions], slots, attrs, emit, render, renderCache, data, setupState, ctx, inheritAttrs } = instance;
+    let result;
+    let fallthroughAttrs;
+    const prev = setCurrentRenderingInstance(instance);
+    if ((false)) {}
+    try {
+        if (vnode.shapeFlag & 4 /* STATEFUL_COMPONENT */) {
+            // withProxy is a proxy with a different `has` trap only for
+            // runtime-compiled render functions using `with` block.
+            const proxyToUse = withProxy || proxy;
+            result = normalizeVNode(render.call(proxyToUse, proxyToUse, renderCache, props, setupState, data, ctx));
+            fallthroughAttrs = attrs;
+        }
+        else {
+            // functional
+            const render = Component;
+            // in dev, mark attrs accessed if optional props (attrs === props)
+            if (false) {}
+            result = normalizeVNode(render.length > 1
+                ? render(props, ( false)
+                    ? 0
+                    : { attrs, slots, emit })
+                : render(props, null /* we know it doesn't need it */));
+            fallthroughAttrs = Component.props
+                ? attrs
+                : getFunctionalFallthrough(attrs);
+        }
+    }
+    catch (err) {
+        blockStack.length = 0;
+        handleError(err, instance, 1 /* RENDER_FUNCTION */);
+        result = runtime_core_esm_bundler_createVNode(Comment);
+    }
+    // attr merging
+    // in dev mode, comments are preserved, and it's possible for a template
+    // to have comments along side the root element which makes it a fragment
+    let root = result;
+    let setRoot = undefined;
+    if (false /* DEV_ROOT_FRAGMENT */) {}
+    if (fallthroughAttrs && inheritAttrs !== false) {
+        const keys = Object.keys(fallthroughAttrs);
+        const { shapeFlag } = root;
+        if (keys.length) {
+            if (shapeFlag & (1 /* ELEMENT */ | 6 /* COMPONENT */)) {
+                if (propsOptions && keys.some(isModelListener)) {
+                    // If a v-model listener (onUpdate:xxx) has a corresponding declared
+                    // prop, it indicates this component expects to handle v-model and
+                    // it should not fallthrough.
+                    // related: #1543, #1643, #1989
+                    fallthroughAttrs = filterModelListeners(fallthroughAttrs, propsOptions);
+                }
+                root = cloneVNode(root, fallthroughAttrs);
+            }
+            else if (false) {}
+        }
+    }
+    // inherit directives
+    if (vnode.dirs) {
+        if (false) {}
+        root.dirs = root.dirs ? root.dirs.concat(vnode.dirs) : vnode.dirs;
+    }
+    // inherit transition data
+    if (vnode.transition) {
+        if (false) {}
+        root.transition = vnode.transition;
+    }
+    if (false) {}
+    else {
+        result = root;
+    }
+    setCurrentRenderingInstance(prev);
+    return result;
+}
+/**
+ * dev only
+ * In dev mode, template root level comments are rendered, which turns the
+ * template into a fragment root, but we need to locate the single element
+ * root for attrs and scope id processing.
+ */
+const getChildRoot = (vnode) => {
+    const rawChildren = vnode.children;
+    const dynamicChildren = vnode.dynamicChildren;
+    const childRoot = filterSingleRoot(rawChildren);
+    if (!childRoot) {
+        return [vnode, undefined];
+    }
+    const index = rawChildren.indexOf(childRoot);
+    const dynamicIndex = dynamicChildren ? dynamicChildren.indexOf(childRoot) : -1;
+    const setRoot = (updatedRoot) => {
+        rawChildren[index] = updatedRoot;
+        if (dynamicChildren) {
+            if (dynamicIndex > -1) {
+                dynamicChildren[dynamicIndex] = updatedRoot;
+            }
+            else if (updatedRoot.patchFlag > 0) {
+                vnode.dynamicChildren = [...dynamicChildren, updatedRoot];
+            }
+        }
+    };
+    return [normalizeVNode(childRoot), setRoot];
+};
+function filterSingleRoot(children) {
+    let singleRoot;
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        if (isVNode(child)) {
+            // ignore user comment
+            if (child.type !== Comment || child.children === 'v-if') {
+                if (singleRoot) {
+                    // has more than 1 non-comment child, return now
+                    return;
+                }
+                else {
+                    singleRoot = child;
+                }
+            }
+        }
+        else {
+            return;
+        }
+    }
+    return singleRoot;
+}
+const getFunctionalFallthrough = (attrs) => {
+    let res;
+    for (const key in attrs) {
+        if (key === 'class' || key === 'style' || shared_esm_bundler_isOn(key)) {
+            (res || (res = {}))[key] = attrs[key];
+        }
+    }
+    return res;
+};
+const filterModelListeners = (attrs, props) => {
+    const res = {};
+    for (const key in attrs) {
+        if (!isModelListener(key) || !(key.slice(9) in props)) {
+            res[key] = attrs[key];
+        }
+    }
+    return res;
+};
+const isElementRoot = (vnode) => {
+    return (vnode.shapeFlag & (6 /* COMPONENT */ | 1 /* ELEMENT */) ||
+        vnode.type === Comment // potential v-if branch switch
+    );
+};
+function shouldUpdateComponent(prevVNode, nextVNode, optimized) {
+    const { props: prevProps, children: prevChildren, component } = prevVNode;
+    const { props: nextProps, children: nextChildren, patchFlag } = nextVNode;
+    const emits = component.emitsOptions;
+    // Parent component's render function was hot-updated. Since this may have
+    // caused the child component's slots content to have changed, we need to
+    // force the child to update as well.
+    if (false) {}
+    // force child update for runtime directive or transition on component vnode.
+    if (nextVNode.dirs || nextVNode.transition) {
+        return true;
+    }
+    if (optimized && patchFlag >= 0) {
+        if (patchFlag & 1024 /* DYNAMIC_SLOTS */) {
+            // slot content that references values that might have changed,
+            // e.g. in a v-for
+            return true;
+        }
+        if (patchFlag & 16 /* FULL_PROPS */) {
+            if (!prevProps) {
+                return !!nextProps;
+            }
+            // presence of this flag indicates props are always non-null
+            return hasPropsChanged(prevProps, nextProps, emits);
+        }
+        else if (patchFlag & 8 /* PROPS */) {
+            const dynamicProps = nextVNode.dynamicProps;
+            for (let i = 0; i < dynamicProps.length; i++) {
+                const key = dynamicProps[i];
+                if (nextProps[key] !== prevProps[key] &&
+                    !isEmitListener(emits, key)) {
+                    return true;
+                }
+            }
+        }
+    }
+    else {
+        // this path is only taken by manually written render functions
+        // so presence of any children leads to a forced update
+        if (prevChildren || nextChildren) {
+            if (!nextChildren || !nextChildren.$stable) {
+                return true;
+            }
+        }
+        if (prevProps === nextProps) {
+            return false;
+        }
+        if (!prevProps) {
+            return !!nextProps;
+        }
+        if (!nextProps) {
+            return true;
+        }
+        return hasPropsChanged(prevProps, nextProps, emits);
+    }
+    return false;
+}
+function hasPropsChanged(prevProps, nextProps, emitsOptions) {
+    const nextKeys = Object.keys(nextProps);
+    if (nextKeys.length !== Object.keys(prevProps).length) {
+        return true;
+    }
+    for (let i = 0; i < nextKeys.length; i++) {
+        const key = nextKeys[i];
+        if (nextProps[key] !== prevProps[key] &&
+            !isEmitListener(emitsOptions, key)) {
+            return true;
+        }
+    }
+    return false;
+}
+function updateHOCHostEl({ vnode, parent }, el // HostNode
+) {
+    while (parent && parent.subTree === vnode) {
+        (vnode = parent.vnode).el = el;
+        parent = parent.parent;
+    }
+}
+
+const isSuspense = (type) => type.__isSuspense;
+// Suspense exposes a component-like API, and is treated like a component
+// in the compiler, but internally it's a special built-in type that hooks
+// directly into the renderer.
+const SuspenseImpl = {
+    name: 'Suspense',
+    // In order to make Suspense tree-shakable, we need to avoid importing it
+    // directly in the renderer. The renderer checks for the __isSuspense flag
+    // on a vnode's type and calls the `process` method, passing in renderer
+    // internals.
+    __isSuspense: true,
+    process(n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, 
+    // platform-specific impl passed from renderer
+    rendererInternals) {
+        if (n1 == null) {
+            mountSuspense(n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, rendererInternals);
+        }
+        else {
+            patchSuspense(n1, n2, container, anchor, parentComponent, isSVG, slotScopeIds, optimized, rendererInternals);
+        }
+    },
+    hydrate: hydrateSuspense,
+    create: createSuspenseBoundary,
+    normalize: normalizeSuspenseChildren
+};
+// Force-casted public typing for h and TSX props inference
+const Suspense = ((/* unused pure expression or super */ null && (SuspenseImpl)) );
+function triggerEvent(vnode, name) {
+    const eventListener = vnode.props && vnode.props[name];
+    if (shared_esm_bundler_isFunction(eventListener)) {
+        eventListener();
+    }
+}
+function mountSuspense(vnode, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, rendererInternals) {
+    const { p: patch, o: { createElement } } = rendererInternals;
+    const hiddenContainer = createElement('div');
+    const suspense = (vnode.suspense = createSuspenseBoundary(vnode, parentSuspense, parentComponent, container, hiddenContainer, anchor, isSVG, slotScopeIds, optimized, rendererInternals));
+    // start mounting the content subtree in an off-dom container
+    patch(null, (suspense.pendingBranch = vnode.ssContent), hiddenContainer, null, parentComponent, suspense, isSVG, slotScopeIds);
+    // now check if we have encountered any async deps
+    if (suspense.deps > 0) {
+        // has async
+        // invoke @fallback event
+        triggerEvent(vnode, 'onPending');
+        triggerEvent(vnode, 'onFallback');
+        // mount the fallback tree
+        patch(null, vnode.ssFallback, container, anchor, parentComponent, null, // fallback tree will not have suspense context
+        isSVG, slotScopeIds);
+        setActiveBranch(suspense, vnode.ssFallback);
+    }
+    else {
+        // Suspense has no async deps. Just resolve.
+        suspense.resolve();
+    }
+}
+function patchSuspense(n1, n2, container, anchor, parentComponent, isSVG, slotScopeIds, optimized, { p: patch, um: unmount, o: { createElement } }) {
+    const suspense = (n2.suspense = n1.suspense);
+    suspense.vnode = n2;
+    n2.el = n1.el;
+    const newBranch = n2.ssContent;
+    const newFallback = n2.ssFallback;
+    const { activeBranch, pendingBranch, isInFallback, isHydrating } = suspense;
+    if (pendingBranch) {
+        suspense.pendingBranch = newBranch;
+        if (isSameVNodeType(newBranch, pendingBranch)) {
+            // same root type but content may have changed.
+            patch(pendingBranch, newBranch, suspense.hiddenContainer, null, parentComponent, suspense, isSVG, slotScopeIds, optimized);
+            if (suspense.deps <= 0) {
+                suspense.resolve();
+            }
+            else if (isInFallback) {
+                patch(activeBranch, newFallback, container, anchor, parentComponent, null, // fallback tree will not have suspense context
+                isSVG, slotScopeIds, optimized);
+                setActiveBranch(suspense, newFallback);
+            }
+        }
+        else {
+            // toggled before pending tree is resolved
+            suspense.pendingId++;
+            if (isHydrating) {
+                // if toggled before hydration is finished, the current DOM tree is
+                // no longer valid. set it as the active branch so it will be unmounted
+                // when resolved
+                suspense.isHydrating = false;
+                suspense.activeBranch = pendingBranch;
+            }
+            else {
+                unmount(pendingBranch, parentComponent, suspense);
+            }
+            // increment pending ID. this is used to invalidate async callbacks
+            // reset suspense state
+            suspense.deps = 0;
+            // discard effects from pending branch
+            suspense.effects.length = 0;
+            // discard previous container
+            suspense.hiddenContainer = createElement('div');
+            if (isInFallback) {
+                // already in fallback state
+                patch(null, newBranch, suspense.hiddenContainer, null, parentComponent, suspense, isSVG, slotScopeIds, optimized);
+                if (suspense.deps <= 0) {
+                    suspense.resolve();
+                }
+                else {
+                    patch(activeBranch, newFallback, container, anchor, parentComponent, null, // fallback tree will not have suspense context
+                    isSVG, slotScopeIds, optimized);
+                    setActiveBranch(suspense, newFallback);
+                }
+            }
+            else if (activeBranch && isSameVNodeType(newBranch, activeBranch)) {
+                // toggled "back" to current active branch
+                patch(activeBranch, newBranch, container, anchor, parentComponent, suspense, isSVG, slotScopeIds, optimized);
+                // force resolve
+                suspense.resolve(true);
+            }
+            else {
+                // switched to a 3rd branch
+                patch(null, newBranch, suspense.hiddenContainer, null, parentComponent, suspense, isSVG, slotScopeIds, optimized);
+                if (suspense.deps <= 0) {
+                    suspense.resolve();
+                }
+            }
+        }
+    }
+    else {
+        if (activeBranch && isSameVNodeType(newBranch, activeBranch)) {
+            // root did not change, just normal patch
+            patch(activeBranch, newBranch, container, anchor, parentComponent, suspense, isSVG, slotScopeIds, optimized);
+            setActiveBranch(suspense, newBranch);
+        }
+        else {
+            // root node toggled
+            // invoke @pending event
+            triggerEvent(n2, 'onPending');
+            // mount pending branch in off-dom container
+            suspense.pendingBranch = newBranch;
+            suspense.pendingId++;
+            patch(null, newBranch, suspense.hiddenContainer, null, parentComponent, suspense, isSVG, slotScopeIds, optimized);
+            if (suspense.deps <= 0) {
+                // incoming branch has no async deps, resolve now.
+                suspense.resolve();
+            }
+            else {
+                const { timeout, pendingId } = suspense;
+                if (timeout > 0) {
+                    setTimeout(() => {
+                        if (suspense.pendingId === pendingId) {
+                            suspense.fallback(newFallback);
+                        }
+                    }, timeout);
+                }
+                else if (timeout === 0) {
+                    suspense.fallback(newFallback);
+                }
+            }
+        }
+    }
+}
+let hasWarned = false;
+function createSuspenseBoundary(vnode, parent, parentComponent, container, hiddenContainer, anchor, isSVG, slotScopeIds, optimized, rendererInternals, isHydrating = false) {
+    /* istanbul ignore if */
+    if (false) {}
+    const { p: patch, m: move, um: unmount, n: next, o: { parentNode, remove } } = rendererInternals;
+    const timeout = shared_esm_bundler_toNumber(vnode.props && vnode.props.timeout);
+    const suspense = {
+        vnode,
+        parent,
+        parentComponent,
+        isSVG,
+        container,
+        hiddenContainer,
+        anchor,
+        deps: 0,
+        pendingId: 0,
+        timeout: typeof timeout === 'number' ? timeout : -1,
+        activeBranch: null,
+        pendingBranch: null,
+        isInFallback: true,
+        isHydrating,
+        isUnmounted: false,
+        effects: [],
+        resolve(resume = false) {
+            if ((false)) {}
+            const { vnode, activeBranch, pendingBranch, pendingId, effects, parentComponent, container } = suspense;
+            if (suspense.isHydrating) {
+                suspense.isHydrating = false;
+            }
+            else if (!resume) {
+                const delayEnter = activeBranch &&
+                    pendingBranch.transition &&
+                    pendingBranch.transition.mode === 'out-in';
+                if (delayEnter) {
+                    activeBranch.transition.afterLeave = () => {
+                        if (pendingId === suspense.pendingId) {
+                            move(pendingBranch, container, anchor, 0 /* ENTER */);
+                        }
+                    };
+                }
+                // this is initial anchor on mount
+                let { anchor } = suspense;
+                // unmount current active tree
+                if (activeBranch) {
+                    // if the fallback tree was mounted, it may have been moved
+                    // as part of a parent suspense. get the latest anchor for insertion
+                    anchor = next(activeBranch);
+                    unmount(activeBranch, parentComponent, suspense, true);
+                }
+                if (!delayEnter) {
+                    // move content from off-dom container to actual container
+                    move(pendingBranch, container, anchor, 0 /* ENTER */);
+                }
+            }
+            setActiveBranch(suspense, pendingBranch);
+            suspense.pendingBranch = null;
+            suspense.isInFallback = false;
+            // flush buffered effects
+            // check if there is a pending parent suspense
+            let parent = suspense.parent;
+            let hasUnresolvedAncestor = false;
+            while (parent) {
+                if (parent.pendingBranch) {
+                    // found a pending parent suspense, merge buffered post jobs
+                    // into that parent
+                    parent.effects.push(...effects);
+                    hasUnresolvedAncestor = true;
+                    break;
+                }
+                parent = parent.parent;
+            }
+            // no pending parent suspense, flush all jobs
+            if (!hasUnresolvedAncestor) {
+                queuePostFlushCb(effects);
+            }
+            suspense.effects = [];
+            // invoke @resolve event
+            triggerEvent(vnode, 'onResolve');
+        },
+        fallback(fallbackVNode) {
+            if (!suspense.pendingBranch) {
+                return;
+            }
+            const { vnode, activeBranch, parentComponent, container, isSVG } = suspense;
+            // invoke @fallback event
+            triggerEvent(vnode, 'onFallback');
+            const anchor = next(activeBranch);
+            const mountFallback = () => {
+                if (!suspense.isInFallback) {
+                    return;
+                }
+                // mount the fallback tree
+                patch(null, fallbackVNode, container, anchor, parentComponent, null, // fallback tree will not have suspense context
+                isSVG, slotScopeIds, optimized);
+                setActiveBranch(suspense, fallbackVNode);
+            };
+            const delayEnter = fallbackVNode.transition && fallbackVNode.transition.mode === 'out-in';
+            if (delayEnter) {
+                activeBranch.transition.afterLeave = mountFallback;
+            }
+            suspense.isInFallback = true;
+            // unmount current active branch
+            unmount(activeBranch, parentComponent, null, // no suspense so unmount hooks fire now
+            true // shouldRemove
+            );
+            if (!delayEnter) {
+                mountFallback();
+            }
+        },
+        move(container, anchor, type) {
+            suspense.activeBranch &&
+                move(suspense.activeBranch, container, anchor, type);
+            suspense.container = container;
+        },
+        next() {
+            return suspense.activeBranch && next(suspense.activeBranch);
+        },
+        registerDep(instance, setupRenderEffect) {
+            const isInPendingSuspense = !!suspense.pendingBranch;
+            if (isInPendingSuspense) {
+                suspense.deps++;
+            }
+            const hydratedEl = instance.vnode.el;
+            instance
+                .asyncDep.catch(err => {
+                handleError(err, instance, 0 /* SETUP_FUNCTION */);
+            })
+                .then(asyncSetupResult => {
+                // retry when the setup() promise resolves.
+                // component may have been unmounted before resolve.
+                if (instance.isUnmounted ||
+                    suspense.isUnmounted ||
+                    suspense.pendingId !== instance.suspenseId) {
+                    return;
+                }
+                // retry from this component
+                instance.asyncResolved = true;
+                const { vnode } = instance;
+                if ((false)) {}
+                handleSetupResult(instance, asyncSetupResult, false);
+                if (hydratedEl) {
+                    // vnode may have been replaced if an update happened before the
+                    // async dep is resolved.
+                    vnode.el = hydratedEl;
+                }
+                const placeholder = !hydratedEl && instance.subTree.el;
+                setupRenderEffect(instance, vnode, 
+                // component may have been moved before resolve.
+                // if this is not a hydration, instance.subTree will be the comment
+                // placeholder.
+                parentNode(hydratedEl || instance.subTree.el), 
+                // anchor will not be used if this is hydration, so only need to
+                // consider the comment placeholder case.
+                hydratedEl ? null : next(instance.subTree), suspense, isSVG, optimized);
+                if (placeholder) {
+                    remove(placeholder);
+                }
+                updateHOCHostEl(instance, vnode.el);
+                if ((false)) {}
+                // only decrease deps count if suspense is not already resolved
+                if (isInPendingSuspense && --suspense.deps === 0) {
+                    suspense.resolve();
+                }
+            });
+        },
+        unmount(parentSuspense, doRemove) {
+            suspense.isUnmounted = true;
+            if (suspense.activeBranch) {
+                unmount(suspense.activeBranch, parentComponent, parentSuspense, doRemove);
+            }
+            if (suspense.pendingBranch) {
+                unmount(suspense.pendingBranch, parentComponent, parentSuspense, doRemove);
+            }
+        }
+    };
+    return suspense;
+}
+function hydrateSuspense(node, vnode, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, rendererInternals, hydrateNode) {
+    /* eslint-disable no-restricted-globals */
+    const suspense = (vnode.suspense = createSuspenseBoundary(vnode, parentSuspense, parentComponent, node.parentNode, document.createElement('div'), null, isSVG, slotScopeIds, optimized, rendererInternals, true /* hydrating */));
+    // there are two possible scenarios for server-rendered suspense:
+    // - success: ssr content should be fully resolved
+    // - failure: ssr content should be the fallback branch.
+    // however, on the client we don't really know if it has failed or not
+    // attempt to hydrate the DOM assuming it has succeeded, but we still
+    // need to construct a suspense boundary first
+    const result = hydrateNode(node, (suspense.pendingBranch = vnode.ssContent), parentComponent, suspense, slotScopeIds, optimized);
+    if (suspense.deps === 0) {
+        suspense.resolve();
+    }
+    return result;
+    /* eslint-enable no-restricted-globals */
+}
+function normalizeSuspenseChildren(vnode) {
+    const { shapeFlag, children } = vnode;
+    const isSlotChildren = shapeFlag & 32 /* SLOTS_CHILDREN */;
+    vnode.ssContent = normalizeSuspenseSlot(isSlotChildren ? children.default : children);
+    vnode.ssFallback = isSlotChildren
+        ? normalizeSuspenseSlot(children.fallback)
+        : runtime_core_esm_bundler_createVNode(Comment);
+}
+function normalizeSuspenseSlot(s) {
+    let block;
+    if (shared_esm_bundler_isFunction(s)) {
+        const trackBlock = isBlockTreeEnabled && s._c;
+        if (trackBlock) {
+            // disableTracking: false
+            // allow block tracking for compiled slots
+            // (see ./componentRenderContext.ts)
+            s._d = false;
+            openBlock();
+        }
+        s = s();
+        if (trackBlock) {
+            s._d = true;
+            block = currentBlock;
+            closeBlock();
+        }
+    }
+    if (shared_esm_bundler_isArray(s)) {
+        const singleChild = filterSingleRoot(s);
+        if (false) {}
+        s = singleChild;
+    }
+    s = normalizeVNode(s);
+    if (block && !s.dynamicChildren) {
+        s.dynamicChildren = block.filter(c => c !== s);
+    }
+    return s;
+}
+function queueEffectWithSuspense(fn, suspense) {
+    if (suspense && suspense.pendingBranch) {
+        if (shared_esm_bundler_isArray(fn)) {
+            suspense.effects.push(...fn);
+        }
+        else {
+            suspense.effects.push(fn);
+        }
+    }
+    else {
+        queuePostFlushCb(fn);
+    }
+}
+function setActiveBranch(suspense, branch) {
+    suspense.activeBranch = branch;
+    const { vnode, parentComponent } = suspense;
+    const el = (vnode.el = branch.el);
+    // in case suspense is the root node of a component,
+    // recursively update the HOC el
+    if (parentComponent && parentComponent.subTree === vnode) {
+        parentComponent.vnode.el = el;
+        updateHOCHostEl(parentComponent, el);
+    }
+}
+
+function provide(key, value) {
+    if (!currentInstance) {
+        if ((false)) {}
+    }
+    else {
+        let provides = currentInstance.provides;
+        // by default an instance inherits its parent's provides object
+        // but when it needs to provide values of its own, it creates its
+        // own provides object using parent provides object as prototype.
+        // this way in `inject` we can simply look up injections from direct
+        // parent and let the prototype chain do the work.
+        const parentProvides = currentInstance.parent && currentInstance.parent.provides;
+        if (parentProvides === provides) {
+            provides = currentInstance.provides = Object.create(parentProvides);
+        }
+        // TS doesn't allow symbol as index type
+        provides[key] = value;
+    }
+}
+function inject(key, defaultValue, treatDefaultAsFactory = false) {
+    // fallback to `currentRenderingInstance` so that this can be called in
+    // a functional component
+    const instance = currentInstance || currentRenderingInstance;
+    if (instance) {
+        // #2400
+        // to support `app.use` plugins,
+        // fallback to appContext's `provides` if the intance is at root
+        const provides = instance.parent == null
+            ? instance.vnode.appContext && instance.vnode.appContext.provides
+            : instance.parent.provides;
+        if (provides && key in provides) {
+            // TS doesn't allow symbol as index type
+            return provides[key];
+        }
+        else if (arguments.length > 1) {
+            return treatDefaultAsFactory && shared_esm_bundler_isFunction(defaultValue)
+                ? defaultValue.call(instance.proxy)
+                : defaultValue;
+        }
+        else if ((false)) {}
+    }
+    else if ((false)) {}
+}
+
+function useTransitionState() {
+    const state = {
+        isMounted: false,
+        isLeaving: false,
+        isUnmounting: false,
+        leavingVNodes: new Map()
+    };
+    runtime_core_esm_bundler_onMounted(() => {
+        state.isMounted = true;
+    });
+    onBeforeUnmount(() => {
+        state.isUnmounting = true;
+    });
+    return state;
+}
+const TransitionHookValidator = [Function, Array];
+const BaseTransitionImpl = {
+    name: `BaseTransition`,
+    props: {
+        mode: String,
+        appear: Boolean,
+        persisted: Boolean,
+        // enter
+        onBeforeEnter: TransitionHookValidator,
+        onEnter: TransitionHookValidator,
+        onAfterEnter: TransitionHookValidator,
+        onEnterCancelled: TransitionHookValidator,
+        // leave
+        onBeforeLeave: TransitionHookValidator,
+        onLeave: TransitionHookValidator,
+        onAfterLeave: TransitionHookValidator,
+        onLeaveCancelled: TransitionHookValidator,
+        // appear
+        onBeforeAppear: TransitionHookValidator,
+        onAppear: TransitionHookValidator,
+        onAfterAppear: TransitionHookValidator,
+        onAppearCancelled: TransitionHookValidator
+    },
+    setup(props, { slots }) {
+        const instance = runtime_core_esm_bundler_getCurrentInstance();
+        const state = useTransitionState();
+        let prevTransitionKey;
+        return () => {
+            const children = slots.default && getTransitionRawChildren(slots.default(), true);
+            if (!children || !children.length) {
+                return;
+            }
+            // warn multiple elements
+            if (false) {}
+            // there's no need to track reactivity for these props so use the raw
+            // props for a bit better perf
+            const rawProps = reactivity_esm_bundler_toRaw(props);
+            const { mode } = rawProps;
+            // check mode
+            if (false) {}
+            // at this point children has a guaranteed length of 1.
+            const child = children[0];
+            if (state.isLeaving) {
+                return emptyPlaceholder(child);
+            }
+            // in the case of <transition><keep-alive/></transition>, we need to
+            // compare the type of the kept-alive children.
+            const innerChild = getKeepAliveChild(child);
+            if (!innerChild) {
+                return emptyPlaceholder(child);
+            }
+            const enterHooks = resolveTransitionHooks(innerChild, rawProps, state, instance);
+            setTransitionHooks(innerChild, enterHooks);
+            const oldChild = instance.subTree;
+            const oldInnerChild = oldChild && getKeepAliveChild(oldChild);
+            let transitionKeyChanged = false;
+            const { getTransitionKey } = innerChild.type;
+            if (getTransitionKey) {
+                const key = getTransitionKey();
+                if (prevTransitionKey === undefined) {
+                    prevTransitionKey = key;
+                }
+                else if (key !== prevTransitionKey) {
+                    prevTransitionKey = key;
+                    transitionKeyChanged = true;
+                }
+            }
+            // handle mode
+            if (oldInnerChild &&
+                oldInnerChild.type !== Comment &&
+                (!isSameVNodeType(innerChild, oldInnerChild) || transitionKeyChanged)) {
+                const leavingHooks = resolveTransitionHooks(oldInnerChild, rawProps, state, instance);
+                // update old tree's hooks in case of dynamic transition
+                setTransitionHooks(oldInnerChild, leavingHooks);
+                // switching between different views
+                if (mode === 'out-in') {
+                    state.isLeaving = true;
+                    // return placeholder node and queue update when leave finishes
+                    leavingHooks.afterLeave = () => {
+                        state.isLeaving = false;
+                        instance.update();
+                    };
+                    return emptyPlaceholder(child);
+                }
+                else if (mode === 'in-out' && innerChild.type !== Comment) {
+                    leavingHooks.delayLeave = (el, earlyRemove, delayedLeave) => {
+                        const leavingVNodesCache = getLeavingNodesForType(state, oldInnerChild);
+                        leavingVNodesCache[String(oldInnerChild.key)] = oldInnerChild;
+                        // early removal callback
+                        el._leaveCb = () => {
+                            earlyRemove();
+                            el._leaveCb = undefined;
+                            delete enterHooks.delayedLeave;
+                        };
+                        enterHooks.delayedLeave = delayedLeave;
+                    };
+                }
+            }
+            return child;
+        };
+    }
+};
+// export the public type for h/tsx inference
+// also to avoid inline import() in generated d.ts files
+const BaseTransition = BaseTransitionImpl;
+function getLeavingNodesForType(state, vnode) {
+    const { leavingVNodes } = state;
+    let leavingVNodesCache = leavingVNodes.get(vnode.type);
+    if (!leavingVNodesCache) {
+        leavingVNodesCache = Object.create(null);
+        leavingVNodes.set(vnode.type, leavingVNodesCache);
+    }
+    return leavingVNodesCache;
+}
+// The transition hooks are attached to the vnode as vnode.transition
+// and will be called at appropriate timing in the renderer.
+function resolveTransitionHooks(vnode, props, state, instance) {
+    const { appear, mode, persisted = false, onBeforeEnter, onEnter, onAfterEnter, onEnterCancelled, onBeforeLeave, onLeave, onAfterLeave, onLeaveCancelled, onBeforeAppear, onAppear, onAfterAppear, onAppearCancelled } = props;
+    const key = String(vnode.key);
+    const leavingVNodesCache = getLeavingNodesForType(state, vnode);
+    const callHook = (hook, args) => {
+        hook &&
+            callWithAsyncErrorHandling(hook, instance, 9 /* TRANSITION_HOOK */, args);
+    };
+    const hooks = {
+        mode,
+        persisted,
+        beforeEnter(el) {
+            let hook = onBeforeEnter;
+            if (!state.isMounted) {
+                if (appear) {
+                    hook = onBeforeAppear || onBeforeEnter;
+                }
+                else {
+                    return;
+                }
+            }
+            // for same element (v-show)
+            if (el._leaveCb) {
+                el._leaveCb(true /* cancelled */);
+            }
+            // for toggled element with same key (v-if)
+            const leavingVNode = leavingVNodesCache[key];
+            if (leavingVNode &&
+                isSameVNodeType(vnode, leavingVNode) &&
+                leavingVNode.el._leaveCb) {
+                // force early removal (not cancelled)
+                leavingVNode.el._leaveCb();
+            }
+            callHook(hook, [el]);
+        },
+        enter(el) {
+            let hook = onEnter;
+            let afterHook = onAfterEnter;
+            let cancelHook = onEnterCancelled;
+            if (!state.isMounted) {
+                if (appear) {
+                    hook = onAppear || onEnter;
+                    afterHook = onAfterAppear || onAfterEnter;
+                    cancelHook = onAppearCancelled || onEnterCancelled;
+                }
+                else {
+                    return;
+                }
+            }
+            let called = false;
+            const done = (el._enterCb = (cancelled) => {
+                if (called)
+                    return;
+                called = true;
+                if (cancelled) {
+                    callHook(cancelHook, [el]);
+                }
+                else {
+                    callHook(afterHook, [el]);
+                }
+                if (hooks.delayedLeave) {
+                    hooks.delayedLeave();
+                }
+                el._enterCb = undefined;
+            });
+            if (hook) {
+                hook(el, done);
+                if (hook.length <= 1) {
+                    done();
+                }
+            }
+            else {
+                done();
+            }
+        },
+        leave(el, remove) {
+            const key = String(vnode.key);
+            if (el._enterCb) {
+                el._enterCb(true /* cancelled */);
+            }
+            if (state.isUnmounting) {
+                return remove();
+            }
+            callHook(onBeforeLeave, [el]);
+            let called = false;
+            const done = (el._leaveCb = (cancelled) => {
+                if (called)
+                    return;
+                called = true;
+                remove();
+                if (cancelled) {
+                    callHook(onLeaveCancelled, [el]);
+                }
+                else {
+                    callHook(onAfterLeave, [el]);
+                }
+                el._leaveCb = undefined;
+                if (leavingVNodesCache[key] === vnode) {
+                    delete leavingVNodesCache[key];
+                }
+            });
+            leavingVNodesCache[key] = vnode;
+            if (onLeave) {
+                onLeave(el, done);
+                if (onLeave.length <= 1) {
+                    done();
+                }
+            }
+            else {
+                done();
+            }
+        },
+        clone(vnode) {
+            return resolveTransitionHooks(vnode, props, state, instance);
+        }
+    };
+    return hooks;
+}
+// the placeholder really only handles one special case: KeepAlive
+// in the case of a KeepAlive in a leave phase we need to return a KeepAlive
+// placeholder with empty content to avoid the KeepAlive instance from being
+// unmounted.
+function emptyPlaceholder(vnode) {
+    if (isKeepAlive(vnode)) {
+        vnode = cloneVNode(vnode);
+        vnode.children = null;
+        return vnode;
+    }
+}
+function getKeepAliveChild(vnode) {
+    return isKeepAlive(vnode)
+        ? vnode.children
+            ? vnode.children[0]
+            : undefined
+        : vnode;
+}
+function setTransitionHooks(vnode, hooks) {
+    if (vnode.shapeFlag & 6 /* COMPONENT */ && vnode.component) {
+        setTransitionHooks(vnode.component.subTree, hooks);
+    }
+    else if (vnode.shapeFlag & 128 /* SUSPENSE */) {
+        vnode.ssContent.transition = hooks.clone(vnode.ssContent);
+        vnode.ssFallback.transition = hooks.clone(vnode.ssFallback);
+    }
+    else {
+        vnode.transition = hooks;
+    }
+}
+function getTransitionRawChildren(children, keepComment = false) {
+    let ret = [];
+    let keyedFragmentCount = 0;
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        // handle fragment children case, e.g. v-for
+        if (child.type === runtime_core_esm_bundler_Fragment) {
+            if (child.patchFlag & 128 /* KEYED_FRAGMENT */)
+                keyedFragmentCount++;
+            ret = ret.concat(getTransitionRawChildren(child.children, keepComment));
+        }
+        // comment placeholders should be skipped, e.g. v-if
+        else if (keepComment || child.type !== Comment) {
+            ret.push(child);
+        }
+    }
+    // #1126 if a transition children list contains multiple sub fragments, these
+    // fragments will be merged into a flat children array. Since each v-for
+    // fragment may contain different static bindings inside, we need to de-op
+    // these children to force full diffs to ensure correct behavior.
+    if (keyedFragmentCount > 1) {
+        for (let i = 0; i < ret.length; i++) {
+            ret[i].patchFlag = -2 /* BAIL */;
+        }
+    }
+    return ret;
+}
+
+// implementation, close to no-op
+function runtime_core_esm_bundler_defineComponent(options) {
+    return isFunction$1(options) ? { setup: options, name: options.name } : options;
+}
+
+const isAsyncWrapper = (i) => !!i.type.__asyncLoader;
+function defineAsyncComponent(source) {
+    if (isFunction$1(source)) {
+        source = { loader: source };
+    }
+    const { loader, loadingComponent, errorComponent, delay = 200, timeout, // undefined = never times out
+    suspensible = true, onError: userOnError } = source;
+    let pendingRequest = null;
+    let resolvedComp;
+    let retries = 0;
+    const retry = () => {
+        retries++;
+        pendingRequest = null;
+        return load();
+    };
+    const load = () => {
+        let thisRequest;
+        return (pendingRequest ||
+            (thisRequest = pendingRequest =
+                loader()
+                    .catch(err => {
+                    err = err instanceof Error ? err : new Error(String(err));
+                    if (userOnError) {
+                        return new Promise((resolve, reject) => {
+                            const userRetry = () => resolve(retry());
+                            const userFail = () => reject(err);
+                            userOnError(err, userRetry, userFail, retries + 1);
+                        });
+                    }
+                    else {
+                        throw err;
+                    }
+                })
+                    .then((comp) => {
+                    if (thisRequest !== pendingRequest && pendingRequest) {
+                        return pendingRequest;
+                    }
+                    if (false) {}
+                    // interop module default
+                    if (comp &&
+                        (comp.__esModule || comp[Symbol.toStringTag] === 'Module')) {
+                        comp = comp.default;
+                    }
+                    if (false) {}
+                    resolvedComp = comp;
+                    return comp;
+                })));
+    };
+    return runtime_core_esm_bundler_defineComponent({
+        name: 'AsyncComponentWrapper',
+        __asyncLoader: load,
+        get __asyncResolved() {
+            return resolvedComp;
+        },
+        setup() {
+            const instance = currentInstance;
+            // already resolved
+            if (resolvedComp) {
+                return () => createInnerComp(resolvedComp, instance);
+            }
+            const onError = (err) => {
+                pendingRequest = null;
+                handleError(err, instance, 13 /* ASYNC_COMPONENT_LOADER */, !errorComponent /* do not throw in dev if user provided error component */);
+            };
+            // suspense-controlled or SSR.
+            if ((suspensible && instance.suspense) ||
+                (false )) {
+                return load()
+                    .then(comp => {
+                    return () => createInnerComp(comp, instance);
+                })
+                    .catch(err => {
+                    onError(err);
+                    return () => errorComponent
+                        ? runtime_core_esm_bundler_createVNode(errorComponent, {
+                            error: err
+                        })
+                        : null;
+                });
+            }
+            const loaded = ref(false);
+            const error = ref();
+            const delayed = ref(!!delay);
+            if (delay) {
+                setTimeout(() => {
+                    delayed.value = false;
+                }, delay);
+            }
+            if (timeout != null) {
+                setTimeout(() => {
+                    if (!loaded.value && !error.value) {
+                        const err = new Error(`Async component timed out after ${timeout}ms.`);
+                        onError(err);
+                        error.value = err;
+                    }
+                }, timeout);
+            }
+            load()
+                .then(() => {
+                loaded.value = true;
+                if (instance.parent && isKeepAlive(instance.parent.vnode)) {
+                    // parent is keep-alive, force update so the loaded component's
+                    // name is taken into account
+                    queueJob(instance.parent.update);
+                }
+            })
+                .catch(err => {
+                onError(err);
+                error.value = err;
+            });
+            return () => {
+                if (loaded.value && resolvedComp) {
+                    return createInnerComp(resolvedComp, instance);
+                }
+                else if (error.value && errorComponent) {
+                    return runtime_core_esm_bundler_createVNode(errorComponent, {
+                        error: error.value
+                    });
+                }
+                else if (loadingComponent && !delayed.value) {
+                    return runtime_core_esm_bundler_createVNode(loadingComponent);
+                }
+            };
+        }
+    });
+}
+function createInnerComp(comp, { vnode: { ref, props, children } }) {
+    const vnode = runtime_core_esm_bundler_createVNode(comp, props, children);
+    // ensure inner component inherits the async wrapper's ref owner
+    vnode.ref = ref;
+    return vnode;
+}
+
+const isKeepAlive = (vnode) => vnode.type.__isKeepAlive;
+const KeepAliveImpl = {
+    name: `KeepAlive`,
+    // Marker for special handling inside the renderer. We are not using a ===
+    // check directly on KeepAlive in the renderer, because importing it directly
+    // would prevent it from being tree-shaken.
+    __isKeepAlive: true,
+    props: {
+        include: [String, RegExp, Array],
+        exclude: [String, RegExp, Array],
+        max: [String, Number]
+    },
+    setup(props, { slots }) {
+        const instance = runtime_core_esm_bundler_getCurrentInstance();
+        // KeepAlive communicates with the instantiated renderer via the
+        // ctx where the renderer passes in its internals,
+        // and the KeepAlive instance exposes activate/deactivate implementations.
+        // The whole point of this is to avoid importing KeepAlive directly in the
+        // renderer to facilitate tree-shaking.
+        const sharedContext = instance.ctx;
+        // if the internal renderer is not registered, it indicates that this is server-side rendering,
+        // for KeepAlive, we just need to render its children
+        if (!sharedContext.renderer) {
+            return slots.default;
+        }
+        const cache = new Map();
+        const keys = new Set();
+        let current = null;
+        if (( false) || __VUE_PROD_DEVTOOLS__) {
+            instance.__v_cache = cache;
+        }
+        const parentSuspense = instance.suspense;
+        const { renderer: { p: patch, m: move, um: _unmount, o: { createElement } } } = sharedContext;
+        const storageContainer = createElement('div');
+        sharedContext.activate = (vnode, container, anchor, isSVG, optimized) => {
+            const instance = vnode.component;
+            move(vnode, container, anchor, 0 /* ENTER */, parentSuspense);
+            // in case props have changed
+            patch(instance.vnode, vnode, container, anchor, instance, parentSuspense, isSVG, vnode.slotScopeIds, optimized);
+            queuePostRenderEffect(() => {
+                instance.isDeactivated = false;
+                if (instance.a) {
+                    shared_esm_bundler_invokeArrayFns(instance.a);
+                }
+                const vnodeHook = vnode.props && vnode.props.onVnodeMounted;
+                if (vnodeHook) {
+                    invokeVNodeHook(vnodeHook, instance.parent, vnode);
+                }
+            }, parentSuspense);
+            if (( false) || __VUE_PROD_DEVTOOLS__) {
+                // Update components tree
+                devtoolsComponentAdded(instance);
+            }
+        };
+        sharedContext.deactivate = (vnode) => {
+            const instance = vnode.component;
+            move(vnode, storageContainer, null, 1 /* LEAVE */, parentSuspense);
+            queuePostRenderEffect(() => {
+                if (instance.da) {
+                    shared_esm_bundler_invokeArrayFns(instance.da);
+                }
+                const vnodeHook = vnode.props && vnode.props.onVnodeUnmounted;
+                if (vnodeHook) {
+                    invokeVNodeHook(vnodeHook, instance.parent, vnode);
+                }
+                instance.isDeactivated = true;
+            }, parentSuspense);
+            if (( false) || __VUE_PROD_DEVTOOLS__) {
+                // Update components tree
+                devtoolsComponentAdded(instance);
+            }
+        };
+        function unmount(vnode) {
+            // reset the shapeFlag so it can be properly unmounted
+            resetShapeFlag(vnode);
+            _unmount(vnode, instance, parentSuspense);
+        }
+        function pruneCache(filter) {
+            cache.forEach((vnode, key) => {
+                const name = getComponentName(vnode.type);
+                if (name && (!filter || !filter(name))) {
+                    pruneCacheEntry(key);
+                }
+            });
+        }
+        function pruneCacheEntry(key) {
+            const cached = cache.get(key);
+            if (!current || cached.type !== current.type) {
+                unmount(cached);
+            }
+            else if (current) {
+                // current active instance should no longer be kept-alive.
+                // we can't unmount it now but it might be later, so reset its flag now.
+                resetShapeFlag(current);
+            }
+            cache.delete(key);
+            keys.delete(key);
+        }
+        // prune cache on include/exclude prop change
+        watch(() => [props.include, props.exclude], ([include, exclude]) => {
+            include && pruneCache(name => matches(include, name));
+            exclude && pruneCache(name => !matches(exclude, name));
+        }, 
+        // prune post-render after `current` has been updated
+        { flush: 'post', deep: true });
+        // cache sub tree after render
+        let pendingCacheKey = null;
+        const cacheSubtree = () => {
+            // fix #1621, the pendingCacheKey could be 0
+            if (pendingCacheKey != null) {
+                cache.set(pendingCacheKey, getInnerChild(instance.subTree));
+            }
+        };
+        runtime_core_esm_bundler_onMounted(cacheSubtree);
+        onUpdated(cacheSubtree);
+        onBeforeUnmount(() => {
+            cache.forEach(cached => {
+                const { subTree, suspense } = instance;
+                const vnode = getInnerChild(subTree);
+                if (cached.type === vnode.type) {
+                    // current instance will be unmounted as part of keep-alive's unmount
+                    resetShapeFlag(vnode);
+                    // but invoke its deactivated hook here
+                    const da = vnode.component.da;
+                    da && queuePostRenderEffect(da, suspense);
+                    return;
+                }
+                unmount(cached);
+            });
+        });
+        return () => {
+            pendingCacheKey = null;
+            if (!slots.default) {
+                return null;
+            }
+            const children = slots.default();
+            const rawVNode = children[0];
+            if (children.length > 1) {
+                if ((false)) {}
+                current = null;
+                return children;
+            }
+            else if (!isVNode(rawVNode) ||
+                (!(rawVNode.shapeFlag & 4 /* STATEFUL_COMPONENT */) &&
+                    !(rawVNode.shapeFlag & 128 /* SUSPENSE */))) {
+                current = null;
+                return rawVNode;
+            }
+            let vnode = getInnerChild(rawVNode);
+            const comp = vnode.type;
+            // for async components, name check should be based in its loaded
+            // inner component if available
+            const name = getComponentName(isAsyncWrapper(vnode)
+                ? vnode.type.__asyncResolved || {}
+                : comp);
+            const { include, exclude, max } = props;
+            if ((include && (!name || !matches(include, name))) ||
+                (exclude && name && matches(exclude, name))) {
+                current = vnode;
+                return rawVNode;
+            }
+            const key = vnode.key == null ? comp : vnode.key;
+            const cachedVNode = cache.get(key);
+            // clone vnode if it's reused because we are going to mutate it
+            if (vnode.el) {
+                vnode = cloneVNode(vnode);
+                if (rawVNode.shapeFlag & 128 /* SUSPENSE */) {
+                    rawVNode.ssContent = vnode;
+                }
+            }
+            // #1513 it's possible for the returned vnode to be cloned due to attr
+            // fallthrough or scopeId, so the vnode here may not be the final vnode
+            // that is mounted. Instead of caching it directly, we store the pending
+            // key and cache `instance.subTree` (the normalized vnode) in
+            // beforeMount/beforeUpdate hooks.
+            pendingCacheKey = key;
+            if (cachedVNode) {
+                // copy over mounted state
+                vnode.el = cachedVNode.el;
+                vnode.component = cachedVNode.component;
+                if (vnode.transition) {
+                    // recursively update transition hooks on subTree
+                    setTransitionHooks(vnode, vnode.transition);
+                }
+                // avoid vnode being mounted as fresh
+                vnode.shapeFlag |= 512 /* COMPONENT_KEPT_ALIVE */;
+                // make this key the freshest
+                keys.delete(key);
+                keys.add(key);
+            }
+            else {
+                keys.add(key);
+                // prune oldest entry
+                if (max && keys.size > parseInt(max, 10)) {
+                    pruneCacheEntry(keys.values().next().value);
+                }
+            }
+            // avoid vnode being unmounted
+            vnode.shapeFlag |= 256 /* COMPONENT_SHOULD_KEEP_ALIVE */;
+            current = vnode;
+            return rawVNode;
+        };
+    }
+};
+// export the public type for h/tsx inference
+// also to avoid inline import() in generated d.ts files
+const KeepAlive = (/* unused pure expression or super */ null && (KeepAliveImpl));
+function matches(pattern, name) {
+    if (shared_esm_bundler_isArray(pattern)) {
+        return pattern.some((p) => matches(p, name));
+    }
+    else if (shared_esm_bundler_isString(pattern)) {
+        return pattern.split(',').indexOf(name) > -1;
+    }
+    else if (pattern.test) {
+        return pattern.test(name);
+    }
+    /* istanbul ignore next */
+    return false;
+}
+function onActivated(hook, target) {
+    registerKeepAliveHook(hook, "a" /* ACTIVATED */, target);
+}
+function onDeactivated(hook, target) {
+    registerKeepAliveHook(hook, "da" /* DEACTIVATED */, target);
+}
+function registerKeepAliveHook(hook, type, target = currentInstance) {
+    // cache the deactivate branch check wrapper for injected hooks so the same
+    // hook can be properly deduped by the scheduler. "__wdc" stands for "with
+    // deactivation check".
+    const wrappedHook = hook.__wdc ||
+        (hook.__wdc = () => {
+            // only fire the hook if the target instance is NOT in a deactivated branch.
+            let current = target;
+            while (current) {
+                if (current.isDeactivated) {
+                    return;
+                }
+                current = current.parent;
+            }
+            hook();
+        });
+    injectHook(type, wrappedHook, target);
+    // In addition to registering it on the target instance, we walk up the parent
+    // chain and register it on all ancestor instances that are keep-alive roots.
+    // This avoids the need to walk the entire component tree when invoking these
+    // hooks, and more importantly, avoids the need to track child components in
+    // arrays.
+    if (target) {
+        let current = target.parent;
+        while (current && current.parent) {
+            if (isKeepAlive(current.parent.vnode)) {
+                injectToKeepAliveRoot(wrappedHook, type, target, current);
+            }
+            current = current.parent;
+        }
+    }
+}
+function injectToKeepAliveRoot(hook, type, target, keepAliveRoot) {
+    // injectHook wraps the original for error handling, so make sure to remove
+    // the wrapped version.
+    const injected = injectHook(type, hook, keepAliveRoot, true /* prepend */);
+    runtime_core_esm_bundler_onUnmounted(() => {
+        remove(keepAliveRoot[type], injected);
+    }, target);
+}
+function resetShapeFlag(vnode) {
+    let shapeFlag = vnode.shapeFlag;
+    if (shapeFlag & 256 /* COMPONENT_SHOULD_KEEP_ALIVE */) {
+        shapeFlag -= 256 /* COMPONENT_SHOULD_KEEP_ALIVE */;
+    }
+    if (shapeFlag & 512 /* COMPONENT_KEPT_ALIVE */) {
+        shapeFlag -= 512 /* COMPONENT_KEPT_ALIVE */;
+    }
+    vnode.shapeFlag = shapeFlag;
+}
+function getInnerChild(vnode) {
+    return vnode.shapeFlag & 128 /* SUSPENSE */ ? vnode.ssContent : vnode;
+}
+
+function injectHook(type, hook, target = currentInstance, prepend = false) {
+    if (target) {
+        const hooks = target[type] || (target[type] = []);
+        // cache the error handling wrapper for injected hooks so the same hook
+        // can be properly deduped by the scheduler. "__weh" stands for "with error
+        // handling".
+        const wrappedHook = hook.__weh ||
+            (hook.__weh = (...args) => {
+                if (target.isUnmounted) {
+                    return;
+                }
+                // disable tracking inside all lifecycle hooks
+                // since they can potentially be called inside effects.
+                reactivity_esm_bundler_pauseTracking();
+                // Set currentInstance during hook invocation.
+                // This assumes the hook does not synchronously trigger other hooks, which
+                // can only be false when the user does something really funky.
+                setCurrentInstance(target);
+                const res = callWithAsyncErrorHandling(hook, target, type, args);
+                unsetCurrentInstance();
+                reactivity_esm_bundler_resetTracking();
+                return res;
+            });
+        if (prepend) {
+            hooks.unshift(wrappedHook);
+        }
+        else {
+            hooks.push(wrappedHook);
+        }
+        return wrappedHook;
+    }
+    else if ((false)) {}
+}
+const createHook = (lifecycle) => (hook, target = currentInstance) => 
+// post-create lifecycle registrations are noops during SSR (except for serverPrefetch)
+(!isInSSRComponentSetup || lifecycle === "sp" /* SERVER_PREFETCH */) &&
+    injectHook(lifecycle, hook, target);
+const onBeforeMount = createHook("bm" /* BEFORE_MOUNT */);
+const runtime_core_esm_bundler_onMounted = createHook("m" /* MOUNTED */);
+const onBeforeUpdate = createHook("bu" /* BEFORE_UPDATE */);
+const onUpdated = createHook("u" /* UPDATED */);
+const onBeforeUnmount = createHook("bum" /* BEFORE_UNMOUNT */);
+const runtime_core_esm_bundler_onUnmounted = createHook("um" /* UNMOUNTED */);
+const onServerPrefetch = createHook("sp" /* SERVER_PREFETCH */);
+const onRenderTriggered = createHook("rtg" /* RENDER_TRIGGERED */);
+const onRenderTracked = createHook("rtc" /* RENDER_TRACKED */);
+function onErrorCaptured(hook, target = currentInstance) {
+    injectHook("ec" /* ERROR_CAPTURED */, hook, target);
+}
+
+function createDuplicateChecker() {
+    const cache = Object.create(null);
+    return (type, key) => {
+        if (cache[key]) {
+            runtime_core_esm_bundler_warn(`${type} property "${key}" is already defined in ${cache[key]}.`);
+        }
+        else {
+            cache[key] = type;
+        }
+    };
+}
+let shouldCacheAccess = true;
+function applyOptions(instance) {
+    const options = resolveMergedOptions(instance);
+    const publicThis = instance.proxy;
+    const ctx = instance.ctx;
+    // do not cache property access on public proxy during state initialization
+    shouldCacheAccess = false;
+    // call beforeCreate first before accessing other options since
+    // the hook may mutate resolved options (#2791)
+    if (options.beforeCreate) {
+        callHook(options.beforeCreate, instance, "bc" /* BEFORE_CREATE */);
+    }
+    const { 
+    // state
+    data: dataOptions, computed: computedOptions, methods, watch: watchOptions, provide: provideOptions, inject: injectOptions, 
+    // lifecycle
+    created, beforeMount, mounted, beforeUpdate, updated, activated, deactivated, beforeDestroy, beforeUnmount, destroyed, unmounted, render, renderTracked, renderTriggered, errorCaptured, serverPrefetch, 
+    // public API
+    expose, inheritAttrs, 
+    // assets
+    components, directives, filters } = options;
+    const checkDuplicateProperties = ( false) ? 0 : null;
+    if ((false)) {}
+    // options initialization order (to be consistent with Vue 2):
+    // - props (already done outside of this function)
+    // - inject
+    // - methods
+    // - data (deferred since it relies on `this` access)
+    // - computed
+    // - watch (deferred since it relies on `this` access)
+    if (injectOptions) {
+        resolveInjections(injectOptions, ctx, checkDuplicateProperties, instance.appContext.config.unwrapInjectedRef);
+    }
+    if (methods) {
+        for (const key in methods) {
+            const methodHandler = methods[key];
+            if (shared_esm_bundler_isFunction(methodHandler)) {
+                // In dev mode, we use the `createRenderContext` function to define
+                // methods to the proxy target, and those are read-only but
+                // reconfigurable, so it needs to be redefined here
+                if ((false)) {}
+                else {
+                    ctx[key] = methodHandler.bind(publicThis);
+                }
+                if ((false)) {}
+            }
+            else if ((false)) {}
+        }
+    }
+    if (dataOptions) {
+        if (false) {}
+        const data = dataOptions.call(publicThis, publicThis);
+        if (false) {}
+        if (!shared_esm_bundler_isObject(data)) {
+            ( false) && 0;
+        }
+        else {
+            instance.data = reactive(data);
+            if ((false)) {}
+        }
+    }
+    // state initialization complete at this point - start caching access
+    shouldCacheAccess = true;
+    if (computedOptions) {
+        for (const key in computedOptions) {
+            const opt = computedOptions[key];
+            const get = shared_esm_bundler_isFunction(opt)
+                ? opt.bind(publicThis, publicThis)
+                : shared_esm_bundler_isFunction(opt.get)
+                    ? opt.get.bind(publicThis, publicThis)
+                    : shared_esm_bundler_NOOP;
+            if (false) {}
+            const set = !shared_esm_bundler_isFunction(opt) && shared_esm_bundler_isFunction(opt.set)
+                ? opt.set.bind(publicThis)
+                : ( false)
+                    ? 0
+                    : shared_esm_bundler_NOOP;
+            const c = computed({
+                get,
+                set
+            });
+            Object.defineProperty(ctx, key, {
+                enumerable: true,
+                configurable: true,
+                get: () => c.value,
+                set: v => (c.value = v)
+            });
+            if ((false)) {}
+        }
+    }
+    if (watchOptions) {
+        for (const key in watchOptions) {
+            createWatcher(watchOptions[key], ctx, publicThis, key);
+        }
+    }
+    if (provideOptions) {
+        const provides = shared_esm_bundler_isFunction(provideOptions)
+            ? provideOptions.call(publicThis)
+            : provideOptions;
+        Reflect.ownKeys(provides).forEach(key => {
+            provide(key, provides[key]);
+        });
+    }
+    if (created) {
+        callHook(created, instance, "c" /* CREATED */);
+    }
+    function registerLifecycleHook(register, hook) {
+        if (shared_esm_bundler_isArray(hook)) {
+            hook.forEach(_hook => register(_hook.bind(publicThis)));
+        }
+        else if (hook) {
+            register(hook.bind(publicThis));
+        }
+    }
+    registerLifecycleHook(onBeforeMount, beforeMount);
+    registerLifecycleHook(runtime_core_esm_bundler_onMounted, mounted);
+    registerLifecycleHook(onBeforeUpdate, beforeUpdate);
+    registerLifecycleHook(onUpdated, updated);
+    registerLifecycleHook(onActivated, activated);
+    registerLifecycleHook(onDeactivated, deactivated);
+    registerLifecycleHook(onErrorCaptured, errorCaptured);
+    registerLifecycleHook(onRenderTracked, renderTracked);
+    registerLifecycleHook(onRenderTriggered, renderTriggered);
+    registerLifecycleHook(onBeforeUnmount, beforeUnmount);
+    registerLifecycleHook(runtime_core_esm_bundler_onUnmounted, unmounted);
+    registerLifecycleHook(onServerPrefetch, serverPrefetch);
+    if (shared_esm_bundler_isArray(expose)) {
+        if (expose.length) {
+            const exposed = instance.exposed || (instance.exposed = {});
+            expose.forEach(key => {
+                Object.defineProperty(exposed, key, {
+                    get: () => publicThis[key],
+                    set: val => (publicThis[key] = val)
+                });
+            });
+        }
+        else if (!instance.exposed) {
+            instance.exposed = {};
+        }
+    }
+    // options that are handled when creating the instance but also need to be
+    // applied from mixins
+    if (render && instance.render === shared_esm_bundler_NOOP) {
+        instance.render = render;
+    }
+    if (inheritAttrs != null) {
+        instance.inheritAttrs = inheritAttrs;
+    }
+    // asset options.
+    if (components)
+        instance.components = components;
+    if (directives)
+        instance.directives = directives;
+}
+function resolveInjections(injectOptions, ctx, checkDuplicateProperties = shared_esm_bundler_NOOP, unwrapRef = false) {
+    if (shared_esm_bundler_isArray(injectOptions)) {
+        injectOptions = normalizeInject(injectOptions);
+    }
+    for (const key in injectOptions) {
+        const opt = injectOptions[key];
+        let injected;
+        if (shared_esm_bundler_isObject(opt)) {
+            if ('default' in opt) {
+                injected = inject(opt.from || key, opt.default, true /* treat default function as factory */);
+            }
+            else {
+                injected = inject(opt.from || key);
+            }
+        }
+        else {
+            injected = inject(opt);
+        }
+        if (reactivity_esm_bundler_isRef(injected)) {
+            // TODO remove the check in 3.3
+            if (unwrapRef) {
+                Object.defineProperty(ctx, key, {
+                    enumerable: true,
+                    configurable: true,
+                    get: () => injected.value,
+                    set: v => (injected.value = v)
+                });
+            }
+            else {
+                if ((false)) {}
+                ctx[key] = injected;
+            }
+        }
+        else {
+            ctx[key] = injected;
+        }
+        if ((false)) {}
+    }
+}
+function callHook(hook, instance, type) {
+    callWithAsyncErrorHandling(shared_esm_bundler_isArray(hook)
+        ? hook.map(h => h.bind(instance.proxy))
+        : hook.bind(instance.proxy), instance, type);
+}
+function createWatcher(raw, ctx, publicThis, key) {
+    const getter = key.includes('.')
+        ? createPathGetter(publicThis, key)
+        : () => publicThis[key];
+    if (shared_esm_bundler_isString(raw)) {
+        const handler = ctx[raw];
+        if (shared_esm_bundler_isFunction(handler)) {
+            watch(getter, handler);
+        }
+        else if ((false)) {}
+    }
+    else if (shared_esm_bundler_isFunction(raw)) {
+        watch(getter, raw.bind(publicThis));
+    }
+    else if (shared_esm_bundler_isObject(raw)) {
+        if (shared_esm_bundler_isArray(raw)) {
+            raw.forEach(r => createWatcher(r, ctx, publicThis, key));
+        }
+        else {
+            const handler = shared_esm_bundler_isFunction(raw.handler)
+                ? raw.handler.bind(publicThis)
+                : ctx[raw.handler];
+            if (shared_esm_bundler_isFunction(handler)) {
+                watch(getter, handler, raw);
+            }
+            else if ((false)) {}
+        }
+    }
+    else if ((false)) {}
+}
+/**
+ * Resolve merged options and cache it on the component.
+ * This is done only once per-component since the merging does not involve
+ * instances.
+ */
+function resolveMergedOptions(instance) {
+    const base = instance.type;
+    const { mixins, extends: extendsOptions } = base;
+    const { mixins: globalMixins, optionsCache: cache, config: { optionMergeStrategies } } = instance.appContext;
+    const cached = cache.get(base);
+    let resolved;
+    if (cached) {
+        resolved = cached;
+    }
+    else if (!globalMixins.length && !mixins && !extendsOptions) {
+        {
+            resolved = base;
+        }
+    }
+    else {
+        resolved = {};
+        if (globalMixins.length) {
+            globalMixins.forEach(m => mergeOptions(resolved, m, optionMergeStrategies, true));
+        }
+        mergeOptions(resolved, base, optionMergeStrategies);
+    }
+    cache.set(base, resolved);
+    return resolved;
+}
+function mergeOptions(to, from, strats, asMixin = false) {
+    const { mixins, extends: extendsOptions } = from;
+    if (extendsOptions) {
+        mergeOptions(to, extendsOptions, strats, true);
+    }
+    if (mixins) {
+        mixins.forEach((m) => mergeOptions(to, m, strats, true));
+    }
+    for (const key in from) {
+        if (asMixin && key === 'expose') {
+            ( false) &&
+                0;
+        }
+        else {
+            const strat = internalOptionMergeStrats[key] || (strats && strats[key]);
+            to[key] = strat ? strat(to[key], from[key]) : from[key];
+        }
+    }
+    return to;
+}
+const internalOptionMergeStrats = {
+    data: mergeDataFn,
+    props: mergeObjectOptions,
+    emits: mergeObjectOptions,
+    // objects
+    methods: mergeObjectOptions,
+    computed: mergeObjectOptions,
+    // lifecycle
+    beforeCreate: mergeAsArray,
+    created: mergeAsArray,
+    beforeMount: mergeAsArray,
+    mounted: mergeAsArray,
+    beforeUpdate: mergeAsArray,
+    updated: mergeAsArray,
+    beforeDestroy: mergeAsArray,
+    beforeUnmount: mergeAsArray,
+    destroyed: mergeAsArray,
+    unmounted: mergeAsArray,
+    activated: mergeAsArray,
+    deactivated: mergeAsArray,
+    errorCaptured: mergeAsArray,
+    serverPrefetch: mergeAsArray,
+    // assets
+    components: mergeObjectOptions,
+    directives: mergeObjectOptions,
+    // watch
+    watch: mergeWatchOptions,
+    // provide / inject
+    provide: mergeDataFn,
+    inject: mergeInject
+};
+function mergeDataFn(to, from) {
+    if (!from) {
+        return to;
+    }
+    if (!to) {
+        return from;
+    }
+    return function mergedDataFn() {
+        return (shared_esm_bundler_extend)(shared_esm_bundler_isFunction(to) ? to.call(this, this) : to, shared_esm_bundler_isFunction(from) ? from.call(this, this) : from);
+    };
+}
+function mergeInject(to, from) {
+    return mergeObjectOptions(normalizeInject(to), normalizeInject(from));
+}
+function normalizeInject(raw) {
+    if (shared_esm_bundler_isArray(raw)) {
+        const res = {};
+        for (let i = 0; i < raw.length; i++) {
+            res[raw[i]] = raw[i];
+        }
+        return res;
+    }
+    return raw;
+}
+function mergeAsArray(to, from) {
+    return to ? [...new Set([].concat(to, from))] : from;
+}
+function mergeObjectOptions(to, from) {
+    return to ? shared_esm_bundler_extend(shared_esm_bundler_extend(Object.create(null), to), from) : from;
+}
+function mergeWatchOptions(to, from) {
+    if (!to)
+        return from;
+    if (!from)
+        return to;
+    const merged = shared_esm_bundler_extend(Object.create(null), to);
+    for (const key in from) {
+        merged[key] = mergeAsArray(to[key], from[key]);
+    }
+    return merged;
+}
+
+function initProps(instance, rawProps, isStateful, // result of bitwise flag comparison
+isSSR = false) {
+    const props = {};
+    const attrs = {};
+    def(attrs, InternalObjectKey, 1);
+    instance.propsDefaults = Object.create(null);
+    setFullProps(instance, rawProps, props, attrs);
+    // ensure all declared prop keys are present
+    for (const key in instance.propsOptions[0]) {
+        if (!(key in props)) {
+            props[key] = undefined;
+        }
+    }
+    // validation
+    if ((false)) {}
+    if (isStateful) {
+        // stateful
+        instance.props = isSSR ? props : shallowReactive(props);
+    }
+    else {
+        if (!instance.type.props) {
+            // functional w/ optional props, props === attrs
+            instance.props = attrs;
+        }
+        else {
+            // functional w/ declared props
+            instance.props = props;
+        }
+    }
+    instance.attrs = attrs;
+}
+function updateProps(instance, rawProps, rawPrevProps, optimized) {
+    const { props, attrs, vnode: { patchFlag } } = instance;
+    const rawCurrentProps = toRaw(props);
+    const [options] = instance.propsOptions;
+    let hasAttrsChanged = false;
+    if (
+    // always force full diff in dev
+    // - #1942 if hmr is enabled with sfc component
+    // - vite#872 non-sfc component used by sfc component
+     true &&
+        (optimized || patchFlag > 0) &&
+        !(patchFlag & 16 /* FULL_PROPS */)) {
+        if (patchFlag & 8 /* PROPS */) {
+            // Compiler-generated props & no keys change, just set the updated
+            // the props.
+            const propsToUpdate = instance.vnode.dynamicProps;
+            for (let i = 0; i < propsToUpdate.length; i++) {
+                let key = propsToUpdate[i];
+                // PROPS flag guarantees rawProps to be non-null
+                const value = rawProps[key];
+                if (options) {
+                    // attr / props separation was done on init and will be consistent
+                    // in this code path, so just check if attrs have it.
+                    if (hasOwn(attrs, key)) {
+                        if (value !== attrs[key]) {
+                            attrs[key] = value;
+                            hasAttrsChanged = true;
+                        }
+                    }
+                    else {
+                        const camelizedKey = camelize(key);
+                        props[camelizedKey] = resolvePropValue(options, rawCurrentProps, camelizedKey, value, instance, false /* isAbsent */);
+                    }
+                }
+                else {
+                    if (value !== attrs[key]) {
+                        attrs[key] = value;
+                        hasAttrsChanged = true;
+                    }
+                }
+            }
+        }
+    }
+    else {
+        // full props update.
+        if (setFullProps(instance, rawProps, props, attrs)) {
+            hasAttrsChanged = true;
+        }
+        // in case of dynamic props, check if we need to delete keys from
+        // the props object
+        let kebabKey;
+        for (const key in rawCurrentProps) {
+            if (!rawProps ||
+                // for camelCase
+                (!hasOwn(rawProps, key) &&
+                    // it's possible the original props was passed in as kebab-case
+                    // and converted to camelCase (#955)
+                    ((kebabKey = hyphenate(key)) === key || !hasOwn(rawProps, kebabKey)))) {
+                if (options) {
+                    if (rawPrevProps &&
+                        // for camelCase
+                        (rawPrevProps[key] !== undefined ||
+                            // for kebab-case
+                            rawPrevProps[kebabKey] !== undefined)) {
+                        props[key] = resolvePropValue(options, rawCurrentProps, key, undefined, instance, true /* isAbsent */);
+                    }
+                }
+                else {
+                    delete props[key];
+                }
+            }
+        }
+        // in the case of functional component w/o props declaration, props and
+        // attrs point to the same object so it should already have been updated.
+        if (attrs !== rawCurrentProps) {
+            for (const key in attrs) {
+                if (!rawProps || !hasOwn(rawProps, key)) {
+                    delete attrs[key];
+                    hasAttrsChanged = true;
+                }
+            }
+        }
+    }
+    // trigger updates for $attrs in case it's used in component slots
+    if (hasAttrsChanged) {
+        trigger(instance, "set" /* SET */, '$attrs');
+    }
+    if ((false)) {}
+}
+function setFullProps(instance, rawProps, props, attrs) {
+    const [options, needCastKeys] = instance.propsOptions;
+    let hasAttrsChanged = false;
+    let rawCastValues;
+    if (rawProps) {
+        for (let key in rawProps) {
+            // key, ref are reserved and never passed down
+            if (shared_esm_bundler_isReservedProp(key)) {
+                continue;
+            }
+            const value = rawProps[key];
+            // prop option names are camelized during normalization, so to support
+            // kebab -> camel conversion here we need to camelize the key.
+            let camelKey;
+            if (options && shared_esm_bundler_hasOwn(options, (camelKey = shared_esm_bundler_camelize(key)))) {
+                if (!needCastKeys || !needCastKeys.includes(camelKey)) {
+                    props[camelKey] = value;
+                }
+                else {
+                    (rawCastValues || (rawCastValues = {}))[camelKey] = value;
+                }
+            }
+            else if (!isEmitListener(instance.emitsOptions, key)) {
+                if (value !== attrs[key]) {
+                    attrs[key] = value;
+                    hasAttrsChanged = true;
+                }
+            }
+        }
+    }
+    if (needCastKeys) {
+        const rawCurrentProps = reactivity_esm_bundler_toRaw(props);
+        const castValues = rawCastValues || shared_esm_bundler_EMPTY_OBJ;
+        for (let i = 0; i < needCastKeys.length; i++) {
+            const key = needCastKeys[i];
+            props[key] = resolvePropValue(options, rawCurrentProps, key, castValues[key], instance, !shared_esm_bundler_hasOwn(castValues, key));
+        }
+    }
+    return hasAttrsChanged;
+}
+function resolvePropValue(options, props, key, value, instance, isAbsent) {
+    const opt = options[key];
+    if (opt != null) {
+        const hasDefault = shared_esm_bundler_hasOwn(opt, 'default');
+        // default values
+        if (hasDefault && value === undefined) {
+            const defaultValue = opt.default;
+            if (opt.type !== Function && shared_esm_bundler_isFunction(defaultValue)) {
+                const { propsDefaults } = instance;
+                if (key in propsDefaults) {
+                    value = propsDefaults[key];
+                }
+                else {
+                    setCurrentInstance(instance);
+                    value = propsDefaults[key] = defaultValue.call(null, props);
+                    unsetCurrentInstance();
+                }
+            }
+            else {
+                value = defaultValue;
+            }
+        }
+        // boolean casting
+        if (opt[0 /* shouldCast */]) {
+            if (isAbsent && !hasDefault) {
+                value = false;
+            }
+            else if (opt[1 /* shouldCastTrue */] &&
+                (value === '' || value === shared_esm_bundler_hyphenate(key))) {
+                value = true;
+            }
+        }
+    }
+    return value;
+}
+function normalizePropsOptions(comp, appContext, asMixin = false) {
+    const cache = appContext.propsCache;
+    const cached = cache.get(comp);
+    if (cached) {
+        return cached;
+    }
+    const raw = comp.props;
+    const normalized = {};
+    const needCastKeys = [];
+    // apply mixin/extends props
+    let hasExtends = false;
+    if (__VUE_OPTIONS_API__ && !shared_esm_bundler_isFunction(comp)) {
+        const extendProps = (raw) => {
+            hasExtends = true;
+            const [props, keys] = normalizePropsOptions(raw, appContext, true);
+            shared_esm_bundler_extend(normalized, props);
+            if (keys)
+                needCastKeys.push(...keys);
+        };
+        if (!asMixin && appContext.mixins.length) {
+            appContext.mixins.forEach(extendProps);
+        }
+        if (comp.extends) {
+            extendProps(comp.extends);
+        }
+        if (comp.mixins) {
+            comp.mixins.forEach(extendProps);
+        }
+    }
+    if (!raw && !hasExtends) {
+        cache.set(comp, shared_esm_bundler_EMPTY_ARR);
+        return shared_esm_bundler_EMPTY_ARR;
+    }
+    if (shared_esm_bundler_isArray(raw)) {
+        for (let i = 0; i < raw.length; i++) {
+            if (false) {}
+            const normalizedKey = shared_esm_bundler_camelize(raw[i]);
+            if (validatePropName(normalizedKey)) {
+                normalized[normalizedKey] = shared_esm_bundler_EMPTY_OBJ;
+            }
+        }
+    }
+    else if (raw) {
+        if (false) {}
+        for (const key in raw) {
+            const normalizedKey = shared_esm_bundler_camelize(key);
+            if (validatePropName(normalizedKey)) {
+                const opt = raw[key];
+                const prop = (normalized[normalizedKey] =
+                    shared_esm_bundler_isArray(opt) || shared_esm_bundler_isFunction(opt) ? { type: opt } : opt);
+                if (prop) {
+                    const booleanIndex = getTypeIndex(Boolean, prop.type);
+                    const stringIndex = getTypeIndex(String, prop.type);
+                    prop[0 /* shouldCast */] = booleanIndex > -1;
+                    prop[1 /* shouldCastTrue */] =
+                        stringIndex < 0 || booleanIndex < stringIndex;
+                    // if the prop needs boolean casting or default value
+                    if (booleanIndex > -1 || shared_esm_bundler_hasOwn(prop, 'default')) {
+                        needCastKeys.push(normalizedKey);
+                    }
+                }
+            }
+        }
+    }
+    const res = [normalized, needCastKeys];
+    cache.set(comp, res);
+    return res;
+}
+function validatePropName(key) {
+    if (key[0] !== '$') {
+        return true;
+    }
+    else if ((false)) {}
+    return false;
+}
+// use function string name to check type constructors
+// so that it works across vms / iframes.
+function getType(ctor) {
+    const match = ctor && ctor.toString().match(/^\s*function (\w+)/);
+    return match ? match[1] : ctor === null ? 'null' : '';
+}
+function isSameType(a, b) {
+    return getType(a) === getType(b);
+}
+function getTypeIndex(type, expectedTypes) {
+    if (shared_esm_bundler_isArray(expectedTypes)) {
+        return expectedTypes.findIndex(t => isSameType(t, type));
+    }
+    else if (shared_esm_bundler_isFunction(expectedTypes)) {
+        return isSameType(expectedTypes, type) ? 0 : -1;
+    }
+    return -1;
+}
+/**
+ * dev only
+ */
+function validateProps(rawProps, props, instance) {
+    const resolvedValues = toRaw(props);
+    const options = instance.propsOptions[0];
+    for (const key in options) {
+        let opt = options[key];
+        if (opt == null)
+            continue;
+        validateProp(key, resolvedValues[key], opt, !hasOwn(rawProps, key) && !hasOwn(rawProps, hyphenate(key)));
+    }
+}
+/**
+ * dev only
+ */
+function validateProp(name, value, prop, isAbsent) {
+    const { type, required, validator } = prop;
+    // required!
+    if (required && isAbsent) {
+        runtime_core_esm_bundler_warn('Missing required prop: "' + name + '"');
+        return;
+    }
+    // missing but optional
+    if (value == null && !prop.required) {
+        return;
+    }
+    // type check
+    if (type != null && type !== true) {
+        let isValid = false;
+        const types = isArray(type) ? type : [type];
+        const expectedTypes = [];
+        // value is valid as long as one of the specified types match
+        for (let i = 0; i < types.length && !isValid; i++) {
+            const { valid, expectedType } = assertType(value, types[i]);
+            expectedTypes.push(expectedType || '');
+            isValid = valid;
+        }
+        if (!isValid) {
+            runtime_core_esm_bundler_warn(getInvalidTypeMessage(name, value, expectedTypes));
+            return;
+        }
+    }
+    // custom validator
+    if (validator && !validator(value)) {
+        runtime_core_esm_bundler_warn('Invalid prop: custom validator check failed for prop "' + name + '".');
+    }
+}
+const isSimpleType = /*#__PURE__*/ (/* unused pure expression or super */ null && (makeMap('String,Number,Boolean,Function,Symbol,BigInt')));
+/**
+ * dev only
+ */
+function assertType(value, type) {
+    let valid;
+    const expectedType = getType(type);
+    if (isSimpleType(expectedType)) {
+        const t = typeof value;
+        valid = t === expectedType.toLowerCase();
+        // for primitive wrapper objects
+        if (!valid && t === 'object') {
+            valid = value instanceof type;
+        }
+    }
+    else if (expectedType === 'Object') {
+        valid = isObject$1(value);
+    }
+    else if (expectedType === 'Array') {
+        valid = isArray(value);
+    }
+    else if (expectedType === 'null') {
+        valid = value === null;
+    }
+    else {
+        valid = value instanceof type;
+    }
+    return {
+        valid,
+        expectedType
+    };
+}
+/**
+ * dev only
+ */
+function getInvalidTypeMessage(name, value, expectedTypes) {
+    let message = `Invalid prop: type check failed for prop "${name}".` +
+        ` Expected ${expectedTypes.map(capitalize).join(' | ')}`;
+    const expectedType = expectedTypes[0];
+    const receivedType = toRawType(value);
+    const expectedValue = styleValue(value, expectedType);
+    const receivedValue = styleValue(value, receivedType);
+    // check if we need to specify expected value
+    if (expectedTypes.length === 1 &&
+        isExplicable(expectedType) &&
+        !isBoolean(expectedType, receivedType)) {
+        message += ` with value ${expectedValue}`;
+    }
+    message += `, got ${receivedType} `;
+    // check if we need to specify received value
+    if (isExplicable(receivedType)) {
+        message += `with value ${receivedValue}.`;
+    }
+    return message;
+}
+/**
+ * dev only
+ */
+function styleValue(value, type) {
+    if (type === 'String') {
+        return `"${value}"`;
+    }
+    else if (type === 'Number') {
+        return `${Number(value)}`;
+    }
+    else {
+        return `${value}`;
+    }
+}
+/**
+ * dev only
+ */
+function isExplicable(type) {
+    const explicitTypes = ['string', 'number', 'boolean'];
+    return explicitTypes.some(elem => type.toLowerCase() === elem);
+}
+/**
+ * dev only
+ */
+function isBoolean(...args) {
+    return args.some(elem => elem.toLowerCase() === 'boolean');
+}
+
+const isInternalKey = (key) => key[0] === '_' || key === '$stable';
+const normalizeSlotValue = (value) => shared_esm_bundler_isArray(value)
+    ? value.map(normalizeVNode)
+    : [normalizeVNode(value)];
+const normalizeSlot = (key, rawSlot, ctx) => {
+    const normalized = withCtx((...args) => {
+        if (false) {}
+        return normalizeSlotValue(rawSlot(...args));
+    }, ctx);
+    normalized._c = false;
+    return normalized;
+};
+const normalizeObjectSlots = (rawSlots, slots, instance) => {
+    const ctx = rawSlots._ctx;
+    for (const key in rawSlots) {
+        if (isInternalKey(key))
+            continue;
+        const value = rawSlots[key];
+        if (shared_esm_bundler_isFunction(value)) {
+            slots[key] = normalizeSlot(key, value, ctx);
+        }
+        else if (value != null) {
+            if (false) {}
+            const normalized = normalizeSlotValue(value);
+            slots[key] = () => normalized;
+        }
+    }
+};
+const normalizeVNodeSlots = (instance, children) => {
+    if (false) {}
+    const normalized = normalizeSlotValue(children);
+    instance.slots.default = () => normalized;
+};
+const initSlots = (instance, children) => {
+    if (instance.vnode.shapeFlag & 32 /* SLOTS_CHILDREN */) {
+        const type = children._;
+        if (type) {
+            // users can get the shallow readonly version of the slots object through `this.$slots`,
+            // we should avoid the proxy object polluting the slots of the internal instance
+            instance.slots = reactivity_esm_bundler_toRaw(children);
+            // make compiler marker non-enumerable
+            def(children, '_', type);
+        }
+        else {
+            normalizeObjectSlots(children, (instance.slots = {}));
+        }
+    }
+    else {
+        instance.slots = {};
+        if (children) {
+            normalizeVNodeSlots(instance, children);
+        }
+    }
+    def(instance.slots, InternalObjectKey, 1);
+};
+const updateSlots = (instance, children, optimized) => {
+    const { vnode, slots } = instance;
+    let needDeletionCheck = true;
+    let deletionComparisonTarget = EMPTY_OBJ;
+    if (vnode.shapeFlag & 32 /* SLOTS_CHILDREN */) {
+        const type = children._;
+        if (type) {
+            // compiled slots.
+            if (false) {}
+            else if (optimized && type === 1 /* STABLE */) {
+                // compiled AND stable.
+                // no need to update, and skip stale slots removal.
+                needDeletionCheck = false;
+            }
+            else {
+                // compiled but dynamic (v-if/v-for on slots) - update slots, but skip
+                // normalization.
+                extend(slots, children);
+                // #2893
+                // when rendering the optimized slots by manually written render function,
+                // we need to delete the `slots._` flag if necessary to make subsequent updates reliable,
+                // i.e. let the `renderSlot` create the bailed Fragment
+                if (!optimized && type === 1 /* STABLE */) {
+                    delete slots._;
+                }
+            }
+        }
+        else {
+            needDeletionCheck = !children.$stable;
+            normalizeObjectSlots(children, slots);
+        }
+        deletionComparisonTarget = children;
+    }
+    else if (children) {
+        // non slot object children (direct value) passed to a component
+        normalizeVNodeSlots(instance, children);
+        deletionComparisonTarget = { default: 1 };
+    }
+    // delete stale slots
+    if (needDeletionCheck) {
+        for (const key in slots) {
+            if (!isInternalKey(key) && !(key in deletionComparisonTarget)) {
+                delete slots[key];
+            }
+        }
+    }
+};
+
+/**
+Runtime helper for applying directives to a vnode. Example usage:
+
+const comp = resolveComponent('comp')
+const foo = resolveDirective('foo')
+const bar = resolveDirective('bar')
+
+return withDirectives(h(comp), [
+  [foo, this.x],
+  [bar, this.y]
+])
+*/
+const isBuiltInDirective = /*#__PURE__*/ (/* unused pure expression or super */ null && (makeMap('bind,cloak,else-if,else,for,html,if,model,on,once,pre,show,slot,text')));
+function validateDirectiveName(name) {
+    if (isBuiltInDirective(name)) {
+        runtime_core_esm_bundler_warn('Do not use built-in directive ids as custom directive id: ' + name);
+    }
+}
+/**
+ * Adds directives to a VNode.
+ */
+function withDirectives(vnode, directives) {
+    const internalInstance = currentRenderingInstance;
+    if (internalInstance === null) {
+        ( false) && 0;
+        return vnode;
+    }
+    const instance = internalInstance.proxy;
+    const bindings = vnode.dirs || (vnode.dirs = []);
+    for (let i = 0; i < directives.length; i++) {
+        let [dir, value, arg, modifiers = EMPTY_OBJ] = directives[i];
+        if (isFunction$1(dir)) {
+            dir = {
+                mounted: dir,
+                updated: dir
+            };
+        }
+        if (dir.deep) {
+            traverse(value);
+        }
+        bindings.push({
+            dir,
+            instance,
+            value,
+            oldValue: void 0,
+            arg,
+            modifiers
+        });
+    }
+    return vnode;
+}
+function invokeDirectiveHook(vnode, prevVNode, instance, name) {
+    const bindings = vnode.dirs;
+    const oldBindings = prevVNode && prevVNode.dirs;
+    for (let i = 0; i < bindings.length; i++) {
+        const binding = bindings[i];
+        if (oldBindings) {
+            binding.oldValue = oldBindings[i].value;
+        }
+        let hook = binding.dir[name];
+        if (hook) {
+            // disable tracking inside all lifecycle hooks
+            // since they can potentially be called inside effects.
+            pauseTracking();
+            callWithAsyncErrorHandling(hook, instance, 8 /* DIRECTIVE_HOOK */, [
+                vnode.el,
+                binding,
+                vnode,
+                prevVNode
+            ]);
+            resetTracking();
+        }
+    }
+}
+
+function createAppContext() {
+    return {
+        app: null,
+        config: {
+            isNativeTag: shared_esm_bundler_NO,
+            performance: false,
+            globalProperties: {},
+            optionMergeStrategies: {},
+            errorHandler: undefined,
+            warnHandler: undefined,
+            compilerOptions: {}
+        },
+        mixins: [],
+        components: {},
+        directives: {},
+        provides: Object.create(null),
+        optionsCache: new WeakMap(),
+        propsCache: new WeakMap(),
+        emitsCache: new WeakMap()
+    };
+}
+let uid = 0;
+function createAppAPI(render, hydrate) {
+    return function createApp(rootComponent, rootProps = null) {
+        if (rootProps != null && !isObject$1(rootProps)) {
+            ( false) && 0;
+            rootProps = null;
+        }
+        const context = createAppContext();
+        const installedPlugins = new Set();
+        let isMounted = false;
+        const app = (context.app = {
+            _uid: uid++,
+            _component: rootComponent,
+            _props: rootProps,
+            _container: null,
+            _context: context,
+            _instance: null,
+            version,
+            get config() {
+                return context.config;
+            },
+            set config(v) {
+                if ((false)) {}
+            },
+            use(plugin, ...options) {
+                if (installedPlugins.has(plugin)) {
+                    ( false) && 0;
+                }
+                else if (plugin && isFunction$1(plugin.install)) {
+                    installedPlugins.add(plugin);
+                    plugin.install(app, ...options);
+                }
+                else if (isFunction$1(plugin)) {
+                    installedPlugins.add(plugin);
+                    plugin(app, ...options);
+                }
+                else if ((false)) {}
+                return app;
+            },
+            mixin(mixin) {
+                if (__VUE_OPTIONS_API__) {
+                    if (!context.mixins.includes(mixin)) {
+                        context.mixins.push(mixin);
+                    }
+                    else if ((false)) {}
+                }
+                else if ((false)) {}
+                return app;
+            },
+            component(name, component) {
+                if ((false)) {}
+                if (!component) {
+                    return context.components[name];
+                }
+                if (false) {}
+                context.components[name] = component;
+                return app;
+            },
+            directive(name, directive) {
+                if ((false)) {}
+                if (!directive) {
+                    return context.directives[name];
+                }
+                if (false) {}
+                context.directives[name] = directive;
+                return app;
+            },
+            mount(rootContainer, isHydrate, isSVG) {
+                if (!isMounted) {
+                    const vnode = runtime_core_esm_bundler_createVNode(rootComponent, rootProps);
+                    // store app context on the root VNode.
+                    // this will be set on the root instance on initial mount.
+                    vnode.appContext = context;
+                    // HMR root reload
+                    if ((false)) {}
+                    if (isHydrate && hydrate) {
+                        hydrate(vnode, rootContainer);
+                    }
+                    else {
+                        render(vnode, rootContainer, isSVG);
+                    }
+                    isMounted = true;
+                    app._container = rootContainer;
+                    rootContainer.__vue_app__ = app;
+                    if (( false) || __VUE_PROD_DEVTOOLS__) {
+                        app._instance = vnode.component;
+                        devtoolsInitApp(app, version);
+                    }
+                    return vnode.component.proxy;
+                }
+                else if ((false)) {}
+            },
+            unmount() {
+                if (isMounted) {
+                    render(null, app._container);
+                    if (( false) || __VUE_PROD_DEVTOOLS__) {
+                        app._instance = null;
+                        devtoolsUnmountApp(app);
+                    }
+                    delete app._container.__vue_app__;
+                }
+                else if ((false)) {}
+            },
+            provide(key, value) {
+                if (false) {}
+                // TypeScript doesn't allow symbols as index type
+                // https://github.com/Microsoft/TypeScript/issues/24587
+                context.provides[key] = value;
+                return app;
+            }
+        });
+        return app;
+    };
+}
+
+let hasMismatch = false;
+const isSVGContainer = (container) => /svg/.test(container.namespaceURI) && container.tagName !== 'foreignObject';
+const isComment = (node) => node.nodeType === 8 /* COMMENT */;
+// Note: hydration is DOM-specific
+// But we have to place it in core due to tight coupling with core - splitting
+// it out creates a ton of unnecessary complexity.
+// Hydration also depends on some renderer internal logic which needs to be
+// passed in via arguments.
+function createHydrationFunctions(rendererInternals) {
+    const { mt: mountComponent, p: patch, o: { patchProp, nextSibling, parentNode, remove, insert, createComment } } = rendererInternals;
+    const hydrate = (vnode, container) => {
+        if (!container.hasChildNodes()) {
+            ( false) &&
+                0;
+            patch(null, vnode, container);
+            flushPostFlushCbs();
+            return;
+        }
+        hasMismatch = false;
+        hydrateNode(container.firstChild, vnode, null, null, null);
+        flushPostFlushCbs();
+        if (hasMismatch && !false) {
+            // this error should show up in production
+            console.error(`Hydration completed but contains mismatches.`);
+        }
+    };
+    const hydrateNode = (node, vnode, parentComponent, parentSuspense, slotScopeIds, optimized = false) => {
+        const isFragmentStart = isComment(node) && node.data === '[';
+        const onMismatch = () => handleMismatch(node, vnode, parentComponent, parentSuspense, slotScopeIds, isFragmentStart);
+        const { type, ref, shapeFlag } = vnode;
+        const domType = node.nodeType;
+        vnode.el = node;
+        let nextNode = null;
+        switch (type) {
+            case Text:
+                if (domType !== 3 /* TEXT */) {
+                    nextNode = onMismatch();
+                }
+                else {
+                    if (node.data !== vnode.children) {
+                        hasMismatch = true;
+                        ( false) &&
+                            0;
+                        node.data = vnode.children;
+                    }
+                    nextNode = nextSibling(node);
+                }
+                break;
+            case Comment:
+                if (domType !== 8 /* COMMENT */ || isFragmentStart) {
+                    nextNode = onMismatch();
+                }
+                else {
+                    nextNode = nextSibling(node);
+                }
+                break;
+            case runtime_core_esm_bundler_Static:
+                if (domType !== 1 /* ELEMENT */) {
+                    nextNode = onMismatch();
+                }
+                else {
+                    // determine anchor, adopt content
+                    nextNode = node;
+                    // if the static vnode has its content stripped during build,
+                    // adopt it from the server-rendered HTML.
+                    const needToAdoptContent = !vnode.children.length;
+                    for (let i = 0; i < vnode.staticCount; i++) {
+                        if (needToAdoptContent)
+                            vnode.children += nextNode.outerHTML;
+                        if (i === vnode.staticCount - 1) {
+                            vnode.anchor = nextNode;
+                        }
+                        nextNode = nextSibling(nextNode);
+                    }
+                    return nextNode;
+                }
+                break;
+            case runtime_core_esm_bundler_Fragment:
+                if (!isFragmentStart) {
+                    nextNode = onMismatch();
+                }
+                else {
+                    nextNode = hydrateFragment(node, vnode, parentComponent, parentSuspense, slotScopeIds, optimized);
+                }
+                break;
+            default:
+                if (shapeFlag & 1 /* ELEMENT */) {
+                    if (domType !== 1 /* ELEMENT */ ||
+                        vnode.type.toLowerCase() !==
+                            node.tagName.toLowerCase()) {
+                        nextNode = onMismatch();
+                    }
+                    else {
+                        nextNode = hydrateElement(node, vnode, parentComponent, parentSuspense, slotScopeIds, optimized);
+                    }
+                }
+                else if (shapeFlag & 6 /* COMPONENT */) {
+                    // when setting up the render effect, if the initial vnode already
+                    // has .el set, the component will perform hydration instead of mount
+                    // on its sub-tree.
+                    vnode.slotScopeIds = slotScopeIds;
+                    const container = parentNode(node);
+                    mountComponent(vnode, container, null, parentComponent, parentSuspense, isSVGContainer(container), optimized);
+                    // component may be async, so in the case of fragments we cannot rely
+                    // on component's rendered output to determine the end of the fragment
+                    // instead, we do a lookahead to find the end anchor node.
+                    nextNode = isFragmentStart
+                        ? locateClosingAsyncAnchor(node)
+                        : nextSibling(node);
+                    // #3787
+                    // if component is async, it may get moved / unmounted before its
+                    // inner component is loaded, so we need to give it a placeholder
+                    // vnode that matches its adopted DOM.
+                    if (isAsyncWrapper(vnode)) {
+                        let subTree;
+                        if (isFragmentStart) {
+                            subTree = runtime_core_esm_bundler_createVNode(runtime_core_esm_bundler_Fragment);
+                            subTree.anchor = nextNode
+                                ? nextNode.previousSibling
+                                : container.lastChild;
+                        }
+                        else {
+                            subTree =
+                                node.nodeType === 3 ? createTextVNode('') : runtime_core_esm_bundler_createVNode('div');
+                        }
+                        subTree.el = node;
+                        vnode.component.subTree = subTree;
+                    }
+                }
+                else if (shapeFlag & 64 /* TELEPORT */) {
+                    if (domType !== 8 /* COMMENT */) {
+                        nextNode = onMismatch();
+                    }
+                    else {
+                        nextNode = vnode.type.hydrate(node, vnode, parentComponent, parentSuspense, slotScopeIds, optimized, rendererInternals, hydrateChildren);
+                    }
+                }
+                else if (shapeFlag & 128 /* SUSPENSE */) {
+                    nextNode = vnode.type.hydrate(node, vnode, parentComponent, parentSuspense, isSVGContainer(parentNode(node)), slotScopeIds, optimized, rendererInternals, hydrateNode);
+                }
+                else if ((false)) {}
+        }
+        if (ref != null) {
+            setRef(ref, null, parentSuspense, vnode);
+        }
+        return nextNode;
+    };
+    const hydrateElement = (el, vnode, parentComponent, parentSuspense, slotScopeIds, optimized) => {
+        optimized = optimized || !!vnode.dynamicChildren;
+        const { type, props, patchFlag, shapeFlag, dirs } = vnode;
+        // #4006 for form elements with non-string v-model value bindings
+        // e.g. <option :value="obj">, <input type="checkbox" :true-value="1">
+        const forcePatchValue = (type === 'input' && dirs) || type === 'option';
+        // skip props & children if this is hoisted static nodes
+        if (forcePatchValue || patchFlag !== -1 /* HOISTED */) {
+            if (dirs) {
+                invokeDirectiveHook(vnode, null, parentComponent, 'created');
+            }
+            // props
+            if (props) {
+                if (forcePatchValue ||
+                    !optimized ||
+                    patchFlag & (16 /* FULL_PROPS */ | 32 /* HYDRATE_EVENTS */)) {
+                    for (const key in props) {
+                        if ((forcePatchValue && key.endsWith('value')) ||
+                            (isOn(key) && !isReservedProp(key))) {
+                            patchProp(el, key, null, props[key]);
+                        }
+                    }
+                }
+                else if (props.onClick) {
+                    // Fast path for click listeners (which is most often) to avoid
+                    // iterating through props.
+                    patchProp(el, 'onClick', null, props.onClick);
+                }
+            }
+            // vnode / directive hooks
+            let vnodeHooks;
+            if ((vnodeHooks = props && props.onVnodeBeforeMount)) {
+                invokeVNodeHook(vnodeHooks, parentComponent, vnode);
+            }
+            if (dirs) {
+                invokeDirectiveHook(vnode, null, parentComponent, 'beforeMount');
+            }
+            if ((vnodeHooks = props && props.onVnodeMounted) || dirs) {
+                queueEffectWithSuspense(() => {
+                    vnodeHooks && invokeVNodeHook(vnodeHooks, parentComponent, vnode);
+                    dirs && invokeDirectiveHook(vnode, null, parentComponent, 'mounted');
+                }, parentSuspense);
+            }
+            // children
+            if (shapeFlag & 16 /* ARRAY_CHILDREN */ &&
+                // skip if element has innerHTML / textContent
+                !(props && (props.innerHTML || props.textContent))) {
+                let next = hydrateChildren(el.firstChild, vnode, el, parentComponent, parentSuspense, slotScopeIds, optimized);
+                let hasWarned = false;
+                while (next) {
+                    hasMismatch = true;
+                    if (false) {}
+                    // The SSRed DOM contains more nodes than it should. Remove them.
+                    const cur = next;
+                    next = next.nextSibling;
+                    remove(cur);
+                }
+            }
+            else if (shapeFlag & 8 /* TEXT_CHILDREN */) {
+                if (el.textContent !== vnode.children) {
+                    hasMismatch = true;
+                    ( false) &&
+                        0;
+                    el.textContent = vnode.children;
+                }
+            }
+        }
+        return el.nextSibling;
+    };
+    const hydrateChildren = (node, parentVNode, container, parentComponent, parentSuspense, slotScopeIds, optimized) => {
+        optimized = optimized || !!parentVNode.dynamicChildren;
+        const children = parentVNode.children;
+        const l = children.length;
+        let hasWarned = false;
+        for (let i = 0; i < l; i++) {
+            const vnode = optimized
+                ? children[i]
+                : (children[i] = normalizeVNode(children[i]));
+            if (node) {
+                node = hydrateNode(node, vnode, parentComponent, parentSuspense, slotScopeIds, optimized);
+            }
+            else if (vnode.type === Text && !vnode.children) {
+                continue;
+            }
+            else {
+                hasMismatch = true;
+                if (false) {}
+                // the SSRed DOM didn't contain enough nodes. Mount the missing ones.
+                patch(null, vnode, container, null, parentComponent, parentSuspense, isSVGContainer(container), slotScopeIds);
+            }
+        }
+        return node;
+    };
+    const hydrateFragment = (node, vnode, parentComponent, parentSuspense, slotScopeIds, optimized) => {
+        const { slotScopeIds: fragmentSlotScopeIds } = vnode;
+        if (fragmentSlotScopeIds) {
+            slotScopeIds = slotScopeIds
+                ? slotScopeIds.concat(fragmentSlotScopeIds)
+                : fragmentSlotScopeIds;
+        }
+        const container = parentNode(node);
+        const next = hydrateChildren(nextSibling(node), vnode, container, parentComponent, parentSuspense, slotScopeIds, optimized);
+        if (next && isComment(next) && next.data === ']') {
+            return nextSibling((vnode.anchor = next));
+        }
+        else {
+            // fragment didn't hydrate successfully, since we didn't get a end anchor
+            // back. This should have led to node/children mismatch warnings.
+            hasMismatch = true;
+            // since the anchor is missing, we need to create one and insert it
+            insert((vnode.anchor = createComment(`]`)), container, next);
+            return next;
+        }
+    };
+    const handleMismatch = (node, vnode, parentComponent, parentSuspense, slotScopeIds, isFragment) => {
+        hasMismatch = true;
+        ( false) &&
+            0;
+        vnode.el = null;
+        if (isFragment) {
+            // remove excessive fragment nodes
+            const end = locateClosingAsyncAnchor(node);
+            while (true) {
+                const next = nextSibling(node);
+                if (next && next !== end) {
+                    remove(next);
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        const next = nextSibling(node);
+        const container = parentNode(node);
+        remove(node);
+        patch(null, vnode, container, next, parentComponent, parentSuspense, isSVGContainer(container), slotScopeIds);
+        return next;
+    };
+    const locateClosingAsyncAnchor = (node) => {
+        let match = 0;
+        while (node) {
+            node = nextSibling(node);
+            if (node && isComment(node)) {
+                if (node.data === '[')
+                    match++;
+                if (node.data === ']') {
+                    if (match === 0) {
+                        return nextSibling(node);
+                    }
+                    else {
+                        match--;
+                    }
+                }
+            }
+        }
+        return node;
+    };
+    return [hydrate, hydrateNode];
+}
+
+let supported;
+let perf;
+function startMeasure(instance, type) {
+    if (instance.appContext.config.performance && isSupported()) {
+        perf.mark(`vue-${type}-${instance.uid}`);
+    }
+    if (( false) || __VUE_PROD_DEVTOOLS__) {
+        devtoolsPerfStart(instance, type, supported ? perf.now() : Date.now());
+    }
+}
+function endMeasure(instance, type) {
+    if (instance.appContext.config.performance && isSupported()) {
+        const startTag = `vue-${type}-${instance.uid}`;
+        const endTag = startTag + `:end`;
+        perf.mark(endTag);
+        perf.measure(`<${formatComponentName(instance, instance.type)}> ${type}`, startTag, endTag);
+        perf.clearMarks(startTag);
+        perf.clearMarks(endTag);
+    }
+    if (( false) || __VUE_PROD_DEVTOOLS__) {
+        devtoolsPerfEnd(instance, type, supported ? perf.now() : Date.now());
+    }
+}
+function isSupported() {
+    if (supported !== undefined) {
+        return supported;
+    }
+    /* eslint-disable no-restricted-globals */
+    if (typeof window !== 'undefined' && window.performance) {
+        supported = true;
+        perf = window.performance;
+    }
+    else {
+        supported = false;
+    }
+    /* eslint-enable no-restricted-globals */
+    return supported;
+}
+
+/**
+ * This is only called in esm-bundler builds.
+ * It is called when a renderer is created, in `baseCreateRenderer` so that
+ * importing runtime-core is side-effects free.
+ *
+ * istanbul-ignore-next
+ */
+function initFeatureFlags() {
+    let needWarn = false;
+    if (typeof __VUE_OPTIONS_API__ !== 'boolean') {
+        needWarn = true;
+        getGlobalThis().__VUE_OPTIONS_API__ = true;
+    }
+    if (typeof __VUE_PROD_DEVTOOLS__ !== 'boolean') {
+        needWarn = true;
+        getGlobalThis().__VUE_PROD_DEVTOOLS__ = false;
+    }
+    if (false) {}
+}
+
+const queuePostRenderEffect = queueEffectWithSuspense
+    ;
+/**
+ * The createRenderer function accepts two generic arguments:
+ * HostNode and HostElement, corresponding to Node and Element types in the
+ * host environment. For example, for runtime-dom, HostNode would be the DOM
+ * `Node` interface and HostElement would be the DOM `Element` interface.
+ *
+ * Custom renderers can pass in the platform specific types like this:
+ *
+ * ``` js
+ * const { render, createApp } = createRenderer<Node, Element>({
+ *   patchProp,
+ *   ...nodeOps
+ * })
+ * ```
+ */
+function runtime_core_esm_bundler_createRenderer(options) {
+    return baseCreateRenderer(options);
+}
+// Separate API for creating hydration-enabled renderer.
+// Hydration logic is only used when calling this function, making it
+// tree-shakable.
+function runtime_core_esm_bundler_createHydrationRenderer(options) {
+    return baseCreateRenderer(options, createHydrationFunctions);
+}
+// implementation
+function baseCreateRenderer(options, createHydrationFns) {
+    // compile-time feature flags check
+    {
+        initFeatureFlags();
+    }
+    if (( false) || __VUE_PROD_DEVTOOLS__) {
+        const target = getGlobalThis();
+        target.__VUE__ = true;
+        setDevtoolsHook(target.__VUE_DEVTOOLS_GLOBAL_HOOK__);
+    }
+    const { insert: hostInsert, remove: hostRemove, patchProp: hostPatchProp, createElement: hostCreateElement, createText: hostCreateText, createComment: hostCreateComment, setText: hostSetText, setElementText: hostSetElementText, parentNode: hostParentNode, nextSibling: hostNextSibling, setScopeId: hostSetScopeId = NOOP, cloneNode: hostCloneNode, insertStaticContent: hostInsertStaticContent } = options;
+    // Note: functions inside this closure should use `const xxx = () => {}`
+    // style in order to prevent being inlined by minifiers.
+    const patch = (n1, n2, container, anchor = null, parentComponent = null, parentSuspense = null, isSVG = false, slotScopeIds = null, optimized =  false ? 0 : !!n2.dynamicChildren) => {
+        if (n1 === n2) {
+            return;
+        }
+        // patching & not same type, unmount old tree
+        if (n1 && !isSameVNodeType(n1, n2)) {
+            anchor = getNextHostNode(n1);
+            unmount(n1, parentComponent, parentSuspense, true);
+            n1 = null;
+        }
+        if (n2.patchFlag === -2 /* BAIL */) {
+            optimized = false;
+            n2.dynamicChildren = null;
+        }
+        const { type, ref, shapeFlag } = n2;
+        switch (type) {
+            case Text:
+                processText(n1, n2, container, anchor);
+                break;
+            case Comment:
+                processCommentNode(n1, n2, container, anchor);
+                break;
+            case runtime_core_esm_bundler_Static:
+                if (n1 == null) {
+                    mountStaticNode(n2, container, anchor, isSVG);
+                }
+                else if ((false)) {}
+                break;
+            case runtime_core_esm_bundler_Fragment:
+                processFragment(n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                break;
+            default:
+                if (shapeFlag & 1 /* ELEMENT */) {
+                    processElement(n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                }
+                else if (shapeFlag & 6 /* COMPONENT */) {
+                    processComponent(n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                }
+                else if (shapeFlag & 64 /* TELEPORT */) {
+                    type.process(n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, internals);
+                }
+                else if (shapeFlag & 128 /* SUSPENSE */) {
+                    type.process(n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, internals);
+                }
+                else if ((false)) {}
+        }
+        // set ref
+        if (ref != null && parentComponent) {
+            setRef(ref, n1 && n1.ref, parentSuspense, n2 || n1, !n2);
+        }
+    };
+    const processText = (n1, n2, container, anchor) => {
+        if (n1 == null) {
+            hostInsert((n2.el = hostCreateText(n2.children)), container, anchor);
+        }
+        else {
+            const el = (n2.el = n1.el);
+            if (n2.children !== n1.children) {
+                hostSetText(el, n2.children);
+            }
+        }
+    };
+    const processCommentNode = (n1, n2, container, anchor) => {
+        if (n1 == null) {
+            hostInsert((n2.el = hostCreateComment(n2.children || '')), container, anchor);
+        }
+        else {
+            // there's no support for dynamic comments
+            n2.el = n1.el;
+        }
+    };
+    const mountStaticNode = (n2, container, anchor, isSVG) => {
+        [n2.el, n2.anchor] = hostInsertStaticContent(n2.children, container, anchor, isSVG);
+    };
+    /**
+     * Dev / HMR only
+     */
+    const patchStaticNode = (n1, n2, container, isSVG) => {
+        // static nodes are only patched during dev for HMR
+        if (n2.children !== n1.children) {
+            const anchor = hostNextSibling(n1.anchor);
+            // remove existing
+            removeStaticNode(n1);
+            [n2.el, n2.anchor] = hostInsertStaticContent(n2.children, container, anchor, isSVG);
+        }
+        else {
+            n2.el = n1.el;
+            n2.anchor = n1.anchor;
+        }
+    };
+    const moveStaticNode = ({ el, anchor }, container, nextSibling) => {
+        let next;
+        while (el && el !== anchor) {
+            next = hostNextSibling(el);
+            hostInsert(el, container, nextSibling);
+            el = next;
+        }
+        hostInsert(anchor, container, nextSibling);
+    };
+    const removeStaticNode = ({ el, anchor }) => {
+        let next;
+        while (el && el !== anchor) {
+            next = hostNextSibling(el);
+            hostRemove(el);
+            el = next;
+        }
+        hostRemove(anchor);
+    };
+    const processElement = (n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized) => {
+        isSVG = isSVG || n2.type === 'svg';
+        if (n1 == null) {
+            mountElement(n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+        }
+        else {
+            patchElement(n1, n2, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+        }
+    };
+    const mountElement = (vnode, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized) => {
+        let el;
+        let vnodeHook;
+        const { type, props, shapeFlag, transition, patchFlag, dirs } = vnode;
+        if ( true &&
+            vnode.el &&
+            hostCloneNode !== undefined &&
+            patchFlag === -1 /* HOISTED */) {
+            // If a vnode has non-null el, it means it's being reused.
+            // Only static vnodes can be reused, so its mounted DOM nodes should be
+            // exactly the same, and we can simply do a clone here.
+            // only do this in production since cloned trees cannot be HMR updated.
+            el = vnode.el = hostCloneNode(vnode.el);
+        }
+        else {
+            el = vnode.el = hostCreateElement(vnode.type, isSVG, props && props.is, props);
+            // mount children first, since some props may rely on child content
+            // being already rendered, e.g. `<select value>`
+            if (shapeFlag & 8 /* TEXT_CHILDREN */) {
+                hostSetElementText(el, vnode.children);
+            }
+            else if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
+                mountChildren(vnode.children, el, null, parentComponent, parentSuspense, isSVG && type !== 'foreignObject', slotScopeIds, optimized);
+            }
+            if (dirs) {
+                invokeDirectiveHook(vnode, null, parentComponent, 'created');
+            }
+            // props
+            if (props) {
+                for (const key in props) {
+                    if (key !== 'value' && !isReservedProp(key)) {
+                        hostPatchProp(el, key, null, props[key], isSVG, vnode.children, parentComponent, parentSuspense, unmountChildren);
+                    }
+                }
+                /**
+                 * Special case for setting value on DOM elements:
+                 * - it can be order-sensitive (e.g. should be set *after* min/max, #2325, #4024)
+                 * - it needs to be forced (#1471)
+                 * #2353 proposes adding another renderer option to configure this, but
+                 * the properties affects are so finite it is worth special casing it
+                 * here to reduce the complexity. (Special casing it also should not
+                 * affect non-DOM renderers)
+                 */
+                if ('value' in props) {
+                    hostPatchProp(el, 'value', null, props.value);
+                }
+                if ((vnodeHook = props.onVnodeBeforeMount)) {
+                    invokeVNodeHook(vnodeHook, parentComponent, vnode);
+                }
+            }
+            // scopeId
+            setScopeId(el, vnode, vnode.scopeId, slotScopeIds, parentComponent);
+        }
+        if (( false) || __VUE_PROD_DEVTOOLS__) {
+            Object.defineProperty(el, '__vnode', {
+                value: vnode,
+                enumerable: false
+            });
+            Object.defineProperty(el, '__vueParentComponent', {
+                value: parentComponent,
+                enumerable: false
+            });
+        }
+        if (dirs) {
+            invokeDirectiveHook(vnode, null, parentComponent, 'beforeMount');
+        }
+        // #1583 For inside suspense + suspense not resolved case, enter hook should call when suspense resolved
+        // #1689 For inside suspense + suspense resolved case, just call it
+        const needCallTransitionHooks = (!parentSuspense || (parentSuspense && !parentSuspense.pendingBranch)) &&
+            transition &&
+            !transition.persisted;
+        if (needCallTransitionHooks) {
+            transition.beforeEnter(el);
+        }
+        hostInsert(el, container, anchor);
+        if ((vnodeHook = props && props.onVnodeMounted) ||
+            needCallTransitionHooks ||
+            dirs) {
+            queuePostRenderEffect(() => {
+                vnodeHook && invokeVNodeHook(vnodeHook, parentComponent, vnode);
+                needCallTransitionHooks && transition.enter(el);
+                dirs && invokeDirectiveHook(vnode, null, parentComponent, 'mounted');
+            }, parentSuspense);
+        }
+    };
+    const setScopeId = (el, vnode, scopeId, slotScopeIds, parentComponent) => {
+        if (scopeId) {
+            hostSetScopeId(el, scopeId);
+        }
+        if (slotScopeIds) {
+            for (let i = 0; i < slotScopeIds.length; i++) {
+                hostSetScopeId(el, slotScopeIds[i]);
+            }
+        }
+        if (parentComponent) {
+            let subTree = parentComponent.subTree;
+            if (false /* DEV_ROOT_FRAGMENT */) {}
+            if (vnode === subTree) {
+                const parentVNode = parentComponent.vnode;
+                setScopeId(el, parentVNode, parentVNode.scopeId, parentVNode.slotScopeIds, parentComponent.parent);
+            }
+        }
+    };
+    const mountChildren = (children, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, start = 0) => {
+        for (let i = start; i < children.length; i++) {
+            const child = (children[i] = optimized
+                ? cloneIfMounted(children[i])
+                : normalizeVNode(children[i]));
+            patch(null, child, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+        }
+    };
+    const patchElement = (n1, n2, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized) => {
+        const el = (n2.el = n1.el);
+        let { patchFlag, dynamicChildren, dirs } = n2;
+        // #1426 take the old vnode's patch flag into account since user may clone a
+        // compiler-generated vnode, which de-opts to FULL_PROPS
+        patchFlag |= n1.patchFlag & 16 /* FULL_PROPS */;
+        const oldProps = n1.props || EMPTY_OBJ;
+        const newProps = n2.props || EMPTY_OBJ;
+        let vnodeHook;
+        if ((vnodeHook = newProps.onVnodeBeforeUpdate)) {
+            invokeVNodeHook(vnodeHook, parentComponent, n2, n1);
+        }
+        if (dirs) {
+            invokeDirectiveHook(n2, n1, parentComponent, 'beforeUpdate');
+        }
+        if (false) {}
+        const areChildrenSVG = isSVG && n2.type !== 'foreignObject';
+        if (dynamicChildren) {
+            patchBlockChildren(n1.dynamicChildren, dynamicChildren, el, parentComponent, parentSuspense, areChildrenSVG, slotScopeIds);
+            if (false) {}
+        }
+        else if (!optimized) {
+            // full diff
+            patchChildren(n1, n2, el, null, parentComponent, parentSuspense, areChildrenSVG, slotScopeIds, false);
+        }
+        if (patchFlag > 0) {
+            // the presence of a patchFlag means this element's render code was
+            // generated by the compiler and can take the fast path.
+            // in this path old node and new node are guaranteed to have the same shape
+            // (i.e. at the exact same position in the source template)
+            if (patchFlag & 16 /* FULL_PROPS */) {
+                // element props contain dynamic keys, full diff needed
+                patchProps(el, n2, oldProps, newProps, parentComponent, parentSuspense, isSVG);
+            }
+            else {
+                // class
+                // this flag is matched when the element has dynamic class bindings.
+                if (patchFlag & 2 /* CLASS */) {
+                    if (oldProps.class !== newProps.class) {
+                        hostPatchProp(el, 'class', null, newProps.class, isSVG);
+                    }
+                }
+                // style
+                // this flag is matched when the element has dynamic style bindings
+                if (patchFlag & 4 /* STYLE */) {
+                    hostPatchProp(el, 'style', oldProps.style, newProps.style, isSVG);
+                }
+                // props
+                // This flag is matched when the element has dynamic prop/attr bindings
+                // other than class and style. The keys of dynamic prop/attrs are saved for
+                // faster iteration.
+                // Note dynamic keys like :[foo]="bar" will cause this optimization to
+                // bail out and go through a full diff because we need to unset the old key
+                if (patchFlag & 8 /* PROPS */) {
+                    // if the flag is present then dynamicProps must be non-null
+                    const propsToUpdate = n2.dynamicProps;
+                    for (let i = 0; i < propsToUpdate.length; i++) {
+                        const key = propsToUpdate[i];
+                        const prev = oldProps[key];
+                        const next = newProps[key];
+                        // #1471 force patch value
+                        if (next !== prev || key === 'value') {
+                            hostPatchProp(el, key, prev, next, isSVG, n1.children, parentComponent, parentSuspense, unmountChildren);
+                        }
+                    }
+                }
+            }
+            // text
+            // This flag is matched when the element has only dynamic text children.
+            if (patchFlag & 1 /* TEXT */) {
+                if (n1.children !== n2.children) {
+                    hostSetElementText(el, n2.children);
+                }
+            }
+        }
+        else if (!optimized && dynamicChildren == null) {
+            // unoptimized, full diff
+            patchProps(el, n2, oldProps, newProps, parentComponent, parentSuspense, isSVG);
+        }
+        if ((vnodeHook = newProps.onVnodeUpdated) || dirs) {
+            queuePostRenderEffect(() => {
+                vnodeHook && invokeVNodeHook(vnodeHook, parentComponent, n2, n1);
+                dirs && invokeDirectiveHook(n2, n1, parentComponent, 'updated');
+            }, parentSuspense);
+        }
+    };
+    // The fast path for blocks.
+    const patchBlockChildren = (oldChildren, newChildren, fallbackContainer, parentComponent, parentSuspense, isSVG, slotScopeIds) => {
+        for (let i = 0; i < newChildren.length; i++) {
+            const oldVNode = oldChildren[i];
+            const newVNode = newChildren[i];
+            // Determine the container (parent element) for the patch.
+            const container = 
+            // oldVNode may be an errored async setup() component inside Suspense
+            // which will not have a mounted element
+            oldVNode.el &&
+                // - In the case of a Fragment, we need to provide the actual parent
+                // of the Fragment itself so it can move its children.
+                (oldVNode.type === runtime_core_esm_bundler_Fragment ||
+                    // - In the case of different nodes, there is going to be a replacement
+                    // which also requires the correct parent container
+                    !isSameVNodeType(oldVNode, newVNode) ||
+                    // - In the case of a component, it could contain anything.
+                    oldVNode.shapeFlag & (6 /* COMPONENT */ | 64 /* TELEPORT */))
+                ? hostParentNode(oldVNode.el)
+                : // In other cases, the parent container is not actually used so we
+                    // just pass the block element here to avoid a DOM parentNode call.
+                    fallbackContainer;
+            patch(oldVNode, newVNode, container, null, parentComponent, parentSuspense, isSVG, slotScopeIds, true);
+        }
+    };
+    const patchProps = (el, vnode, oldProps, newProps, parentComponent, parentSuspense, isSVG) => {
+        if (oldProps !== newProps) {
+            for (const key in newProps) {
+                // empty string is not valid prop
+                if (isReservedProp(key))
+                    continue;
+                const next = newProps[key];
+                const prev = oldProps[key];
+                // defer patching value
+                if (next !== prev && key !== 'value') {
+                    hostPatchProp(el, key, prev, next, isSVG, vnode.children, parentComponent, parentSuspense, unmountChildren);
+                }
+            }
+            if (oldProps !== EMPTY_OBJ) {
+                for (const key in oldProps) {
+                    if (!isReservedProp(key) && !(key in newProps)) {
+                        hostPatchProp(el, key, oldProps[key], null, isSVG, vnode.children, parentComponent, parentSuspense, unmountChildren);
+                    }
+                }
+            }
+            if ('value' in newProps) {
+                hostPatchProp(el, 'value', oldProps.value, newProps.value);
+            }
+        }
+    };
+    const processFragment = (n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized) => {
+        const fragmentStartAnchor = (n2.el = n1 ? n1.el : hostCreateText(''));
+        const fragmentEndAnchor = (n2.anchor = n1 ? n1.anchor : hostCreateText(''));
+        let { patchFlag, dynamicChildren, slotScopeIds: fragmentSlotScopeIds } = n2;
+        if (false) {}
+        // check if this is a slot fragment with :slotted scope ids
+        if (fragmentSlotScopeIds) {
+            slotScopeIds = slotScopeIds
+                ? slotScopeIds.concat(fragmentSlotScopeIds)
+                : fragmentSlotScopeIds;
+        }
+        if (n1 == null) {
+            hostInsert(fragmentStartAnchor, container, anchor);
+            hostInsert(fragmentEndAnchor, container, anchor);
+            // a fragment can only have array children
+            // since they are either generated by the compiler, or implicitly created
+            // from arrays.
+            mountChildren(n2.children, container, fragmentEndAnchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+        }
+        else {
+            if (patchFlag > 0 &&
+                patchFlag & 64 /* STABLE_FRAGMENT */ &&
+                dynamicChildren &&
+                // #2715 the previous fragment could've been a BAILed one as a result
+                // of renderSlot() with no valid children
+                n1.dynamicChildren) {
+                // a stable fragment (template root or <template v-for>) doesn't need to
+                // patch children order, but it may contain dynamicChildren.
+                patchBlockChildren(n1.dynamicChildren, dynamicChildren, container, parentComponent, parentSuspense, isSVG, slotScopeIds);
+                if (false) {}
+                else if (
+                // #2080 if the stable fragment has a key, it's a <template v-for> that may
+                //  get moved around. Make sure all root level vnodes inherit el.
+                // #2134 or if it's a component root, it may also get moved around
+                // as the component is being moved.
+                n2.key != null ||
+                    (parentComponent && n2 === parentComponent.subTree)) {
+                    traverseStaticChildren(n1, n2, true /* shallow */);
+                }
+            }
+            else {
+                // keyed / unkeyed, or manual fragments.
+                // for keyed & unkeyed, since they are compiler generated from v-for,
+                // each child is guaranteed to be a block so the fragment will never
+                // have dynamicChildren.
+                patchChildren(n1, n2, container, fragmentEndAnchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+            }
+        }
+    };
+    const processComponent = (n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized) => {
+        n2.slotScopeIds = slotScopeIds;
+        if (n1 == null) {
+            if (n2.shapeFlag & 512 /* COMPONENT_KEPT_ALIVE */) {
+                parentComponent.ctx.activate(n2, container, anchor, isSVG, optimized);
+            }
+            else {
+                mountComponent(n2, container, anchor, parentComponent, parentSuspense, isSVG, optimized);
+            }
+        }
+        else {
+            updateComponent(n1, n2, optimized);
+        }
+    };
+    const mountComponent = (initialVNode, container, anchor, parentComponent, parentSuspense, isSVG, optimized) => {
+        const instance = (initialVNode.component = createComponentInstance(initialVNode, parentComponent, parentSuspense));
+        if (false) {}
+        if ((false)) {}
+        // inject renderer internals for keepAlive
+        if (isKeepAlive(initialVNode)) {
+            instance.ctx.renderer = internals;
+        }
+        // resolve props and slots for setup context
+        {
+            if ((false)) {}
+            setupComponent(instance);
+            if ((false)) {}
+        }
+        // setup() is async. This component relies on async logic to be resolved
+        // before proceeding
+        if (instance.asyncDep) {
+            parentSuspense && parentSuspense.registerDep(instance, setupRenderEffect);
+            // Give it a placeholder if this is not hydration
+            // TODO handle self-defined fallback
+            if (!initialVNode.el) {
+                const placeholder = (instance.subTree = runtime_core_esm_bundler_createVNode(Comment));
+                processCommentNode(null, placeholder, container, anchor);
+            }
+            return;
+        }
+        setupRenderEffect(instance, initialVNode, container, anchor, parentSuspense, isSVG, optimized);
+        if ((false)) {}
+    };
+    const updateComponent = (n1, n2, optimized) => {
+        const instance = (n2.component = n1.component);
+        if (shouldUpdateComponent(n1, n2, optimized)) {
+            if (instance.asyncDep &&
+                !instance.asyncResolved) {
+                // async & still pending - just update props and slots
+                // since the component's reactive effect for render isn't set-up yet
+                if ((false)) {}
+                updateComponentPreRender(instance, n2, optimized);
+                if ((false)) {}
+                return;
+            }
+            else {
+                // normal update
+                instance.next = n2;
+                // in case the child component is also queued, remove it to avoid
+                // double updating the same child component in the same flush.
+                invalidateJob(instance.update);
+                // instance.update is the reactive effect.
+                instance.update();
+            }
+        }
+        else {
+            // no update needed. just copy over properties
+            n2.component = n1.component;
+            n2.el = n1.el;
+            instance.vnode = n2;
+        }
+    };
+    const setupRenderEffect = (instance, initialVNode, container, anchor, parentSuspense, isSVG, optimized) => {
+        const componentUpdateFn = () => {
+            if (!instance.isMounted) {
+                let vnodeHook;
+                const { el, props } = initialVNode;
+                const { bm, m, parent } = instance;
+                const isAsyncWrapperVNode = isAsyncWrapper(initialVNode);
+                effect.allowRecurse = false;
+                // beforeMount hook
+                if (bm) {
+                    invokeArrayFns(bm);
+                }
+                // onVnodeBeforeMount
+                if (!isAsyncWrapperVNode &&
+                    (vnodeHook = props && props.onVnodeBeforeMount)) {
+                    invokeVNodeHook(vnodeHook, parent, initialVNode);
+                }
+                effect.allowRecurse = true;
+                if (el && hydrateNode) {
+                    // vnode has adopted host node - perform hydration instead of mount.
+                    const hydrateSubTree = () => {
+                        if ((false)) {}
+                        instance.subTree = renderComponentRoot(instance);
+                        if ((false)) {}
+                        if ((false)) {}
+                        hydrateNode(el, instance.subTree, instance, parentSuspense, null);
+                        if ((false)) {}
+                    };
+                    if (isAsyncWrapperVNode) {
+                        initialVNode.type.__asyncLoader().then(
+                        // note: we are moving the render call into an async callback,
+                        // which means it won't track dependencies - but it's ok because
+                        // a server-rendered async wrapper is already in resolved state
+                        // and it will never need to change.
+                        () => !instance.isUnmounted && hydrateSubTree());
+                    }
+                    else {
+                        hydrateSubTree();
+                    }
+                }
+                else {
+                    if ((false)) {}
+                    const subTree = (instance.subTree = renderComponentRoot(instance));
+                    if ((false)) {}
+                    if ((false)) {}
+                    patch(null, subTree, container, anchor, instance, parentSuspense, isSVG);
+                    if ((false)) {}
+                    initialVNode.el = subTree.el;
+                }
+                // mounted hook
+                if (m) {
+                    queuePostRenderEffect(m, parentSuspense);
+                }
+                // onVnodeMounted
+                if (!isAsyncWrapperVNode &&
+                    (vnodeHook = props && props.onVnodeMounted)) {
+                    const scopedInitialVNode = initialVNode;
+                    queuePostRenderEffect(() => invokeVNodeHook(vnodeHook, parent, scopedInitialVNode), parentSuspense);
+                }
+                // activated hook for keep-alive roots.
+                // #1742 activated hook must be accessed after first render
+                // since the hook may be injected by a child keep-alive
+                if (initialVNode.shapeFlag & 256 /* COMPONENT_SHOULD_KEEP_ALIVE */) {
+                    instance.a && queuePostRenderEffect(instance.a, parentSuspense);
+                }
+                instance.isMounted = true;
+                if (( false) || __VUE_PROD_DEVTOOLS__) {
+                    devtoolsComponentAdded(instance);
+                }
+                // #2458: deference mount-only object parameters to prevent memleaks
+                initialVNode = container = anchor = null;
+            }
+            else {
+                // updateComponent
+                // This is triggered by mutation of component's own state (next: null)
+                // OR parent calling processComponent (next: VNode)
+                let { next, bu, u, parent, vnode } = instance;
+                let originNext = next;
+                let vnodeHook;
+                if ((false)) {}
+                // Disallow component effect recursion during pre-lifecycle hooks.
+                effect.allowRecurse = false;
+                if (next) {
+                    next.el = vnode.el;
+                    updateComponentPreRender(instance, next, optimized);
+                }
+                else {
+                    next = vnode;
+                }
+                // beforeUpdate hook
+                if (bu) {
+                    invokeArrayFns(bu);
+                }
+                // onVnodeBeforeUpdate
+                if ((vnodeHook = next.props && next.props.onVnodeBeforeUpdate)) {
+                    invokeVNodeHook(vnodeHook, parent, next, vnode);
+                }
+                effect.allowRecurse = true;
+                // render
+                if ((false)) {}
+                const nextTree = renderComponentRoot(instance);
+                if ((false)) {}
+                const prevTree = instance.subTree;
+                instance.subTree = nextTree;
+                if ((false)) {}
+                patch(prevTree, nextTree, 
+                // parent may have changed if it's in a teleport
+                hostParentNode(prevTree.el), 
+                // anchor may have changed if it's in a fragment
+                getNextHostNode(prevTree), instance, parentSuspense, isSVG);
+                if ((false)) {}
+                next.el = nextTree.el;
+                if (originNext === null) {
+                    // self-triggered update. In case of HOC, update parent component
+                    // vnode el. HOC is indicated by parent instance's subTree pointing
+                    // to child component's vnode
+                    updateHOCHostEl(instance, nextTree.el);
+                }
+                // updated hook
+                if (u) {
+                    queuePostRenderEffect(u, parentSuspense);
+                }
+                // onVnodeUpdated
+                if ((vnodeHook = next.props && next.props.onVnodeUpdated)) {
+                    queuePostRenderEffect(() => invokeVNodeHook(vnodeHook, parent, next, vnode), parentSuspense);
+                }
+                if (( false) || __VUE_PROD_DEVTOOLS__) {
+                    devtoolsComponentUpdated(instance);
+                }
+                if ((false)) {}
+            }
+        };
+        // create reactive effect for rendering
+        const effect = new ReactiveEffect(componentUpdateFn, () => queueJob(instance.update), instance.scope // track it in component's effect scope
+        );
+        const update = (instance.update = effect.run.bind(effect));
+        update.id = instance.uid;
+        // allowRecurse
+        // #1801, #2043 component render effects should allow recursive updates
+        effect.allowRecurse = update.allowRecurse = true;
+        if ((false)) {}
+        update();
+    };
+    const updateComponentPreRender = (instance, nextVNode, optimized) => {
+        nextVNode.component = instance;
+        const prevProps = instance.vnode.props;
+        instance.vnode = nextVNode;
+        instance.next = null;
+        updateProps(instance, nextVNode.props, prevProps, optimized);
+        updateSlots(instance, nextVNode.children, optimized);
+        pauseTracking();
+        // props update may have triggered pre-flush watchers.
+        // flush them before the render update.
+        flushPreFlushCbs(undefined, instance.update);
+        resetTracking();
+    };
+    const patchChildren = (n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized = false) => {
+        const c1 = n1 && n1.children;
+        const prevShapeFlag = n1 ? n1.shapeFlag : 0;
+        const c2 = n2.children;
+        const { patchFlag, shapeFlag } = n2;
+        // fast path
+        if (patchFlag > 0) {
+            if (patchFlag & 128 /* KEYED_FRAGMENT */) {
+                // this could be either fully-keyed or mixed (some keyed some not)
+                // presence of patchFlag means children are guaranteed to be arrays
+                patchKeyedChildren(c1, c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                return;
+            }
+            else if (patchFlag & 256 /* UNKEYED_FRAGMENT */) {
+                // unkeyed
+                patchUnkeyedChildren(c1, c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                return;
+            }
+        }
+        // children has 3 possibilities: text, array or no children.
+        if (shapeFlag & 8 /* TEXT_CHILDREN */) {
+            // text children fast path
+            if (prevShapeFlag & 16 /* ARRAY_CHILDREN */) {
+                unmountChildren(c1, parentComponent, parentSuspense);
+            }
+            if (c2 !== c1) {
+                hostSetElementText(container, c2);
+            }
+        }
+        else {
+            if (prevShapeFlag & 16 /* ARRAY_CHILDREN */) {
+                // prev children was array
+                if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
+                    // two arrays, cannot assume anything, do full diff
+                    patchKeyedChildren(c1, c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                }
+                else {
+                    // no new children, just unmount old
+                    unmountChildren(c1, parentComponent, parentSuspense, true);
+                }
+            }
+            else {
+                // prev children was text OR null
+                // new children is array OR null
+                if (prevShapeFlag & 8 /* TEXT_CHILDREN */) {
+                    hostSetElementText(container, '');
+                }
+                // mount new if array
+                if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
+                    mountChildren(c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                }
+            }
+        }
+    };
+    const patchUnkeyedChildren = (c1, c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized) => {
+        c1 = c1 || EMPTY_ARR;
+        c2 = c2 || EMPTY_ARR;
+        const oldLength = c1.length;
+        const newLength = c2.length;
+        const commonLength = Math.min(oldLength, newLength);
+        let i;
+        for (i = 0; i < commonLength; i++) {
+            const nextChild = (c2[i] = optimized
+                ? cloneIfMounted(c2[i])
+                : normalizeVNode(c2[i]));
+            patch(c1[i], nextChild, container, null, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+        }
+        if (oldLength > newLength) {
+            // remove old
+            unmountChildren(c1, parentComponent, parentSuspense, true, false, commonLength);
+        }
+        else {
+            // mount new
+            mountChildren(c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, commonLength);
+        }
+    };
+    // can be all-keyed or mixed
+    const patchKeyedChildren = (c1, c2, container, parentAnchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized) => {
+        let i = 0;
+        const l2 = c2.length;
+        let e1 = c1.length - 1; // prev ending index
+        let e2 = l2 - 1; // next ending index
+        // 1. sync from start
+        // (a b) c
+        // (a b) d e
+        while (i <= e1 && i <= e2) {
+            const n1 = c1[i];
+            const n2 = (c2[i] = optimized
+                ? cloneIfMounted(c2[i])
+                : normalizeVNode(c2[i]));
+            if (isSameVNodeType(n1, n2)) {
+                patch(n1, n2, container, null, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+            }
+            else {
+                break;
+            }
+            i++;
+        }
+        // 2. sync from end
+        // a (b c)
+        // d e (b c)
+        while (i <= e1 && i <= e2) {
+            const n1 = c1[e1];
+            const n2 = (c2[e2] = optimized
+                ? cloneIfMounted(c2[e2])
+                : normalizeVNode(c2[e2]));
+            if (isSameVNodeType(n1, n2)) {
+                patch(n1, n2, container, null, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+            }
+            else {
+                break;
+            }
+            e1--;
+            e2--;
+        }
+        // 3. common sequence + mount
+        // (a b)
+        // (a b) c
+        // i = 2, e1 = 1, e2 = 2
+        // (a b)
+        // c (a b)
+        // i = 0, e1 = -1, e2 = 0
+        if (i > e1) {
+            if (i <= e2) {
+                const nextPos = e2 + 1;
+                const anchor = nextPos < l2 ? c2[nextPos].el : parentAnchor;
+                while (i <= e2) {
+                    patch(null, (c2[i] = optimized
+                        ? cloneIfMounted(c2[i])
+                        : normalizeVNode(c2[i])), container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                    i++;
+                }
+            }
+        }
+        // 4. common sequence + unmount
+        // (a b) c
+        // (a b)
+        // i = 2, e1 = 2, e2 = 1
+        // a (b c)
+        // (b c)
+        // i = 0, e1 = 0, e2 = -1
+        else if (i > e2) {
+            while (i <= e1) {
+                unmount(c1[i], parentComponent, parentSuspense, true);
+                i++;
+            }
+        }
+        // 5. unknown sequence
+        // [i ... e1 + 1]: a b [c d e] f g
+        // [i ... e2 + 1]: a b [e d c h] f g
+        // i = 2, e1 = 4, e2 = 5
+        else {
+            const s1 = i; // prev starting index
+            const s2 = i; // next starting index
+            // 5.1 build key:index map for newChildren
+            const keyToNewIndexMap = new Map();
+            for (i = s2; i <= e2; i++) {
+                const nextChild = (c2[i] = optimized
+                    ? cloneIfMounted(c2[i])
+                    : normalizeVNode(c2[i]));
+                if (nextChild.key != null) {
+                    if (false) {}
+                    keyToNewIndexMap.set(nextChild.key, i);
+                }
+            }
+            // 5.2 loop through old children left to be patched and try to patch
+            // matching nodes & remove nodes that are no longer present
+            let j;
+            let patched = 0;
+            const toBePatched = e2 - s2 + 1;
+            let moved = false;
+            // used to track whether any node has moved
+            let maxNewIndexSoFar = 0;
+            // works as Map<newIndex, oldIndex>
+            // Note that oldIndex is offset by +1
+            // and oldIndex = 0 is a special value indicating the new node has
+            // no corresponding old node.
+            // used for determining longest stable subsequence
+            const newIndexToOldIndexMap = new Array(toBePatched);
+            for (i = 0; i < toBePatched; i++)
+                newIndexToOldIndexMap[i] = 0;
+            for (i = s1; i <= e1; i++) {
+                const prevChild = c1[i];
+                if (patched >= toBePatched) {
+                    // all new children have been patched so this can only be a removal
+                    unmount(prevChild, parentComponent, parentSuspense, true);
+                    continue;
+                }
+                let newIndex;
+                if (prevChild.key != null) {
+                    newIndex = keyToNewIndexMap.get(prevChild.key);
+                }
+                else {
+                    // key-less node, try to locate a key-less node of the same type
+                    for (j = s2; j <= e2; j++) {
+                        if (newIndexToOldIndexMap[j - s2] === 0 &&
+                            isSameVNodeType(prevChild, c2[j])) {
+                            newIndex = j;
+                            break;
+                        }
+                    }
+                }
+                if (newIndex === undefined) {
+                    unmount(prevChild, parentComponent, parentSuspense, true);
+                }
+                else {
+                    newIndexToOldIndexMap[newIndex - s2] = i + 1;
+                    if (newIndex >= maxNewIndexSoFar) {
+                        maxNewIndexSoFar = newIndex;
+                    }
+                    else {
+                        moved = true;
+                    }
+                    patch(prevChild, c2[newIndex], container, null, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                    patched++;
+                }
+            }
+            // 5.3 move and mount
+            // generate longest stable subsequence only when nodes have moved
+            const increasingNewIndexSequence = moved
+                ? getSequence(newIndexToOldIndexMap)
+                : EMPTY_ARR;
+            j = increasingNewIndexSequence.length - 1;
+            // looping backwards so that we can use last patched node as anchor
+            for (i = toBePatched - 1; i >= 0; i--) {
+                const nextIndex = s2 + i;
+                const nextChild = c2[nextIndex];
+                const anchor = nextIndex + 1 < l2 ? c2[nextIndex + 1].el : parentAnchor;
+                if (newIndexToOldIndexMap[i] === 0) {
+                    // mount new
+                    patch(null, nextChild, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                }
+                else if (moved) {
+                    // move if:
+                    // There is no stable subsequence (e.g. a reverse)
+                    // OR current node is not among the stable sequence
+                    if (j < 0 || i !== increasingNewIndexSequence[j]) {
+                        move(nextChild, container, anchor, 2 /* REORDER */);
+                    }
+                    else {
+                        j--;
+                    }
+                }
+            }
+        }
+    };
+    const move = (vnode, container, anchor, moveType, parentSuspense = null) => {
+        const { el, type, transition, children, shapeFlag } = vnode;
+        if (shapeFlag & 6 /* COMPONENT */) {
+            move(vnode.component.subTree, container, anchor, moveType);
+            return;
+        }
+        if (shapeFlag & 128 /* SUSPENSE */) {
+            vnode.suspense.move(container, anchor, moveType);
+            return;
+        }
+        if (shapeFlag & 64 /* TELEPORT */) {
+            type.move(vnode, container, anchor, internals);
+            return;
+        }
+        if (type === runtime_core_esm_bundler_Fragment) {
+            hostInsert(el, container, anchor);
+            for (let i = 0; i < children.length; i++) {
+                move(children[i], container, anchor, moveType);
+            }
+            hostInsert(vnode.anchor, container, anchor);
+            return;
+        }
+        if (type === runtime_core_esm_bundler_Static) {
+            moveStaticNode(vnode, container, anchor);
+            return;
+        }
+        // single nodes
+        const needTransition = moveType !== 2 /* REORDER */ &&
+            shapeFlag & 1 /* ELEMENT */ &&
+            transition;
+        if (needTransition) {
+            if (moveType === 0 /* ENTER */) {
+                transition.beforeEnter(el);
+                hostInsert(el, container, anchor);
+                queuePostRenderEffect(() => transition.enter(el), parentSuspense);
+            }
+            else {
+                const { leave, delayLeave, afterLeave } = transition;
+                const remove = () => hostInsert(el, container, anchor);
+                const performLeave = () => {
+                    leave(el, () => {
+                        remove();
+                        afterLeave && afterLeave();
+                    });
+                };
+                if (delayLeave) {
+                    delayLeave(el, remove, performLeave);
+                }
+                else {
+                    performLeave();
+                }
+            }
+        }
+        else {
+            hostInsert(el, container, anchor);
+        }
+    };
+    const unmount = (vnode, parentComponent, parentSuspense, doRemove = false, optimized = false) => {
+        const { type, props, ref, children, dynamicChildren, shapeFlag, patchFlag, dirs } = vnode;
+        // unset ref
+        if (ref != null) {
+            setRef(ref, null, parentSuspense, vnode, true);
+        }
+        if (shapeFlag & 256 /* COMPONENT_SHOULD_KEEP_ALIVE */) {
+            parentComponent.ctx.deactivate(vnode);
+            return;
+        }
+        const shouldInvokeDirs = shapeFlag & 1 /* ELEMENT */ && dirs;
+        const shouldInvokeVnodeHook = !isAsyncWrapper(vnode);
+        let vnodeHook;
+        if (shouldInvokeVnodeHook &&
+            (vnodeHook = props && props.onVnodeBeforeUnmount)) {
+            invokeVNodeHook(vnodeHook, parentComponent, vnode);
+        }
+        if (shapeFlag & 6 /* COMPONENT */) {
+            unmountComponent(vnode.component, parentSuspense, doRemove);
+        }
+        else {
+            if (shapeFlag & 128 /* SUSPENSE */) {
+                vnode.suspense.unmount(parentSuspense, doRemove);
+                return;
+            }
+            if (shouldInvokeDirs) {
+                invokeDirectiveHook(vnode, null, parentComponent, 'beforeUnmount');
+            }
+            if (shapeFlag & 64 /* TELEPORT */) {
+                vnode.type.remove(vnode, parentComponent, parentSuspense, optimized, internals, doRemove);
+            }
+            else if (dynamicChildren &&
+                // #1153: fast path should not be taken for non-stable (v-for) fragments
+                (type !== runtime_core_esm_bundler_Fragment ||
+                    (patchFlag > 0 && patchFlag & 64 /* STABLE_FRAGMENT */))) {
+                // fast path for block nodes: only need to unmount dynamic children.
+                unmountChildren(dynamicChildren, parentComponent, parentSuspense, false, true);
+            }
+            else if ((type === runtime_core_esm_bundler_Fragment &&
+                patchFlag &
+                    (128 /* KEYED_FRAGMENT */ | 256 /* UNKEYED_FRAGMENT */)) ||
+                (!optimized && shapeFlag & 16 /* ARRAY_CHILDREN */)) {
+                unmountChildren(children, parentComponent, parentSuspense);
+            }
+            if (doRemove) {
+                remove(vnode);
+            }
+        }
+        if ((shouldInvokeVnodeHook &&
+            (vnodeHook = props && props.onVnodeUnmounted)) ||
+            shouldInvokeDirs) {
+            queuePostRenderEffect(() => {
+                vnodeHook && invokeVNodeHook(vnodeHook, parentComponent, vnode);
+                shouldInvokeDirs &&
+                    invokeDirectiveHook(vnode, null, parentComponent, 'unmounted');
+            }, parentSuspense);
+        }
+    };
+    const remove = vnode => {
+        const { type, el, anchor, transition } = vnode;
+        if (type === runtime_core_esm_bundler_Fragment) {
+            removeFragment(el, anchor);
+            return;
+        }
+        if (type === runtime_core_esm_bundler_Static) {
+            removeStaticNode(vnode);
+            return;
+        }
+        const performRemove = () => {
+            hostRemove(el);
+            if (transition && !transition.persisted && transition.afterLeave) {
+                transition.afterLeave();
+            }
+        };
+        if (vnode.shapeFlag & 1 /* ELEMENT */ &&
+            transition &&
+            !transition.persisted) {
+            const { leave, delayLeave } = transition;
+            const performLeave = () => leave(el, performRemove);
+            if (delayLeave) {
+                delayLeave(vnode.el, performRemove, performLeave);
+            }
+            else {
+                performLeave();
+            }
+        }
+        else {
+            performRemove();
+        }
+    };
+    const removeFragment = (cur, end) => {
+        // For fragments, directly remove all contained DOM nodes.
+        // (fragment child nodes cannot have transition)
+        let next;
+        while (cur !== end) {
+            next = hostNextSibling(cur);
+            hostRemove(cur);
+            cur = next;
+        }
+        hostRemove(end);
+    };
+    const unmountComponent = (instance, parentSuspense, doRemove) => {
+        if (false) {}
+        const { bum, scope, update, subTree, um } = instance;
+        // beforeUnmount hook
+        if (bum) {
+            invokeArrayFns(bum);
+        }
+        // stop effects in component scope
+        scope.stop();
+        // update may be null if a component is unmounted before its async
+        // setup has resolved.
+        if (update) {
+            // so that scheduler will no longer invoke it
+            update.active = false;
+            unmount(subTree, instance, parentSuspense, doRemove);
+        }
+        // unmounted hook
+        if (um) {
+            queuePostRenderEffect(um, parentSuspense);
+        }
+        queuePostRenderEffect(() => {
+            instance.isUnmounted = true;
+        }, parentSuspense);
+        // A component with async dep inside a pending suspense is unmounted before
+        // its async dep resolves. This should remove the dep from the suspense, and
+        // cause the suspense to resolve immediately if that was the last dep.
+        if (parentSuspense &&
+            parentSuspense.pendingBranch &&
+            !parentSuspense.isUnmounted &&
+            instance.asyncDep &&
+            !instance.asyncResolved &&
+            instance.suspenseId === parentSuspense.pendingId) {
+            parentSuspense.deps--;
+            if (parentSuspense.deps === 0) {
+                parentSuspense.resolve();
+            }
+        }
+        if (( false) || __VUE_PROD_DEVTOOLS__) {
+            devtoolsComponentRemoved(instance);
+        }
+    };
+    const unmountChildren = (children, parentComponent, parentSuspense, doRemove = false, optimized = false, start = 0) => {
+        for (let i = start; i < children.length; i++) {
+            unmount(children[i], parentComponent, parentSuspense, doRemove, optimized);
+        }
+    };
+    const getNextHostNode = vnode => {
+        if (vnode.shapeFlag & 6 /* COMPONENT */) {
+            return getNextHostNode(vnode.component.subTree);
+        }
+        if (vnode.shapeFlag & 128 /* SUSPENSE */) {
+            return vnode.suspense.next();
+        }
+        return hostNextSibling((vnode.anchor || vnode.el));
+    };
+    const render = (vnode, container, isSVG) => {
+        if (vnode == null) {
+            if (container._vnode) {
+                unmount(container._vnode, null, null, true);
+            }
+        }
+        else {
+            patch(container._vnode || null, vnode, container, null, null, null, isSVG);
+        }
+        flushPostFlushCbs();
+        container._vnode = vnode;
+    };
+    const internals = {
+        p: patch,
+        um: unmount,
+        m: move,
+        r: remove,
+        mt: mountComponent,
+        mc: mountChildren,
+        pc: patchChildren,
+        pbc: patchBlockChildren,
+        n: getNextHostNode,
+        o: options
+    };
+    let hydrate;
+    let hydrateNode;
+    if (createHydrationFns) {
+        [hydrate, hydrateNode] = createHydrationFns(internals);
+    }
+    return {
+        render,
+        hydrate,
+        createApp: createAppAPI(render, hydrate)
+    };
+}
+function setRef(rawRef, oldRawRef, parentSuspense, vnode, isUnmount = false) {
+    if (isArray(rawRef)) {
+        rawRef.forEach((r, i) => setRef(r, oldRawRef && (isArray(oldRawRef) ? oldRawRef[i] : oldRawRef), parentSuspense, vnode, isUnmount));
+        return;
+    }
+    if (isAsyncWrapper(vnode) && !isUnmount) {
+        // when mounting async components, nothing needs to be done,
+        // because the template ref is forwarded to inner component
+        return;
+    }
+    const refValue = vnode.shapeFlag & 4 /* STATEFUL_COMPONENT */
+        ? getExposeProxy(vnode.component) || vnode.component.proxy
+        : vnode.el;
+    const value = isUnmount ? null : refValue;
+    const { i: owner, r: ref } = rawRef;
+    if (false) {}
+    const oldRef = oldRawRef && oldRawRef.r;
+    const refs = owner.refs === EMPTY_OBJ ? (owner.refs = {}) : owner.refs;
+    const setupState = owner.setupState;
+    // dynamic ref changed. unset old ref
+    if (oldRef != null && oldRef !== ref) {
+        if (isString(oldRef)) {
+            refs[oldRef] = null;
+            if (hasOwn(setupState, oldRef)) {
+                setupState[oldRef] = null;
+            }
+        }
+        else if (isRef(oldRef)) {
+            oldRef.value = null;
+        }
+    }
+    if (isString(ref)) {
+        const doSet = () => {
+            {
+                refs[ref] = value;
+            }
+            if (hasOwn(setupState, ref)) {
+                setupState[ref] = value;
+            }
+        };
+        // #1789: for non-null values, set them after render
+        // null values means this is unmount and it should not overwrite another
+        // ref with the same key
+        if (value) {
+            doSet.id = -1;
+            queuePostRenderEffect(doSet, parentSuspense);
+        }
+        else {
+            doSet();
+        }
+    }
+    else if (isRef(ref)) {
+        const doSet = () => {
+            ref.value = value;
+        };
+        if (value) {
+            doSet.id = -1;
+            queuePostRenderEffect(doSet, parentSuspense);
+        }
+        else {
+            doSet();
+        }
+    }
+    else if (isFunction$1(ref)) {
+        callWithErrorHandling(ref, owner, 12 /* FUNCTION_REF */, [value, refs]);
+    }
+    else if ((false)) {}
+}
+function invokeVNodeHook(hook, instance, vnode, prevVNode = null) {
+    callWithAsyncErrorHandling(hook, instance, 7 /* VNODE_HOOK */, [
+        vnode,
+        prevVNode
+    ]);
+}
+/**
+ * #1156
+ * When a component is HMR-enabled, we need to make sure that all static nodes
+ * inside a block also inherit the DOM element from the previous tree so that
+ * HMR updates (which are full updates) can retrieve the element for patching.
+ *
+ * #2080
+ * Inside keyed `template` fragment static children, if a fragment is moved,
+ * the children will always moved so that need inherit el form previous nodes
+ * to ensure correct moved position.
+ */
+function traverseStaticChildren(n1, n2, shallow = false) {
+    const ch1 = n1.children;
+    const ch2 = n2.children;
+    if (shared_esm_bundler_isArray(ch1) && shared_esm_bundler_isArray(ch2)) {
+        for (let i = 0; i < ch1.length; i++) {
+            // this is only called in the optimized path so array children are
+            // guaranteed to be vnodes
+            const c1 = ch1[i];
+            let c2 = ch2[i];
+            if (c2.shapeFlag & 1 /* ELEMENT */ && !c2.dynamicChildren) {
+                if (c2.patchFlag <= 0 || c2.patchFlag === 32 /* HYDRATE_EVENTS */) {
+                    c2 = ch2[i] = cloneIfMounted(ch2[i]);
+                    c2.el = c1.el;
+                }
+                if (!shallow)
+                    traverseStaticChildren(c1, c2);
+            }
+            // also inherit for comment nodes, but not placeholders (e.g. v-if which
+            // would have received .el during block patch)
+            if (false) {}
+        }
+    }
+}
+// https://en.wikipedia.org/wiki/Longest_increasing_subsequence
+function getSequence(arr) {
+    const p = arr.slice();
+    const result = [0];
+    let i, j, u, v, c;
+    const len = arr.length;
+    for (i = 0; i < len; i++) {
+        const arrI = arr[i];
+        if (arrI !== 0) {
+            j = result[result.length - 1];
+            if (arr[j] < arrI) {
+                p[i] = j;
+                result.push(i);
+                continue;
+            }
+            u = 0;
+            v = result.length - 1;
+            while (u < v) {
+                c = (u + v) >> 1;
+                if (arr[result[c]] < arrI) {
+                    u = c + 1;
+                }
+                else {
+                    v = c;
+                }
+            }
+            if (arrI < arr[result[u]]) {
+                if (u > 0) {
+                    p[i] = result[u - 1];
+                }
+                result[u] = i;
+            }
+        }
+    }
+    u = result.length;
+    v = result[u - 1];
+    while (u-- > 0) {
+        result[u] = v;
+        v = p[v];
+    }
+    return result;
+}
+
+const isTeleport = (type) => type.__isTeleport;
+const isTeleportDisabled = (props) => props && (props.disabled || props.disabled === '');
+const isTargetSVG = (target) => typeof SVGElement !== 'undefined' && target instanceof SVGElement;
+const resolveTarget = (props, select) => {
+    const targetSelector = props && props.to;
+    if (shared_esm_bundler_isString(targetSelector)) {
+        if (!select) {
+            ( false) &&
+                0;
+            return null;
+        }
+        else {
+            const target = select(targetSelector);
+            if (!target) {
+                ( false) &&
+                    0;
+            }
+            return target;
+        }
+    }
+    else {
+        if (false) {}
+        return targetSelector;
+    }
+};
+const TeleportImpl = {
+    __isTeleport: true,
+    process(n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized, internals) {
+        const { mc: mountChildren, pc: patchChildren, pbc: patchBlockChildren, o: { insert, querySelector, createText, createComment } } = internals;
+        const disabled = isTeleportDisabled(n2.props);
+        let { shapeFlag, children, dynamicChildren } = n2;
+        // #3302
+        // HMR updated, force full diff
+        if (false) {}
+        if (n1 == null) {
+            // insert anchors in the main view
+            const placeholder = (n2.el = ( false)
+                ? 0
+                : createText(''));
+            const mainAnchor = (n2.anchor = ( false)
+                ? 0
+                : createText(''));
+            insert(placeholder, container, anchor);
+            insert(mainAnchor, container, anchor);
+            const target = (n2.target = resolveTarget(n2.props, querySelector));
+            const targetAnchor = (n2.targetAnchor = createText(''));
+            if (target) {
+                insert(targetAnchor, target);
+                // #2652 we could be teleporting from a non-SVG tree into an SVG tree
+                isSVG = isSVG || isTargetSVG(target);
+            }
+            else if (false) {}
+            const mount = (container, anchor) => {
+                // Teleport *always* has Array children. This is enforced in both the
+                // compiler and vnode children normalization.
+                if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
+                    mountChildren(children, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
+                }
+            };
+            if (disabled) {
+                mount(container, mainAnchor);
+            }
+            else if (target) {
+                mount(target, targetAnchor);
+            }
+        }
+        else {
+            // update content
+            n2.el = n1.el;
+            const mainAnchor = (n2.anchor = n1.anchor);
+            const target = (n2.target = n1.target);
+            const targetAnchor = (n2.targetAnchor = n1.targetAnchor);
+            const wasDisabled = isTeleportDisabled(n1.props);
+            const currentContainer = wasDisabled ? container : target;
+            const currentAnchor = wasDisabled ? mainAnchor : targetAnchor;
+            isSVG = isSVG || isTargetSVG(target);
+            if (dynamicChildren) {
+                // fast path when the teleport happens to be a block root
+                patchBlockChildren(n1.dynamicChildren, dynamicChildren, currentContainer, parentComponent, parentSuspense, isSVG, slotScopeIds);
+                // even in block tree mode we need to make sure all root-level nodes
+                // in the teleport inherit previous DOM references so that they can
+                // be moved in future patches.
+                traverseStaticChildren(n1, n2, true);
+            }
+            else if (!optimized) {
+                patchChildren(n1, n2, currentContainer, currentAnchor, parentComponent, parentSuspense, isSVG, slotScopeIds, false);
+            }
+            if (disabled) {
+                if (!wasDisabled) {
+                    // enabled -> disabled
+                    // move into main container
+                    moveTeleport(n2, container, mainAnchor, internals, 1 /* TOGGLE */);
+                }
+            }
+            else {
+                // target changed
+                if ((n2.props && n2.props.to) !== (n1.props && n1.props.to)) {
+                    const nextTarget = (n2.target = resolveTarget(n2.props, querySelector));
+                    if (nextTarget) {
+                        moveTeleport(n2, nextTarget, null, internals, 0 /* TARGET_CHANGE */);
+                    }
+                    else if ((false)) {}
+                }
+                else if (wasDisabled) {
+                    // disabled -> enabled
+                    // move into teleport target
+                    moveTeleport(n2, target, targetAnchor, internals, 1 /* TOGGLE */);
+                }
+            }
+        }
+    },
+    remove(vnode, parentComponent, parentSuspense, optimized, { um: unmount, o: { remove: hostRemove } }, doRemove) {
+        const { shapeFlag, children, anchor, targetAnchor, target, props } = vnode;
+        if (target) {
+            hostRemove(targetAnchor);
+        }
+        // an unmounted teleport should always remove its children if not disabled
+        if (doRemove || !isTeleportDisabled(props)) {
+            hostRemove(anchor);
+            if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
+                for (let i = 0; i < children.length; i++) {
+                    const child = children[i];
+                    unmount(child, parentComponent, parentSuspense, true, !!child.dynamicChildren);
+                }
+            }
+        }
+    },
+    move: moveTeleport,
+    hydrate: hydrateTeleport
+};
+function moveTeleport(vnode, container, parentAnchor, { o: { insert }, m: move }, moveType = 2 /* REORDER */) {
+    // move target anchor if this is a target change.
+    if (moveType === 0 /* TARGET_CHANGE */) {
+        insert(vnode.targetAnchor, container, parentAnchor);
+    }
+    const { el, anchor, shapeFlag, children, props } = vnode;
+    const isReorder = moveType === 2 /* REORDER */;
+    // move main view anchor if this is a re-order.
+    if (isReorder) {
+        insert(el, container, parentAnchor);
+    }
+    // if this is a re-order and teleport is enabled (content is in target)
+    // do not move children. So the opposite is: only move children if this
+    // is not a reorder, or the teleport is disabled
+    if (!isReorder || isTeleportDisabled(props)) {
+        // Teleport has either Array children or no children.
+        if (shapeFlag & 16 /* ARRAY_CHILDREN */) {
+            for (let i = 0; i < children.length; i++) {
+                move(children[i], container, parentAnchor, 2 /* REORDER */);
+            }
+        }
+    }
+    // move main view anchor if this is a re-order.
+    if (isReorder) {
+        insert(anchor, container, parentAnchor);
+    }
+}
+function hydrateTeleport(node, vnode, parentComponent, parentSuspense, slotScopeIds, optimized, { o: { nextSibling, parentNode, querySelector } }, hydrateChildren) {
+    const target = (vnode.target = resolveTarget(vnode.props, querySelector));
+    if (target) {
+        // if multiple teleports rendered to the same target element, we need to
+        // pick up from where the last teleport finished instead of the first node
+        const targetNode = target._lpa || target.firstChild;
+        if (vnode.shapeFlag & 16 /* ARRAY_CHILDREN */) {
+            if (isTeleportDisabled(vnode.props)) {
+                vnode.anchor = hydrateChildren(nextSibling(node), vnode, parentNode(node), parentComponent, parentSuspense, slotScopeIds, optimized);
+                vnode.targetAnchor = targetNode;
+            }
+            else {
+                vnode.anchor = nextSibling(node);
+                vnode.targetAnchor = hydrateChildren(targetNode, vnode, target, parentComponent, parentSuspense, slotScopeIds, optimized);
+            }
+            target._lpa =
+                vnode.targetAnchor && nextSibling(vnode.targetAnchor);
+        }
+    }
+    return vnode.anchor && nextSibling(vnode.anchor);
+}
+// Force-casted public typing for h and TSX props inference
+const Teleport = (/* unused pure expression or super */ null && (TeleportImpl));
+
+const COMPONENTS = 'components';
+const DIRECTIVES = 'directives';
+/**
+ * @private
+ */
+function resolveComponent(name, maybeSelfReference) {
+    return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;
+}
+const NULL_DYNAMIC_COMPONENT = Symbol();
+/**
+ * @private
+ */
+function resolveDynamicComponent(component) {
+    if (shared_esm_bundler_isString(component)) {
+        return resolveAsset(COMPONENTS, component, false) || component;
+    }
+    else {
+        // invalid types will fallthrough to createVNode and raise warning
+        return (component || NULL_DYNAMIC_COMPONENT);
+    }
+}
+/**
+ * @private
+ */
+function resolveDirective(name) {
+    return resolveAsset(DIRECTIVES, name);
+}
+// implementation
+function resolveAsset(type, name, warnMissing = true, maybeSelfReference = false) {
+    const instance = currentRenderingInstance || currentInstance;
+    if (instance) {
+        const Component = instance.type;
+        // explicit self name has highest priority
+        if (type === COMPONENTS) {
+            const selfName = getComponentName(Component);
+            if (selfName &&
+                (selfName === name ||
+                    selfName === shared_esm_bundler_camelize(name) ||
+                    selfName === shared_esm_bundler_capitalize(shared_esm_bundler_camelize(name)))) {
+                return Component;
+            }
+        }
+        const res = 
+        // local registration
+        // check instance[type] first which is resolved for options API
+        resolve(instance[type] || Component[type], name) ||
+            // global registration
+            resolve(instance.appContext[type], name);
+        if (!res && maybeSelfReference) {
+            // fallback to implicit self-reference
+            return Component;
+        }
+        if (false) {}
+        return res;
+    }
+    else if ((false)) {}
+}
+function resolve(registry, name) {
+    return (registry &&
+        (registry[name] ||
+            registry[shared_esm_bundler_camelize(name)] ||
+            registry[shared_esm_bundler_capitalize(shared_esm_bundler_camelize(name))]));
+}
+
+const runtime_core_esm_bundler_Fragment = Symbol(( false) ? 0 : undefined);
+const Text = Symbol(( false) ? 0 : undefined);
+const Comment = Symbol(( false) ? 0 : undefined);
+const runtime_core_esm_bundler_Static = Symbol(( false) ? 0 : undefined);
+// Since v-if and v-for are the two possible ways node structure can dynamically
+// change, once we consider v-if branches and each v-for fragment a block, we
+// can divide a template into nested blocks, and within each block the node
+// structure would be stable. This allows us to skip most children diffing
+// and only worry about the dynamic nodes (indicated by patch flags).
+const blockStack = [];
+let currentBlock = null;
+/**
+ * Open a block.
+ * This must be called before `createBlock`. It cannot be part of `createBlock`
+ * because the children of the block are evaluated before `createBlock` itself
+ * is called. The generated code typically looks like this:
+ *
+ * ```js
+ * function render() {
+ *   return (openBlock(),createBlock('div', null, [...]))
+ * }
+ * ```
+ * disableTracking is true when creating a v-for fragment block, since a v-for
+ * fragment always diffs its children.
+ *
+ * @private
+ */
+function openBlock(disableTracking = false) {
+    blockStack.push((currentBlock = disableTracking ? null : []));
+}
+function closeBlock() {
+    blockStack.pop();
+    currentBlock = blockStack[blockStack.length - 1] || null;
+}
+// Whether we should be tracking dynamic child nodes inside a block.
+// Only tracks when this value is > 0
+// We are not using a simple boolean because this value may need to be
+// incremented/decremented by nested usage of v-once (see below)
+let isBlockTreeEnabled = 1;
+/**
+ * Block tracking sometimes needs to be disabled, for example during the
+ * creation of a tree that needs to be cached by v-once. The compiler generates
+ * code like this:
+ *
+ * ``` js
+ * _cache[1] || (
+ *   setBlockTracking(-1),
+ *   _cache[1] = createVNode(...),
+ *   setBlockTracking(1),
+ *   _cache[1]
+ * )
+ * ```
+ *
+ * @private
+ */
+function setBlockTracking(value) {
+    isBlockTreeEnabled += value;
+}
+function setupBlock(vnode) {
+    // save current block children on the block vnode
+    vnode.dynamicChildren =
+        isBlockTreeEnabled > 0 ? currentBlock || shared_esm_bundler_EMPTY_ARR : null;
+    // close block
+    closeBlock();
+    // a block is always going to be patched, so track it as a child of its
+    // parent block
+    if (isBlockTreeEnabled > 0 && currentBlock) {
+        currentBlock.push(vnode);
+    }
+    return vnode;
+}
+/**
+ * @private
+ */
+function createElementBlock(type, props, children, patchFlag, dynamicProps, shapeFlag) {
+    return setupBlock(createBaseVNode(type, props, children, patchFlag, dynamicProps, shapeFlag, true /* isBlock */));
+}
+/**
+ * Create a block root vnode. Takes the same exact arguments as `createVNode`.
+ * A block root keeps track of dynamic nodes within the block in the
+ * `dynamicChildren` array.
+ *
+ * @private
+ */
+function createBlock(type, props, children, patchFlag, dynamicProps) {
+    return setupBlock(runtime_core_esm_bundler_createVNode(type, props, children, patchFlag, dynamicProps, true /* isBlock: prevent a block from tracking itself */));
+}
+function isVNode(value) {
+    return value ? value.__v_isVNode === true : false;
+}
+function isSameVNodeType(n1, n2) {
+    if (false) {}
+    return n1.type === n2.type && n1.key === n2.key;
+}
+let vnodeArgsTransformer;
+/**
+ * Internal API for registering an arguments transform for createVNode
+ * used for creating stubs in the test-utils
+ * It is *internal* but needs to be exposed for test-utils to pick up proper
+ * typings
+ */
+function transformVNodeArgs(transformer) {
+    vnodeArgsTransformer = transformer;
+}
+const createVNodeWithArgsTransform = (...args) => {
+    return _createVNode(...(vnodeArgsTransformer
+        ? vnodeArgsTransformer(args, currentRenderingInstance)
+        : args));
+};
+const InternalObjectKey = `__vInternal`;
+const normalizeKey = ({ key }) => key != null ? key : null;
+const normalizeRef = ({ ref }) => {
+    return (ref != null
+        ? shared_esm_bundler_isString(ref) || reactivity_esm_bundler_isRef(ref) || shared_esm_bundler_isFunction(ref)
+            ? { i: currentRenderingInstance, r: ref }
+            : ref
+        : null);
+};
+function createBaseVNode(type, props = null, children = null, patchFlag = 0, dynamicProps = null, shapeFlag = type === runtime_core_esm_bundler_Fragment ? 0 : 1 /* ELEMENT */, isBlockNode = false, needFullChildrenNormalization = false) {
+    const vnode = {
+        __v_isVNode: true,
+        __v_skip: true,
+        type,
+        props,
+        key: props && normalizeKey(props),
+        ref: props && normalizeRef(props),
+        scopeId: currentScopeId,
+        slotScopeIds: null,
+        children,
+        component: null,
+        suspense: null,
+        ssContent: null,
+        ssFallback: null,
+        dirs: null,
+        transition: null,
+        el: null,
+        anchor: null,
+        target: null,
+        targetAnchor: null,
+        staticCount: 0,
+        shapeFlag,
+        patchFlag,
+        dynamicProps,
+        dynamicChildren: null,
+        appContext: null
+    };
+    if (needFullChildrenNormalization) {
+        normalizeChildren(vnode, children);
+        // normalize suspense children
+        if (shapeFlag & 128 /* SUSPENSE */) {
+            type.normalize(vnode);
+        }
+    }
+    else if (children) {
+        // compiled element vnode - if children is passed, only possible types are
+        // string or Array.
+        vnode.shapeFlag |= shared_esm_bundler_isString(children)
+            ? 8 /* TEXT_CHILDREN */
+            : 16 /* ARRAY_CHILDREN */;
+    }
+    // validate key
+    if (false) {}
+    // track vnode for block tree
+    if (isBlockTreeEnabled > 0 &&
+        // avoid a block node from tracking itself
+        !isBlockNode &&
+        // has current parent block
+        currentBlock &&
+        // presence of a patch flag indicates this node needs patching on updates.
+        // component nodes also should always be patched, because even if the
+        // component doesn't need to update, it needs to persist the instance on to
+        // the next vnode so that it can be properly unmounted later.
+        (vnode.patchFlag > 0 || shapeFlag & 6 /* COMPONENT */) &&
+        // the EVENTS flag is only for hydration and if it is the only flag, the
+        // vnode should not be considered dynamic due to handler caching.
+        vnode.patchFlag !== 32 /* HYDRATE_EVENTS */) {
+        currentBlock.push(vnode);
+    }
+    return vnode;
+}
+const runtime_core_esm_bundler_createVNode = (( false) ? 0 : _createVNode);
+function _createVNode(type, props = null, children = null, patchFlag = 0, dynamicProps = null, isBlockNode = false) {
+    if (!type || type === NULL_DYNAMIC_COMPONENT) {
+        if (false) {}
+        type = Comment;
+    }
+    if (isVNode(type)) {
+        // createVNode receiving an existing vnode. This happens in cases like
+        // <component :is="vnode"/>
+        // #2078 make sure to merge refs during the clone instead of overwriting it
+        const cloned = cloneVNode(type, props, true /* mergeRef: true */);
+        if (children) {
+            normalizeChildren(cloned, children);
+        }
+        return cloned;
+    }
+    // class component normalization.
+    if (isClassComponent(type)) {
+        type = type.__vccOpts;
+    }
+    // class & style normalization.
+    if (props) {
+        // for reactive or proxy objects, we need to clone it to enable mutation.
+        props = guardReactiveProps(props);
+        let { class: klass, style } = props;
+        if (klass && !shared_esm_bundler_isString(klass)) {
+            props.class = normalizeClass(klass);
+        }
+        if (shared_esm_bundler_isObject(style)) {
+            // reactive state objects need to be cloned since they are likely to be
+            // mutated
+            if (isProxy(style) && !shared_esm_bundler_isArray(style)) {
+                style = shared_esm_bundler_extend({}, style);
+            }
+            props.style = normalizeStyle(style);
+        }
+    }
+    // encode the vnode type information into a bitmap
+    const shapeFlag = shared_esm_bundler_isString(type)
+        ? 1 /* ELEMENT */
+        : isSuspense(type)
+            ? 128 /* SUSPENSE */
+            : isTeleport(type)
+                ? 64 /* TELEPORT */
+                : shared_esm_bundler_isObject(type)
+                    ? 4 /* STATEFUL_COMPONENT */
+                    : shared_esm_bundler_isFunction(type)
+                        ? 2 /* FUNCTIONAL_COMPONENT */
+                        : 0;
+    if (false) {}
+    return createBaseVNode(type, props, children, patchFlag, dynamicProps, shapeFlag, isBlockNode, true);
+}
+function guardReactiveProps(props) {
+    if (!props)
+        return null;
+    return isProxy(props) || InternalObjectKey in props
+        ? shared_esm_bundler_extend({}, props)
+        : props;
+}
+function cloneVNode(vnode, extraProps, mergeRef = false) {
+    // This is intentionally NOT using spread or extend to avoid the runtime
+    // key enumeration cost.
+    const { props, ref, patchFlag, children } = vnode;
+    const mergedProps = extraProps ? mergeProps(props || {}, extraProps) : props;
+    const cloned = {
+        __v_isVNode: true,
+        __v_skip: true,
+        type: vnode.type,
+        props: mergedProps,
+        key: mergedProps && normalizeKey(mergedProps),
+        ref: extraProps && extraProps.ref
+            ? // #2078 in the case of <component :is="vnode" ref="extra"/>
+                // if the vnode itself already has a ref, cloneVNode will need to merge
+                // the refs so the single vnode can be set on multiple refs
+                mergeRef && ref
+                    ? shared_esm_bundler_isArray(ref)
+                        ? ref.concat(normalizeRef(extraProps))
+                        : [ref, normalizeRef(extraProps)]
+                    : normalizeRef(extraProps)
+            : ref,
+        scopeId: vnode.scopeId,
+        slotScopeIds: vnode.slotScopeIds,
+        children:  false
+            ? 0
+            : children,
+        target: vnode.target,
+        targetAnchor: vnode.targetAnchor,
+        staticCount: vnode.staticCount,
+        shapeFlag: vnode.shapeFlag,
+        // if the vnode is cloned with extra props, we can no longer assume its
+        // existing patch flag to be reliable and need to add the FULL_PROPS flag.
+        // note: perserve flag for fragments since they use the flag for children
+        // fast paths only.
+        patchFlag: extraProps && vnode.type !== runtime_core_esm_bundler_Fragment
+            ? patchFlag === -1 // hoisted node
+                ? 16 /* FULL_PROPS */
+                : patchFlag | 16 /* FULL_PROPS */
+            : patchFlag,
+        dynamicProps: vnode.dynamicProps,
+        dynamicChildren: vnode.dynamicChildren,
+        appContext: vnode.appContext,
+        dirs: vnode.dirs,
+        transition: vnode.transition,
+        // These should technically only be non-null on mounted VNodes. However,
+        // they *should* be copied for kept-alive vnodes. So we just always copy
+        // them since them being non-null during a mount doesn't affect the logic as
+        // they will simply be overwritten.
+        component: vnode.component,
+        suspense: vnode.suspense,
+        ssContent: vnode.ssContent && cloneVNode(vnode.ssContent),
+        ssFallback: vnode.ssFallback && cloneVNode(vnode.ssFallback),
+        el: vnode.el,
+        anchor: vnode.anchor
+    };
+    return cloned;
+}
+/**
+ * Dev only, for HMR of hoisted vnodes reused in v-for
+ * https://github.com/vitejs/vite/issues/2022
+ */
+function deepCloneVNode(vnode) {
+    const cloned = cloneVNode(vnode);
+    if (isArray(vnode.children)) {
+        cloned.children = vnode.children.map(deepCloneVNode);
+    }
+    return cloned;
+}
+/**
+ * @private
+ */
+function createTextVNode(text = ' ', flag = 0) {
+    return runtime_core_esm_bundler_createVNode(Text, null, text, flag);
+}
+/**
+ * @private
+ */
+function createStaticVNode(content, numberOfNodes) {
+    // A static vnode can contain multiple stringified elements, and the number
+    // of elements is necessary for hydration.
+    const vnode = runtime_core_esm_bundler_createVNode(runtime_core_esm_bundler_Static, null, content);
+    vnode.staticCount = numberOfNodes;
+    return vnode;
+}
+/**
+ * @private
+ */
+function createCommentVNode(text = '', 
+// when used as the v-else branch, the comment node must be created as a
+// block to ensure correct updates.
+asBlock = false) {
+    return asBlock
+        ? (openBlock(), createBlock(Comment, null, text))
+        : runtime_core_esm_bundler_createVNode(Comment, null, text);
+}
+function normalizeVNode(child) {
+    if (child == null || typeof child === 'boolean') {
+        // empty placeholder
+        return runtime_core_esm_bundler_createVNode(Comment);
+    }
+    else if (shared_esm_bundler_isArray(child)) {
+        // fragment
+        return runtime_core_esm_bundler_createVNode(runtime_core_esm_bundler_Fragment, null, 
+        // #3666, avoid reference pollution when reusing vnode
+        child.slice());
+    }
+    else if (typeof child === 'object') {
+        // already vnode, this should be the most common since compiled templates
+        // always produce all-vnode children arrays
+        return cloneIfMounted(child);
+    }
+    else {
+        // strings and numbers
+        return runtime_core_esm_bundler_createVNode(Text, null, String(child));
+    }
+}
+// optimized normalization for template-compiled render fns
+function cloneIfMounted(child) {
+    return child.el === null || child.memo ? child : cloneVNode(child);
+}
+function normalizeChildren(vnode, children) {
+    let type = 0;
+    const { shapeFlag } = vnode;
+    if (children == null) {
+        children = null;
+    }
+    else if (shared_esm_bundler_isArray(children)) {
+        type = 16 /* ARRAY_CHILDREN */;
+    }
+    else if (typeof children === 'object') {
+        if (shapeFlag & (1 /* ELEMENT */ | 64 /* TELEPORT */)) {
+            // Normalize slot to plain children for plain element and Teleport
+            const slot = children.default;
+            if (slot) {
+                // _c marker is added by withCtx() indicating this is a compiled slot
+                slot._c && (slot._d = false);
+                normalizeChildren(vnode, slot());
+                slot._c && (slot._d = true);
+            }
+            return;
+        }
+        else {
+            type = 32 /* SLOTS_CHILDREN */;
+            const slotFlag = children._;
+            if (!slotFlag && !(InternalObjectKey in children)) {
+                children._ctx = currentRenderingInstance;
+            }
+            else if (slotFlag === 3 /* FORWARDED */ && currentRenderingInstance) {
+                // a child component receives forwarded slots from the parent.
+                // its slot type is determined by its parent's slot type.
+                if (currentRenderingInstance.slots._ === 1 /* STABLE */) {
+                    children._ = 1 /* STABLE */;
+                }
+                else {
+                    children._ = 2 /* DYNAMIC */;
+                    vnode.patchFlag |= 1024 /* DYNAMIC_SLOTS */;
+                }
+            }
+        }
+    }
+    else if (shared_esm_bundler_isFunction(children)) {
+        children = { default: children, _ctx: currentRenderingInstance };
+        type = 32 /* SLOTS_CHILDREN */;
+    }
+    else {
+        children = String(children);
+        // force teleport children to array so it can be moved around
+        if (shapeFlag & 64 /* TELEPORT */) {
+            type = 16 /* ARRAY_CHILDREN */;
+            children = [createTextVNode(children)];
+        }
+        else {
+            type = 8 /* TEXT_CHILDREN */;
+        }
+    }
+    vnode.children = children;
+    vnode.shapeFlag |= type;
+}
+function mergeProps(...args) {
+    const ret = {};
+    for (let i = 0; i < args.length; i++) {
+        const toMerge = args[i];
+        for (const key in toMerge) {
+            if (key === 'class') {
+                if (ret.class !== toMerge.class) {
+                    ret.class = normalizeClass([ret.class, toMerge.class]);
+                }
+            }
+            else if (key === 'style') {
+                ret.style = normalizeStyle([ret.style, toMerge.style]);
+            }
+            else if (shared_esm_bundler_isOn(key)) {
+                const existing = ret[key];
+                const incoming = toMerge[key];
+                if (existing !== incoming) {
+                    ret[key] = existing
+                        ? [].concat(existing, incoming)
+                        : incoming;
+                }
+            }
+            else if (key !== '') {
+                ret[key] = toMerge[key];
+            }
+        }
+    }
+    return ret;
+}
+
+/**
+ * Actual implementation
+ */
+function renderList(source, renderItem, cache, index) {
+    let ret;
+    const cached = (cache && cache[index]);
+    if (shared_esm_bundler_isArray(source) || shared_esm_bundler_isString(source)) {
+        ret = new Array(source.length);
+        for (let i = 0, l = source.length; i < l; i++) {
+            ret[i] = renderItem(source[i], i, undefined, cached && cached[i]);
+        }
+    }
+    else if (typeof source === 'number') {
+        if (false) {}
+        ret = new Array(source);
+        for (let i = 0; i < source; i++) {
+            ret[i] = renderItem(i + 1, i, undefined, cached && cached[i]);
+        }
+    }
+    else if (shared_esm_bundler_isObject(source)) {
+        if (source[Symbol.iterator]) {
+            ret = Array.from(source, (item, i) => renderItem(item, i, undefined, cached && cached[i]));
+        }
+        else {
+            const keys = Object.keys(source);
+            ret = new Array(keys.length);
+            for (let i = 0, l = keys.length; i < l; i++) {
+                const key = keys[i];
+                ret[i] = renderItem(source[key], key, i, cached && cached[i]);
+            }
+        }
+    }
+    else {
+        ret = [];
+    }
+    if (cache) {
+        cache[index] = ret;
+    }
+    return ret;
+}
+
+/**
+ * Compiler runtime helper for creating dynamic slots object
+ * @private
+ */
+function createSlots(slots, dynamicSlots) {
+    for (let i = 0; i < dynamicSlots.length; i++) {
+        const slot = dynamicSlots[i];
+        // array of dynamic slot generated by <template v-for="..." #[...]>
+        if (isArray(slot)) {
+            for (let j = 0; j < slot.length; j++) {
+                slots[slot[j].name] = slot[j].fn;
+            }
+        }
+        else if (slot) {
+            // conditional single slot generated by <template v-if="..." #foo>
+            slots[slot.name] = slot.fn;
+        }
+    }
+    return slots;
+}
+
+/**
+ * Compiler runtime helper for rendering `<slot/>`
+ * @private
+ */
+function renderSlot(slots, name, props = {}, 
+// this is not a user-facing function, so the fallback is always generated by
+// the compiler and guaranteed to be a function returning an array
+fallback, noSlotted) {
+    if (currentRenderingInstance.isCE) {
+        return runtime_core_esm_bundler_createVNode('slot', name === 'default' ? null : { name }, fallback && fallback());
+    }
+    let slot = slots[name];
+    if (false) {}
+    // a compiled slot disables block tracking by default to avoid manual
+    // invocation interfering with template-based block tracking, but in
+    // `renderSlot` we can be sure that it's template-based so we can force
+    // enable it.
+    if (slot && slot._c) {
+        slot._d = false;
+    }
+    openBlock();
+    const validSlotContent = slot && ensureValidVNode(slot(props));
+    const rendered = createBlock(runtime_core_esm_bundler_Fragment, { key: props.key || `_${name}` }, validSlotContent || (fallback ? fallback() : []), validSlotContent && slots._ === 1 /* STABLE */
+        ? 64 /* STABLE_FRAGMENT */
+        : -2 /* BAIL */);
+    if (!noSlotted && rendered.scopeId) {
+        rendered.slotScopeIds = [rendered.scopeId + '-s'];
+    }
+    if (slot && slot._c) {
+        slot._d = true;
+    }
+    return rendered;
+}
+function ensureValidVNode(vnodes) {
+    return vnodes.some(child => {
+        if (!isVNode(child))
+            return true;
+        if (child.type === Comment)
+            return false;
+        if (child.type === runtime_core_esm_bundler_Fragment &&
+            !ensureValidVNode(child.children))
+            return false;
+        return true;
+    })
+        ? vnodes
+        : null;
+}
+
+/**
+ * For prefixing keys in v-on="obj" with "on"
+ * @private
+ */
+function toHandlers(obj) {
+    const ret = {};
+    if (false) {}
+    for (const key in obj) {
+        ret[toHandlerKey(key)] = obj[key];
+    }
+    return ret;
+}
+
+/**
+ * #2437 In Vue 3, functional components do not have a public instance proxy but
+ * they exist in the internal parent chain. For code that relies on traversing
+ * public $parent chains, skip functional ones and go to the parent instead.
+ */
+const getPublicInstance = (i) => {
+    if (!i)
+        return null;
+    if (isStatefulComponent(i))
+        return getExposeProxy(i) || i.proxy;
+    return getPublicInstance(i.parent);
+};
+const publicPropertiesMap = shared_esm_bundler_extend(Object.create(null), {
+    $: i => i,
+    $el: i => i.vnode.el,
+    $data: i => i.data,
+    $props: i => (( false) ? 0 : i.props),
+    $attrs: i => (( false) ? 0 : i.attrs),
+    $slots: i => (( false) ? 0 : i.slots),
+    $refs: i => (( false) ? 0 : i.refs),
+    $parent: i => getPublicInstance(i.parent),
+    $root: i => getPublicInstance(i.root),
+    $emit: i => i.emit,
+    $options: i => (__VUE_OPTIONS_API__ ? resolveMergedOptions(i) : i.type),
+    $forceUpdate: i => () => queueJob(i.update),
+    $nextTick: i => runtime_core_esm_bundler_nextTick.bind(i.proxy),
+    $watch: i => (__VUE_OPTIONS_API__ ? instanceWatch.bind(i) : shared_esm_bundler_NOOP)
+});
+const PublicInstanceProxyHandlers = {
+    get({ _: instance }, key) {
+        const { ctx, setupState, data, props, accessCache, type, appContext } = instance;
+        // for internal formatters to know that this is a Vue instance
+        if (false) {}
+        // prioritize <script setup> bindings during dev.
+        // this allows even properties that start with _ or $ to be used - so that
+        // it aligns with the production behavior where the render fn is inlined and
+        // indeed has access to all declared variables.
+        if (false) {}
+        // data / props / ctx
+        // This getter gets called for every property access on the render context
+        // during render and is a major hotspot. The most expensive part of this
+        // is the multiple hasOwn() calls. It's much faster to do a simple property
+        // access on a plain object, so we use an accessCache object (with null
+        // prototype) to memoize what access type a key corresponds to.
+        let normalizedProps;
+        if (key[0] !== '$') {
+            const n = accessCache[key];
+            if (n !== undefined) {
+                switch (n) {
+                    case 0 /* SETUP */:
+                        return setupState[key];
+                    case 1 /* DATA */:
+                        return data[key];
+                    case 3 /* CONTEXT */:
+                        return ctx[key];
+                    case 2 /* PROPS */:
+                        return props[key];
+                    // default: just fallthrough
+                }
+            }
+            else if (setupState !== shared_esm_bundler_EMPTY_OBJ && shared_esm_bundler_hasOwn(setupState, key)) {
+                accessCache[key] = 0 /* SETUP */;
+                return setupState[key];
+            }
+            else if (data !== shared_esm_bundler_EMPTY_OBJ && shared_esm_bundler_hasOwn(data, key)) {
+                accessCache[key] = 1 /* DATA */;
+                return data[key];
+            }
+            else if (
+            // only cache other properties when instance has declared (thus stable)
+            // props
+            (normalizedProps = instance.propsOptions[0]) &&
+                shared_esm_bundler_hasOwn(normalizedProps, key)) {
+                accessCache[key] = 2 /* PROPS */;
+                return props[key];
+            }
+            else if (ctx !== shared_esm_bundler_EMPTY_OBJ && shared_esm_bundler_hasOwn(ctx, key)) {
+                accessCache[key] = 3 /* CONTEXT */;
+                return ctx[key];
+            }
+            else if (!__VUE_OPTIONS_API__ || shouldCacheAccess) {
+                accessCache[key] = 4 /* OTHER */;
+            }
+        }
+        const publicGetter = publicPropertiesMap[key];
+        let cssModule, globalProperties;
+        // public $xxx properties
+        if (publicGetter) {
+            if (key === '$attrs') {
+                track(instance, "get" /* GET */, key);
+                ( false) && 0;
+            }
+            return publicGetter(instance);
+        }
+        else if (
+        // css module (injected by vue-loader)
+        (cssModule = type.__cssModules) &&
+            (cssModule = cssModule[key])) {
+            return cssModule;
+        }
+        else if (ctx !== shared_esm_bundler_EMPTY_OBJ && shared_esm_bundler_hasOwn(ctx, key)) {
+            // user may set custom properties to `this` that start with `$`
+            accessCache[key] = 3 /* CONTEXT */;
+            return ctx[key];
+        }
+        else if (
+        // global properties
+        ((globalProperties = appContext.config.globalProperties),
+            shared_esm_bundler_hasOwn(globalProperties, key))) {
+            {
+                return globalProperties[key];
+            }
+        }
+        else if (false) {}
+    },
+    set({ _: instance }, key, value) {
+        const { data, setupState, ctx } = instance;
+        if (setupState !== shared_esm_bundler_EMPTY_OBJ && shared_esm_bundler_hasOwn(setupState, key)) {
+            setupState[key] = value;
+        }
+        else if (data !== shared_esm_bundler_EMPTY_OBJ && shared_esm_bundler_hasOwn(data, key)) {
+            data[key] = value;
+        }
+        else if (shared_esm_bundler_hasOwn(instance.props, key)) {
+            ( false) &&
+                0;
+            return false;
+        }
+        if (key[0] === '$' && key.slice(1) in instance) {
+            ( false) &&
+                0;
+            return false;
+        }
+        else {
+            if (false) {}
+            else {
+                ctx[key] = value;
+            }
+        }
+        return true;
+    },
+    has({ _: { data, setupState, accessCache, ctx, appContext, propsOptions } }, key) {
+        let normalizedProps;
+        return (accessCache[key] !== undefined ||
+            (data !== shared_esm_bundler_EMPTY_OBJ && shared_esm_bundler_hasOwn(data, key)) ||
+            (setupState !== shared_esm_bundler_EMPTY_OBJ && shared_esm_bundler_hasOwn(setupState, key)) ||
+            ((normalizedProps = propsOptions[0]) && shared_esm_bundler_hasOwn(normalizedProps, key)) ||
+            shared_esm_bundler_hasOwn(ctx, key) ||
+            shared_esm_bundler_hasOwn(publicPropertiesMap, key) ||
+            shared_esm_bundler_hasOwn(appContext.config.globalProperties, key));
+    }
+};
+if (false) {}
+const RuntimeCompiledPublicInstanceProxyHandlers = /*#__PURE__*/ shared_esm_bundler_extend({}, PublicInstanceProxyHandlers, {
+    get(target, key) {
+        // fast path for unscopables when using `with` block
+        if (key === Symbol.unscopables) {
+            return;
+        }
+        return PublicInstanceProxyHandlers.get(target, key, target);
+    },
+    has(_, key) {
+        const has = key[0] !== '_' && !isGloballyWhitelisted(key);
+        if (false) {}
+        return has;
+    }
+});
+// dev only
+// In dev mode, the proxy target exposes the same properties as seen on `this`
+// for easier console inspection. In prod mode it will be an empty object so
+// these properties definitions can be skipped.
+function createDevRenderContext(instance) {
+    const target = {};
+    // expose internal instance for proxy handlers
+    Object.defineProperty(target, `_`, {
+        configurable: true,
+        enumerable: false,
+        get: () => instance
+    });
+    // expose public properties
+    Object.keys(publicPropertiesMap).forEach(key => {
+        Object.defineProperty(target, key, {
+            configurable: true,
+            enumerable: false,
+            get: () => publicPropertiesMap[key](instance),
+            // intercepted by the proxy so no need for implementation,
+            // but needed to prevent set errors
+            set: NOOP
+        });
+    });
+    return target;
+}
+// dev only
+function exposePropsOnRenderContext(instance) {
+    const { ctx, propsOptions: [propsOptions] } = instance;
+    if (propsOptions) {
+        Object.keys(propsOptions).forEach(key => {
+            Object.defineProperty(ctx, key, {
+                enumerable: true,
+                configurable: true,
+                get: () => instance.props[key],
+                set: NOOP
+            });
+        });
+    }
+}
+// dev only
+function exposeSetupStateOnRenderContext(instance) {
+    const { ctx, setupState } = instance;
+    Object.keys(toRaw(setupState)).forEach(key => {
+        if (!setupState.__isScriptSetup) {
+            if (key[0] === '$' || key[0] === '_') {
+                runtime_core_esm_bundler_warn(`setup() return property ${JSON.stringify(key)} should not start with "$" or "_" ` +
+                    `which are reserved prefixes for Vue internals.`);
+                return;
+            }
+            Object.defineProperty(ctx, key, {
+                enumerable: true,
+                configurable: true,
+                get: () => setupState[key],
+                set: NOOP
+            });
+        }
+    });
+}
+
+const emptyAppContext = createAppContext();
+let uid$1 = 0;
+function createComponentInstance(vnode, parent, suspense) {
+    const type = vnode.type;
+    // inherit parent app context - or - if root, adopt from root vnode
+    const appContext = (parent ? parent.appContext : vnode.appContext) || emptyAppContext;
+    const instance = {
+        uid: uid$1++,
+        vnode,
+        type,
+        parent,
+        appContext,
+        root: null,
+        next: null,
+        subTree: null,
+        update: null,
+        scope: new EffectScope(true /* detached */),
+        render: null,
+        proxy: null,
+        exposed: null,
+        exposeProxy: null,
+        withProxy: null,
+        provides: parent ? parent.provides : Object.create(appContext.provides),
+        accessCache: null,
+        renderCache: [],
+        // local resovled assets
+        components: null,
+        directives: null,
+        // resolved props and emits options
+        propsOptions: normalizePropsOptions(type, appContext),
+        emitsOptions: normalizeEmitsOptions(type, appContext),
+        // emit
+        emit: null,
+        emitted: null,
+        // props default value
+        propsDefaults: shared_esm_bundler_EMPTY_OBJ,
+        // inheritAttrs
+        inheritAttrs: type.inheritAttrs,
+        // state
+        ctx: shared_esm_bundler_EMPTY_OBJ,
+        data: shared_esm_bundler_EMPTY_OBJ,
+        props: shared_esm_bundler_EMPTY_OBJ,
+        attrs: shared_esm_bundler_EMPTY_OBJ,
+        slots: shared_esm_bundler_EMPTY_OBJ,
+        refs: shared_esm_bundler_EMPTY_OBJ,
+        setupState: shared_esm_bundler_EMPTY_OBJ,
+        setupContext: null,
+        // suspense related
+        suspense,
+        suspenseId: suspense ? suspense.pendingId : 0,
+        asyncDep: null,
+        asyncResolved: false,
+        // lifecycle hooks
+        // not using enums here because it results in computed properties
+        isMounted: false,
+        isUnmounted: false,
+        isDeactivated: false,
+        bc: null,
+        c: null,
+        bm: null,
+        m: null,
+        bu: null,
+        u: null,
+        um: null,
+        bum: null,
+        da: null,
+        a: null,
+        rtg: null,
+        rtc: null,
+        ec: null,
+        sp: null
+    };
+    if ((false)) {}
+    else {
+        instance.ctx = { _: instance };
+    }
+    instance.root = parent ? parent.root : instance;
+    instance.emit = emit.bind(null, instance);
+    // apply custom element special handling
+    if (vnode.ce) {
+        vnode.ce(instance);
+    }
+    return instance;
+}
+let currentInstance = null;
+const runtime_core_esm_bundler_getCurrentInstance = () => currentInstance || currentRenderingInstance;
+const setCurrentInstance = (instance) => {
+    currentInstance = instance;
+    instance.scope.on();
+};
+const unsetCurrentInstance = () => {
+    currentInstance && currentInstance.scope.off();
+    currentInstance = null;
+};
+const isBuiltInTag = /*#__PURE__*/ (/* unused pure expression or super */ null && (makeMap('slot,component')));
+function validateComponentName(name, config) {
+    const appIsNativeTag = config.isNativeTag || NO;
+    if (isBuiltInTag(name) || appIsNativeTag(name)) {
+        runtime_core_esm_bundler_warn('Do not use built-in or reserved HTML elements as component id: ' + name);
+    }
+}
+function isStatefulComponent(instance) {
+    return instance.vnode.shapeFlag & 4 /* STATEFUL_COMPONENT */;
+}
+let isInSSRComponentSetup = false;
+function setupComponent(instance, isSSR = false) {
+    isInSSRComponentSetup = isSSR;
+    const { props, children } = instance.vnode;
+    const isStateful = isStatefulComponent(instance);
+    initProps(instance, props, isStateful, isSSR);
+    initSlots(instance, children);
+    const setupResult = isStateful
+        ? setupStatefulComponent(instance, isSSR)
+        : undefined;
+    isInSSRComponentSetup = false;
+    return setupResult;
+}
+function setupStatefulComponent(instance, isSSR) {
+    const Component = instance.type;
+    if ((false)) {}
+    // 0. create render proxy property access cache
+    instance.accessCache = Object.create(null);
+    // 1. create public instance / render proxy
+    // also mark it raw so it's never observed
+    instance.proxy = markRaw(new Proxy(instance.ctx, PublicInstanceProxyHandlers));
+    if ((false)) {}
+    // 2. call setup()
+    const { setup } = Component;
+    if (setup) {
+        const setupContext = (instance.setupContext =
+            setup.length > 1 ? createSetupContext(instance) : null);
+        setCurrentInstance(instance);
+        reactivity_esm_bundler_pauseTracking();
+        const setupResult = callWithErrorHandling(setup, instance, 0 /* SETUP_FUNCTION */, [( false) ? 0 : instance.props, setupContext]);
+        reactivity_esm_bundler_resetTracking();
+        unsetCurrentInstance();
+        if (isPromise(setupResult)) {
+            setupResult.then(unsetCurrentInstance, unsetCurrentInstance);
+            if (isSSR) {
+                // return the promise so server-renderer can wait on it
+                return setupResult
+                    .then((resolvedResult) => {
+                    handleSetupResult(instance, resolvedResult, isSSR);
+                })
+                    .catch(e => {
+                    handleError(e, instance, 0 /* SETUP_FUNCTION */);
+                });
+            }
+            else {
+                // async setup returned Promise.
+                // bail here and wait for re-entry.
+                instance.asyncDep = setupResult;
+            }
+        }
+        else {
+            handleSetupResult(instance, setupResult, isSSR);
+        }
+    }
+    else {
+        finishComponentSetup(instance, isSSR);
+    }
+}
+function handleSetupResult(instance, setupResult, isSSR) {
+    if (shared_esm_bundler_isFunction(setupResult)) {
+        // setup returned an inline render function
+        {
+            instance.render = setupResult;
+        }
+    }
+    else if (shared_esm_bundler_isObject(setupResult)) {
+        if (false) {}
+        // setup returned bindings.
+        // assuming a render function compiled from template is present.
+        if (( false) || __VUE_PROD_DEVTOOLS__) {
+            instance.devtoolsRawSetupState = setupResult;
+        }
+        instance.setupState = proxyRefs(setupResult);
+        if ((false)) {}
+    }
+    else if (false) {}
+    finishComponentSetup(instance, isSSR);
+}
+let compile;
+let installWithProxy;
+/**
+ * For runtime-dom to register the compiler.
+ * Note the exported method uses any to avoid d.ts relying on the compiler types.
+ */
+function registerRuntimeCompiler(_compile) {
+    compile = _compile;
+    installWithProxy = i => {
+        if (i.render._rc) {
+            i.withProxy = new Proxy(i.ctx, RuntimeCompiledPublicInstanceProxyHandlers);
+        }
+    };
+}
+// dev only
+const runtime_core_esm_bundler_isRuntimeOnly = () => !compile;
+function finishComponentSetup(instance, isSSR, skipOptions) {
+    const Component = instance.type;
+    // template / render function normalization
+    if (!instance.render) {
+        // could be set from setup()
+        if (compile && !Component.render) {
+            const template = Component.template;
+            if (template) {
+                if ((false)) {}
+                const { isCustomElement, compilerOptions } = instance.appContext.config;
+                const { delimiters, compilerOptions: componentCompilerOptions } = Component;
+                const finalCompilerOptions = shared_esm_bundler_extend(shared_esm_bundler_extend({
+                    isCustomElement,
+                    delimiters
+                }, compilerOptions), componentCompilerOptions);
+                Component.render = compile(template, finalCompilerOptions);
+                if ((false)) {}
+            }
+        }
+        instance.render = (Component.render || shared_esm_bundler_NOOP);
+        // for runtime-compiled render functions using `with` blocks, the render
+        // proxy used needs a different `has` handler which is more performant and
+        // also only allows a whitelist of globals to fallthrough.
+        if (installWithProxy) {
+            installWithProxy(instance);
+        }
+    }
+    // support for 2.x options
+    if (__VUE_OPTIONS_API__ && !(false )) {
+        setCurrentInstance(instance);
+        reactivity_esm_bundler_pauseTracking();
+        applyOptions(instance);
+        reactivity_esm_bundler_resetTracking();
+        unsetCurrentInstance();
+    }
+    // warn missing template/render
+    // the runtime compilation of template in SSR is done by server-render
+    if (false) {}
+}
+function createAttrsProxy(instance) {
+    return new Proxy(instance.attrs, ( false)
+        ? 0
+        : {
+            get(target, key) {
+                track(instance, "get" /* GET */, '$attrs');
+                return target[key];
+            }
+        });
+}
+function createSetupContext(instance) {
+    const expose = exposed => {
+        if (false) {}
+        instance.exposed = exposed || {};
+    };
+    let attrs;
+    if ((false)) {}
+    else {
+        return {
+            get attrs() {
+                return attrs || (attrs = createAttrsProxy(instance));
+            },
+            slots: instance.slots,
+            emit: instance.emit,
+            expose
+        };
+    }
+}
+function getExposeProxy(instance) {
+    if (instance.exposed) {
+        return (instance.exposeProxy ||
+            (instance.exposeProxy = new Proxy(proxyRefs(markRaw(instance.exposed)), {
+                get(target, key) {
+                    if (key in target) {
+                        return target[key];
+                    }
+                    else if (key in publicPropertiesMap) {
+                        return publicPropertiesMap[key](instance);
+                    }
+                }
+            })));
+    }
+}
+const classifyRE = /(?:^|[-_])(\w)/g;
+const classify = (str) => str.replace(classifyRE, c => c.toUpperCase()).replace(/[-_]/g, '');
+function getComponentName(Component) {
+    return shared_esm_bundler_isFunction(Component)
+        ? Component.displayName || Component.name
+        : Component.name;
+}
+/* istanbul ignore next */
+function formatComponentName(instance, Component, isRoot = false) {
+    let name = getComponentName(Component);
+    if (!name && Component.__file) {
+        const match = Component.__file.match(/([^/\\]+)\.\w+$/);
+        if (match) {
+            name = match[1];
+        }
+    }
+    if (!name && instance && instance.parent) {
+        // try to infer the name based on reverse resolution
+        const inferFromRegistry = (registry) => {
+            for (const key in registry) {
+                if (registry[key] === Component) {
+                    return key;
+                }
+            }
+        };
+        name =
+            inferFromRegistry(instance.components ||
+                instance.parent.type.components) || inferFromRegistry(instance.appContext.components);
+    }
+    return name ? classify(name) : isRoot ? `App` : `Anonymous`;
+}
+function isClassComponent(value) {
+    return shared_esm_bundler_isFunction(value) && '__vccOpts' in value;
+}
+
+const stack = [];
+function pushWarningContext(vnode) {
+    stack.push(vnode);
+}
+function popWarningContext() {
+    stack.pop();
+}
+function runtime_core_esm_bundler_warn(msg, ...args) {
+    // avoid props formatting or warn handler tracking deps that might be mutated
+    // during patch, leading to infinite recursion.
+    reactivity_esm_bundler_pauseTracking();
+    const instance = stack.length ? stack[stack.length - 1].component : null;
+    const appWarnHandler = instance && instance.appContext.config.warnHandler;
+    const trace = getComponentTrace();
+    if (appWarnHandler) {
+        callWithErrorHandling(appWarnHandler, instance, 11 /* APP_WARN_HANDLER */, [
+            msg + args.join(''),
+            instance && instance.proxy,
+            trace
+                .map(({ vnode }) => `at <${formatComponentName(instance, vnode.type)}>`)
+                .join('\n'),
+            trace
+        ]);
+    }
+    else {
+        const warnArgs = [`[Vue warn]: ${msg}`, ...args];
+        /* istanbul ignore if */
+        if (trace.length &&
+            // avoid spamming console during tests
+            !false) {
+            warnArgs.push(`\n`, ...formatTrace(trace));
+        }
+        console.warn(...warnArgs);
+    }
+    reactivity_esm_bundler_resetTracking();
+}
+function getComponentTrace() {
+    let currentVNode = stack[stack.length - 1];
+    if (!currentVNode) {
+        return [];
+    }
+    // we can't just use the stack because it will be incomplete during updates
+    // that did not start from the root. Re-construct the parent chain using
+    // instance parent pointers.
+    const normalizedStack = [];
+    while (currentVNode) {
+        const last = normalizedStack[0];
+        if (last && last.vnode === currentVNode) {
+            last.recurseCount++;
+        }
+        else {
+            normalizedStack.push({
+                vnode: currentVNode,
+                recurseCount: 0
+            });
+        }
+        const parentInstance = currentVNode.component && currentVNode.component.parent;
+        currentVNode = parentInstance && parentInstance.vnode;
+    }
+    return normalizedStack;
+}
+/* istanbul ignore next */
+function formatTrace(trace) {
+    const logs = [];
+    trace.forEach((entry, i) => {
+        logs.push(...(i === 0 ? [] : [`\n`]), ...formatTraceEntry(entry));
+    });
+    return logs;
+}
+function formatTraceEntry({ vnode, recurseCount }) {
+    const postfix = recurseCount > 0 ? `... (${recurseCount} recursive calls)` : ``;
+    const isRoot = vnode.component ? vnode.component.parent == null : false;
+    const open = ` at <${formatComponentName(vnode.component, vnode.type, isRoot)}`;
+    const close = `>` + postfix;
+    return vnode.props
+        ? [open, ...formatProps(vnode.props), close]
+        : [open + close];
+}
+/* istanbul ignore next */
+function formatProps(props) {
+    const res = [];
+    const keys = Object.keys(props);
+    keys.slice(0, 3).forEach(key => {
+        res.push(...formatProp(key, props[key]));
+    });
+    if (keys.length > 3) {
+        res.push(` ...`);
+    }
+    return res;
+}
+/* istanbul ignore next */
+function formatProp(key, value, raw) {
+    if (shared_esm_bundler_isString(value)) {
+        value = JSON.stringify(value);
+        return raw ? value : [`${key}=${value}`];
+    }
+    else if (typeof value === 'number' ||
+        typeof value === 'boolean' ||
+        value == null) {
+        return raw ? value : [`${key}=${value}`];
+    }
+    else if (reactivity_esm_bundler_isRef(value)) {
+        value = formatProp(key, reactivity_esm_bundler_toRaw(value.value), true);
+        return raw ? value : [`${key}=Ref<`, value, `>`];
+    }
+    else if (shared_esm_bundler_isFunction(value)) {
+        return [`${key}=fn${value.name ? `<${value.name}>` : ``}`];
+    }
+    else {
+        value = reactivity_esm_bundler_toRaw(value);
+        return raw ? value : [`${key}=`, value];
+    }
+}
+
+const ErrorTypeStrings = {
+    ["sp" /* SERVER_PREFETCH */]: 'serverPrefetch hook',
+    ["bc" /* BEFORE_CREATE */]: 'beforeCreate hook',
+    ["c" /* CREATED */]: 'created hook',
+    ["bm" /* BEFORE_MOUNT */]: 'beforeMount hook',
+    ["m" /* MOUNTED */]: 'mounted hook',
+    ["bu" /* BEFORE_UPDATE */]: 'beforeUpdate hook',
+    ["u" /* UPDATED */]: 'updated',
+    ["bum" /* BEFORE_UNMOUNT */]: 'beforeUnmount hook',
+    ["um" /* UNMOUNTED */]: 'unmounted hook',
+    ["a" /* ACTIVATED */]: 'activated hook',
+    ["da" /* DEACTIVATED */]: 'deactivated hook',
+    ["ec" /* ERROR_CAPTURED */]: 'errorCaptured hook',
+    ["rtc" /* RENDER_TRACKED */]: 'renderTracked hook',
+    ["rtg" /* RENDER_TRIGGERED */]: 'renderTriggered hook',
+    [0 /* SETUP_FUNCTION */]: 'setup function',
+    [1 /* RENDER_FUNCTION */]: 'render function',
+    [2 /* WATCH_GETTER */]: 'watcher getter',
+    [3 /* WATCH_CALLBACK */]: 'watcher callback',
+    [4 /* WATCH_CLEANUP */]: 'watcher cleanup function',
+    [5 /* NATIVE_EVENT_HANDLER */]: 'native event handler',
+    [6 /* COMPONENT_EVENT_HANDLER */]: 'component event handler',
+    [7 /* VNODE_HOOK */]: 'vnode hook',
+    [8 /* DIRECTIVE_HOOK */]: 'directive hook',
+    [9 /* TRANSITION_HOOK */]: 'transition hook',
+    [10 /* APP_ERROR_HANDLER */]: 'app errorHandler',
+    [11 /* APP_WARN_HANDLER */]: 'app warnHandler',
+    [12 /* FUNCTION_REF */]: 'ref function',
+    [13 /* ASYNC_COMPONENT_LOADER */]: 'async component loader',
+    [14 /* SCHEDULER */]: 'scheduler flush. This is likely a Vue internals bug. ' +
+        'Please open an issue at https://new-issue.vuejs.org/?repo=vuejs/vue-next'
+};
+function callWithErrorHandling(fn, instance, type, args) {
+    let res;
+    try {
+        res = args ? fn(...args) : fn();
+    }
+    catch (err) {
+        handleError(err, instance, type);
+    }
+    return res;
+}
+function callWithAsyncErrorHandling(fn, instance, type, args) {
+    if (shared_esm_bundler_isFunction(fn)) {
+        const res = callWithErrorHandling(fn, instance, type, args);
+        if (res && isPromise(res)) {
+            res.catch(err => {
+                handleError(err, instance, type);
+            });
+        }
+        return res;
+    }
+    const values = [];
+    for (let i = 0; i < fn.length; i++) {
+        values.push(callWithAsyncErrorHandling(fn[i], instance, type, args));
+    }
+    return values;
+}
+function handleError(err, instance, type, throwInDev = true) {
+    const contextVNode = instance ? instance.vnode : null;
+    if (instance) {
+        let cur = instance.parent;
+        // the exposed instance is the render proxy to keep it consistent with 2.x
+        const exposedInstance = instance.proxy;
+        // in production the hook receives only the error code
+        const errorInfo = ( false) ? 0 : type;
+        while (cur) {
+            const errorCapturedHooks = cur.ec;
+            if (errorCapturedHooks) {
+                for (let i = 0; i < errorCapturedHooks.length; i++) {
+                    if (errorCapturedHooks[i](err, exposedInstance, errorInfo) === false) {
+                        return;
+                    }
+                }
+            }
+            cur = cur.parent;
+        }
+        // app-level handling
+        const appErrorHandler = instance.appContext.config.errorHandler;
+        if (appErrorHandler) {
+            callWithErrorHandling(appErrorHandler, null, 10 /* APP_ERROR_HANDLER */, [err, exposedInstance, errorInfo]);
+            return;
+        }
+    }
+    logError(err, type, contextVNode, throwInDev);
+}
+function logError(err, type, contextVNode, throwInDev = true) {
+    if ((false)) {}
+    else {
+        // recover in prod to reduce the impact on end-user
+        console.error(err);
+    }
+}
+
+let isFlushing = false;
+let isFlushPending = false;
+const runtime_core_esm_bundler_queue = [];
+let flushIndex = 0;
+const pendingPreFlushCbs = [];
+let activePreFlushCbs = null;
+let preFlushIndex = 0;
+const pendingPostFlushCbs = [];
+let activePostFlushCbs = null;
+let postFlushIndex = 0;
+const resolvedPromise = Promise.resolve();
+let currentFlushPromise = null;
+let currentPreFlushParentJob = null;
+const RECURSION_LIMIT = 100;
+function runtime_core_esm_bundler_nextTick(fn) {
+    const p = currentFlushPromise || resolvedPromise;
+    return fn ? p.then(this ? fn.bind(this) : fn) : p;
+}
+// #2768
+// Use binary-search to find a suitable position in the queue,
+// so that the queue maintains the increasing order of job's id,
+// which can prevent the job from being skipped and also can avoid repeated patching.
+function findInsertionIndex(id) {
+    // the start index should be `flushIndex + 1`
+    let start = flushIndex + 1;
+    let end = runtime_core_esm_bundler_queue.length;
+    while (start < end) {
+        const middle = (start + end) >>> 1;
+        const middleJobId = getId(runtime_core_esm_bundler_queue[middle]);
+        middleJobId < id ? (start = middle + 1) : (end = middle);
+    }
+    return start;
+}
+function queueJob(job) {
+    // the dedupe search uses the startIndex argument of Array.includes()
+    // by default the search index includes the current job that is being run
+    // so it cannot recursively trigger itself again.
+    // if the job is a watch() callback, the search will start with a +1 index to
+    // allow it recursively trigger itself - it is the user's responsibility to
+    // ensure it doesn't end up in an infinite loop.
+    if ((!runtime_core_esm_bundler_queue.length ||
+        !runtime_core_esm_bundler_queue.includes(job, isFlushing && job.allowRecurse ? flushIndex + 1 : flushIndex)) &&
+        job !== currentPreFlushParentJob) {
+        if (job.id == null) {
+            runtime_core_esm_bundler_queue.push(job);
+        }
+        else {
+            runtime_core_esm_bundler_queue.splice(findInsertionIndex(job.id), 0, job);
+        }
+        queueFlush();
+    }
+}
+function queueFlush() {
+    if (!isFlushing && !isFlushPending) {
+        isFlushPending = true;
+        currentFlushPromise = resolvedPromise.then(flushJobs);
+    }
+}
+function invalidateJob(job) {
+    const i = runtime_core_esm_bundler_queue.indexOf(job);
+    if (i > flushIndex) {
+        runtime_core_esm_bundler_queue.splice(i, 1);
+    }
+}
+function queueCb(cb, activeQueue, pendingQueue, index) {
+    if (!shared_esm_bundler_isArray(cb)) {
+        if (!activeQueue ||
+            !activeQueue.includes(cb, cb.allowRecurse ? index + 1 : index)) {
+            pendingQueue.push(cb);
+        }
+    }
+    else {
+        // if cb is an array, it is a component lifecycle hook which can only be
+        // triggered by a job, which is already deduped in the main queue, so
+        // we can skip duplicate check here to improve perf
+        pendingQueue.push(...cb);
+    }
+    queueFlush();
+}
+function queuePreFlushCb(cb) {
+    queueCb(cb, activePreFlushCbs, pendingPreFlushCbs, preFlushIndex);
+}
+function queuePostFlushCb(cb) {
+    queueCb(cb, activePostFlushCbs, pendingPostFlushCbs, postFlushIndex);
+}
+function flushPreFlushCbs(seen, parentJob = null) {
+    if (pendingPreFlushCbs.length) {
+        currentPreFlushParentJob = parentJob;
+        activePreFlushCbs = [...new Set(pendingPreFlushCbs)];
+        pendingPreFlushCbs.length = 0;
+        if ((false)) {}
+        for (preFlushIndex = 0; preFlushIndex < activePreFlushCbs.length; preFlushIndex++) {
+            if (false) {}
+            activePreFlushCbs[preFlushIndex]();
+        }
+        activePreFlushCbs = null;
+        preFlushIndex = 0;
+        currentPreFlushParentJob = null;
+        // recursively flush until it drains
+        flushPreFlushCbs(seen, parentJob);
+    }
+}
+function flushPostFlushCbs(seen) {
+    if (pendingPostFlushCbs.length) {
+        const deduped = [...new Set(pendingPostFlushCbs)];
+        pendingPostFlushCbs.length = 0;
+        // #1947 already has active queue, nested flushPostFlushCbs call
+        if (activePostFlushCbs) {
+            activePostFlushCbs.push(...deduped);
+            return;
+        }
+        activePostFlushCbs = deduped;
+        if ((false)) {}
+        activePostFlushCbs.sort((a, b) => getId(a) - getId(b));
+        for (postFlushIndex = 0; postFlushIndex < activePostFlushCbs.length; postFlushIndex++) {
+            if (false) {}
+            activePostFlushCbs[postFlushIndex]();
+        }
+        activePostFlushCbs = null;
+        postFlushIndex = 0;
+    }
+}
+const getId = (job) => job.id == null ? Infinity : job.id;
+function flushJobs(seen) {
+    isFlushPending = false;
+    isFlushing = true;
+    if ((false)) {}
+    flushPreFlushCbs(seen);
+    // Sort queue before flush.
+    // This ensures that:
+    // 1. Components are updated from parent to child. (because parent is always
+    //    created before the child so its render effect will have smaller
+    //    priority number)
+    // 2. If a component is unmounted during a parent component's update,
+    //    its update can be skipped.
+    runtime_core_esm_bundler_queue.sort((a, b) => getId(a) - getId(b));
+    // conditional usage of checkRecursiveUpdate must be determined out of
+    // try ... catch block since Rollup by default de-optimizes treeshaking
+    // inside try-catch. This can leave all warning code unshaked. Although
+    // they would get eventually shaken by a minifier like terser, some minifiers
+    // would fail to do that (e.g. https://github.com/evanw/esbuild/issues/1610)
+    const check = ( false)
+        ? 0
+        : shared_esm_bundler_NOOP;
+    try {
+        for (flushIndex = 0; flushIndex < runtime_core_esm_bundler_queue.length; flushIndex++) {
+            const job = runtime_core_esm_bundler_queue[flushIndex];
+            if (job && job.active !== false) {
+                if (false) {}
+                // console.log(`running:`, job.id)
+                callWithErrorHandling(job, null, 14 /* SCHEDULER */);
+            }
+        }
+    }
+    finally {
+        flushIndex = 0;
+        runtime_core_esm_bundler_queue.length = 0;
+        flushPostFlushCbs(seen);
+        isFlushing = false;
+        currentFlushPromise = null;
+        // some postFlushCb queued jobs!
+        // keep flushing until it drains.
+        if (runtime_core_esm_bundler_queue.length ||
+            pendingPreFlushCbs.length ||
+            pendingPostFlushCbs.length) {
+            flushJobs(seen);
+        }
+    }
+}
+function checkRecursiveUpdates(seen, fn) {
+    if (!seen.has(fn)) {
+        seen.set(fn, 1);
+    }
+    else {
+        const count = seen.get(fn);
+        if (count > RECURSION_LIMIT) {
+            const instance = fn.ownerInstance;
+            const componentName = instance && getComponentName(instance.type);
+            runtime_core_esm_bundler_warn(`Maximum recursive updates exceeded${componentName ? ` in component <${componentName}>` : ``}. ` +
+                `This means you have a reactive effect that is mutating its own ` +
+                `dependencies and thus recursively triggering itself. Possible sources ` +
+                `include component template, render function, updated hook or ` +
+                `watcher source function.`);
+            return true;
+        }
+        else {
+            seen.set(fn, count + 1);
+        }
+    }
+}
+
+// Simple effect.
+function watchEffect(effect, options) {
+    return doWatch(effect, null, options);
+}
+function runtime_core_esm_bundler_watchPostEffect(effect, options) {
+    return doWatch(effect, null, (( false)
+        ? 0
+        : { flush: 'post' }));
+}
+function watchSyncEffect(effect, options) {
+    return doWatch(effect, null, (( false)
+        ? 0
+        : { flush: 'sync' }));
+}
+// initial value for watchers to trigger on undefined initial values
+const INITIAL_WATCHER_VALUE = {};
+// implementation
+function watch(source, cb, options) {
+    if (false) {}
+    return doWatch(source, cb, options);
+}
+function doWatch(source, cb, { immediate, deep, flush, onTrack, onTrigger } = shared_esm_bundler_EMPTY_OBJ) {
+    if (false) {}
+    const warnInvalidSource = (s) => {
+        runtime_core_esm_bundler_warn(`Invalid watch source: `, s, `A watch source can only be a getter/effect function, a ref, ` +
+            `a reactive object, or an array of these types.`);
+    };
+    const instance = currentInstance;
+    let getter;
+    let forceTrigger = false;
+    let isMultiSource = false;
+    if (reactivity_esm_bundler_isRef(source)) {
+        getter = () => source.value;
+        forceTrigger = !!source._shallow;
+    }
+    else if (reactivity_esm_bundler_isReactive(source)) {
+        getter = () => source;
+        deep = true;
+    }
+    else if (shared_esm_bundler_isArray(source)) {
+        isMultiSource = true;
+        forceTrigger = source.some(reactivity_esm_bundler_isReactive);
+        getter = () => source.map(s => {
+            if (reactivity_esm_bundler_isRef(s)) {
+                return s.value;
+            }
+            else if (reactivity_esm_bundler_isReactive(s)) {
+                return traverse(s);
+            }
+            else if (shared_esm_bundler_isFunction(s)) {
+                return callWithErrorHandling(s, instance, 2 /* WATCH_GETTER */);
+            }
+            else {
+                ( false) && 0;
+            }
+        });
+    }
+    else if (shared_esm_bundler_isFunction(source)) {
+        if (cb) {
+            // getter with cb
+            getter = () => callWithErrorHandling(source, instance, 2 /* WATCH_GETTER */);
+        }
+        else {
+            // no cb -> simple effect
+            getter = () => {
+                if (instance && instance.isUnmounted) {
+                    return;
+                }
+                if (cleanup) {
+                    cleanup();
+                }
+                return callWithAsyncErrorHandling(source, instance, 3 /* WATCH_CALLBACK */, [onInvalidate]);
+            };
+        }
+    }
+    else {
+        getter = shared_esm_bundler_NOOP;
+        ( false) && 0;
+    }
+    if (cb && deep) {
+        const baseGetter = getter;
+        getter = () => traverse(baseGetter());
+    }
+    let cleanup;
+    let onInvalidate = (fn) => {
+        cleanup = effect.onStop = () => {
+            callWithErrorHandling(fn, instance, 4 /* WATCH_CLEANUP */);
+        };
+    };
+    let oldValue = isMultiSource ? [] : INITIAL_WATCHER_VALUE;
+    const job = () => {
+        if (!effect.active) {
+            return;
+        }
+        if (cb) {
+            // watch(source, cb)
+            const newValue = effect.run();
+            if (deep ||
+                forceTrigger ||
+                (isMultiSource
+                    ? newValue.some((v, i) => shared_esm_bundler_hasChanged(v, oldValue[i]))
+                    : shared_esm_bundler_hasChanged(newValue, oldValue)) ||
+                (false  )) {
+                // cleanup before running cb again
+                if (cleanup) {
+                    cleanup();
+                }
+                callWithAsyncErrorHandling(cb, instance, 3 /* WATCH_CALLBACK */, [
+                    newValue,
+                    // pass undefined as the old value when it's changed for the first time
+                    oldValue === INITIAL_WATCHER_VALUE ? undefined : oldValue,
+                    onInvalidate
+                ]);
+                oldValue = newValue;
+            }
+        }
+        else {
+            // watchEffect
+            effect.run();
+        }
+    };
+    // important: mark the job as a watcher callback so that scheduler knows
+    // it is allowed to self-trigger (#1727)
+    job.allowRecurse = !!cb;
+    let scheduler;
+    if (flush === 'sync') {
+        scheduler = job; // the scheduler function gets called directly
+    }
+    else if (flush === 'post') {
+        scheduler = () => queuePostRenderEffect(job, instance && instance.suspense);
+    }
+    else {
+        // default: 'pre'
+        scheduler = () => {
+            if (!instance || instance.isMounted) {
+                queuePreFlushCb(job);
+            }
+            else {
+                // with 'pre' option, the first call must happen before
+                // the component is mounted so it is called synchronously.
+                job();
+            }
+        };
+    }
+    const effect = new reactivity_esm_bundler_ReactiveEffect(getter, scheduler);
+    if ((false)) {}
+    // initial run
+    if (cb) {
+        if (immediate) {
+            job();
+        }
+        else {
+            oldValue = effect.run();
+        }
+    }
+    else if (flush === 'post') {
+        queuePostRenderEffect(effect.run.bind(effect), instance && instance.suspense);
+    }
+    else {
+        effect.run();
+    }
+    return () => {
+        effect.stop();
+        if (instance && instance.scope) {
+            remove(instance.scope.effects, effect);
+        }
+    };
+}
+// this.$watch
+function instanceWatch(source, value, options) {
+    const publicThis = this.proxy;
+    const getter = shared_esm_bundler_isString(source)
+        ? source.includes('.')
+            ? createPathGetter(publicThis, source)
+            : () => publicThis[source]
+        : source.bind(publicThis, publicThis);
+    let cb;
+    if (shared_esm_bundler_isFunction(value)) {
+        cb = value;
+    }
+    else {
+        cb = value.handler;
+        options = value;
+    }
+    const cur = currentInstance;
+    setCurrentInstance(this);
+    const res = doWatch(getter, cb.bind(publicThis), options);
+    if (cur) {
+        setCurrentInstance(cur);
+    }
+    else {
+        unsetCurrentInstance();
+    }
+    return res;
+}
+function createPathGetter(ctx, path) {
+    const segments = path.split('.');
+    return () => {
+        let cur = ctx;
+        for (let i = 0; i < segments.length && cur; i++) {
+            cur = cur[segments[i]];
+        }
+        return cur;
+    };
+}
+function traverse(value, seen = new Set()) {
+    if (!shared_esm_bundler_isObject(value) || value["__v_skip" /* SKIP */]) {
+        return value;
+    }
+    seen = seen || new Set();
+    if (seen.has(value)) {
+        return value;
+    }
+    seen.add(value);
+    if (reactivity_esm_bundler_isRef(value)) {
+        traverse(value.value, seen);
+    }
+    else if (shared_esm_bundler_isArray(value)) {
+        for (let i = 0; i < value.length; i++) {
+            traverse(value[i], seen);
+        }
+    }
+    else if (isSet(value) || isMap(value)) {
+        value.forEach((v) => {
+            traverse(v, seen);
+        });
+    }
+    else if (isPlainObject(value)) {
+        for (const key in value) {
+            traverse(value[key], seen);
+        }
+    }
+    return value;
+}
+
+( false)
+    ? 0
+    : {};
+( false) ? 0 : [];
+const runtime_core_esm_bundler_isFunction = (val) => typeof val === 'function';
+const runtime_core_esm_bundler_isObject = (val) => val !== null && typeof val === 'object';
+const runtime_core_esm_bundler_isPromise = (val) => {
+    return runtime_core_esm_bundler_isObject(val) && runtime_core_esm_bundler_isFunction(val.then) && runtime_core_esm_bundler_isFunction(val.catch);
+};
+
+// dev only
+const warnRuntimeUsage = (method) => runtime_core_esm_bundler_warn(`${method}() is a compiler-hint helper that is only usable inside ` +
+    `<script setup> of a single file component. Its arguments should be ` +
+    `compiled away and passing it at runtime has no effect.`);
+// implementation
+function defineProps() {
+    if ((false)) {}
+    return null;
+}
+// implementation
+function defineEmits() {
+    if ((false)) {}
+    return null;
+}
+/**
+ * Vue `<script setup>` compiler macro for declaring a component's exposed
+ * instance properties when it is accessed by a parent component via template
+ * refs.
+ *
+ * `<script setup>` components are closed by default - i.e. varaibles inside
+ * the `<script setup>` scope is not exposed to parent unless explicitly exposed
+ * via `defineExpose`.
+ *
+ * This is only usable inside `<script setup>`, is compiled away in the
+ * output and should **not** be actually called at runtime.
+ */
+function defineExpose(exposed) {
+    if ((false)) {}
+}
+/**
+ * Vue `<script setup>` compiler macro for providing props default values when
+ * using type-based `defineProps` declaration.
+ *
+ * Example usage:
+ * ```ts
+ * withDefaults(defineProps<{
+ *   size?: number
+ *   labels?: string[]
+ * }>(), {
+ *   size: 3,
+ *   labels: () => ['default label']
+ * })
+ * ```
+ *
+ * This is only usable inside `<script setup>`, is compiled away in the output
+ * and should **not** be actually called at runtime.
+ */
+function withDefaults(props, defaults) {
+    if ((false)) {}
+    return null;
+}
+function useSlots() {
+    return getContext().slots;
+}
+function useAttrs() {
+    return getContext().attrs;
+}
+function getContext() {
+    const i = runtime_core_esm_bundler_getCurrentInstance();
+    if (false) {}
+    return i.setupContext || (i.setupContext = createSetupContext(i));
+}
+/**
+ * Runtime helper for merging default declarations. Imported by compiled code
+ * only.
+ * @internal
+ */
+function mergeDefaults(
+// the base props is compiler-generated and guaranteed to be in this shape.
+props, defaults) {
+    for (const key in defaults) {
+        const val = props[key];
+        if (val) {
+            val.default = defaults[key];
+        }
+        else if (val === null) {
+            props[key] = { default: defaults[key] };
+        }
+        else if ((false)) {}
+    }
+    return props;
+}
+/**
+ * `<script setup>` helper for persisting the current instance context over
+ * async/await flows.
+ *
+ * `@vue/compiler-sfc` converts the following:
+ *
+ * ```ts
+ * const x = await foo()
+ * ```
+ *
+ * into:
+ *
+ * ```ts
+ * let __temp, __restore
+ * const x = (([__temp, __restore] = withAsyncContext(() => foo())),__temp=await __temp,__restore(),__temp)
+ * ```
+ * @internal
+ */
+function withAsyncContext(getAwaitable) {
+    const ctx = runtime_core_esm_bundler_getCurrentInstance();
+    if (false) {}
+    let awaitable = getAwaitable();
+    unsetCurrentInstance();
+    if (runtime_core_esm_bundler_isPromise(awaitable)) {
+        awaitable = awaitable.catch(e => {
+            setCurrentInstance(ctx);
+            throw e;
+        });
+    }
+    return [awaitable, () => setCurrentInstance(ctx)];
+}
+
+// Actual implementation
+function h(type, propsOrChildren, children) {
+    const l = arguments.length;
+    if (l === 2) {
+        if (shared_esm_bundler_isObject(propsOrChildren) && !shared_esm_bundler_isArray(propsOrChildren)) {
+            // single vnode without props
+            if (isVNode(propsOrChildren)) {
+                return runtime_core_esm_bundler_createVNode(type, null, [propsOrChildren]);
+            }
+            // props without children
+            return runtime_core_esm_bundler_createVNode(type, propsOrChildren);
+        }
+        else {
+            // omit props
+            return runtime_core_esm_bundler_createVNode(type, null, propsOrChildren);
+        }
+    }
+    else {
+        if (l > 3) {
+            children = Array.prototype.slice.call(arguments, 2);
+        }
+        else if (l === 3 && isVNode(children)) {
+            children = [children];
+        }
+        return runtime_core_esm_bundler_createVNode(type, propsOrChildren, children);
+    }
+}
+
+const ssrContextKey = Symbol(( false) ? 0 : ``);
+const useSSRContext = () => {
+    {
+        const ctx = inject(ssrContextKey);
+        if (!ctx) {
+            runtime_core_esm_bundler_warn(`Server rendering context not provided. Make sure to only call ` +
+                `useSSRContext() conditionally in the server build.`);
+        }
+        return ctx;
+    }
+};
+
+function initCustomFormatter() {
+    /* eslint-disable no-restricted-globals */
+    if (true) {
+        return;
+    }
+    const vueStyle = { style: 'color:#3ba776' };
+    const numberStyle = { style: 'color:#0b1bc9' };
+    const stringStyle = { style: 'color:#b62e24' };
+    const keywordStyle = { style: 'color:#9d288c' };
+    // custom formatter for Chrome
+    // https://www.mattzeunert.com/2016/02/19/custom-chrome-devtools-object-formatters.html
+    const formatter = {
+        header(obj) {
+            // TODO also format ComponentPublicInstance & ctx.slots/attrs in setup
+            if (!isObject$1(obj)) {
+                return null;
+            }
+            if (obj.__isVue) {
+                return ['div', vueStyle, `VueInstance`];
+            }
+            else if (isRef(obj)) {
+                return [
+                    'div',
+                    {},
+                    ['span', vueStyle, genRefFlag(obj)],
+                    '<',
+                    formatValue(obj.value),
+                    `>`
+                ];
+            }
+            else if (isReactive(obj)) {
+                return [
+                    'div',
+                    {},
+                    ['span', vueStyle, 'Reactive'],
+                    '<',
+                    formatValue(obj),
+                    `>${isReadonly(obj) ? ` (readonly)` : ``}`
+                ];
+            }
+            else if (isReadonly(obj)) {
+                return [
+                    'div',
+                    {},
+                    ['span', vueStyle, 'Readonly'],
+                    '<',
+                    formatValue(obj),
+                    '>'
+                ];
+            }
+            return null;
+        },
+        hasBody(obj) {
+            return obj && obj.__isVue;
+        },
+        body(obj) {
+            if (obj && obj.__isVue) {
+                return [
+                    'div',
+                    {},
+                    ...formatInstance(obj.$)
+                ];
+            }
+        }
+    };
+    function formatInstance(instance) {
+        const blocks = [];
+        if (instance.type.props && instance.props) {
+            blocks.push(createInstanceBlock('props', toRaw(instance.props)));
+        }
+        if (instance.setupState !== EMPTY_OBJ) {
+            blocks.push(createInstanceBlock('setup', instance.setupState));
+        }
+        if (instance.data !== EMPTY_OBJ) {
+            blocks.push(createInstanceBlock('data', toRaw(instance.data)));
+        }
+        const computed = extractKeys(instance, 'computed');
+        if (computed) {
+            blocks.push(createInstanceBlock('computed', computed));
+        }
+        const injected = extractKeys(instance, 'inject');
+        if (injected) {
+            blocks.push(createInstanceBlock('injected', injected));
+        }
+        blocks.push([
+            'div',
+            {},
+            [
+                'span',
+                {
+                    style: keywordStyle.style + ';opacity:0.66'
+                },
+                '$ (internal): '
+            ],
+            ['object', { object: instance }]
+        ]);
+        return blocks;
+    }
+    function createInstanceBlock(type, target) {
+        target = extend({}, target);
+        if (!Object.keys(target).length) {
+            return ['span', {}];
+        }
+        return [
+            'div',
+            { style: 'line-height:1.25em;margin-bottom:0.6em' },
+            [
+                'div',
+                {
+                    style: 'color:#476582'
+                },
+                type
+            ],
+            [
+                'div',
+                {
+                    style: 'padding-left:1.25em'
+                },
+                ...Object.keys(target).map(key => {
+                    return [
+                        'div',
+                        {},
+                        ['span', keywordStyle, key + ': '],
+                        formatValue(target[key], false)
+                    ];
+                })
+            ]
+        ];
+    }
+    function formatValue(v, asRaw = true) {
+        if (typeof v === 'number') {
+            return ['span', numberStyle, v];
+        }
+        else if (typeof v === 'string') {
+            return ['span', stringStyle, JSON.stringify(v)];
+        }
+        else if (typeof v === 'boolean') {
+            return ['span', keywordStyle, v];
+        }
+        else if (isObject$1(v)) {
+            return ['object', { object: asRaw ? toRaw(v) : v }];
+        }
+        else {
+            return ['span', stringStyle, String(v)];
+        }
+    }
+    function extractKeys(instance, type) {
+        const Comp = instance.type;
+        if (isFunction$1(Comp)) {
+            return;
+        }
+        const extracted = {};
+        for (const key in instance.ctx) {
+            if (isKeyOfType(Comp, key, type)) {
+                extracted[key] = instance.ctx[key];
+            }
+        }
+        return extracted;
+    }
+    function isKeyOfType(Comp, key, type) {
+        const opts = Comp[type];
+        if ((isArray(opts) && opts.includes(key)) ||
+            (isObject$1(opts) && key in opts)) {
+            return true;
+        }
+        if (Comp.extends && isKeyOfType(Comp.extends, key, type)) {
+            return true;
+        }
+        if (Comp.mixins && Comp.mixins.some(m => isKeyOfType(m, key, type))) {
+            return true;
+        }
+    }
+    function genRefFlag(v) {
+        if (v._shallow) {
+            return `ShallowRef`;
+        }
+        if (v.effect) {
+            return `ComputedRef`;
+        }
+        return `Ref`;
+    }
+    if (window.devtoolsFormatters) {
+        window.devtoolsFormatters.push(formatter);
+    }
+    else {
+        window.devtoolsFormatters = [formatter];
+    }
+}
+
+function withMemo(memo, render, cache, index) {
+    const cached = cache[index];
+    if (cached && isMemoSame(cached, memo)) {
+        return cached;
+    }
+    const ret = render();
+    // shallow clone
+    ret.memo = memo.slice();
+    return (cache[index] = ret);
+}
+function isMemoSame(cached, memo) {
+    const prev = cached.memo;
+    if (prev.length != memo.length) {
+        return false;
+    }
+    for (let i = 0; i < prev.length; i++) {
+        if (prev[i] !== memo[i]) {
+            return false;
+        }
+    }
+    // make sure to let parent block track it when returning cached
+    if (isBlockTreeEnabled > 0 && currentBlock) {
+        currentBlock.push(cached);
+    }
+    return true;
+}
+
+// Core API ------------------------------------------------------------------
+const version = "3.2.12";
+const _ssrUtils = {
+    createComponentInstance,
+    setupComponent,
+    renderComponentRoot,
+    setCurrentRenderingInstance,
+    isVNode,
+    normalizeVNode
+};
+/**
+ * SSR utils for \@vue/server-renderer. Only exposed in cjs builds.
+ * @internal
+ */
+const ssrUtils = ((/* unused pure expression or super */ null && (_ssrUtils)) );
+/**
+ * @internal only exposed in compat builds
+ */
+const resolveFilter = null;
+/**
+ * @internal only exposed in compat builds.
+ */
+const compatUtils = (null);
+
+
+
+;// CONCATENATED MODULE: ./node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js
+
+
+
+
+const svgNS = 'http://www.w3.org/2000/svg';
+const doc = (typeof document !== 'undefined' ? document : null);
+const staticTemplateCache = new Map();
+const nodeOps = {
+    insert: (child, parent, anchor) => {
+        parent.insertBefore(child, anchor || null);
+    },
+    remove: child => {
+        const parent = child.parentNode;
+        if (parent) {
+            parent.removeChild(child);
+        }
+    },
+    createElement: (tag, isSVG, is, props) => {
+        const el = isSVG
+            ? doc.createElementNS(svgNS, tag)
+            : doc.createElement(tag, is ? { is } : undefined);
+        if (tag === 'select' && props && props.multiple != null) {
+            el.setAttribute('multiple', props.multiple);
+        }
+        return el;
+    },
+    createText: text => doc.createTextNode(text),
+    createComment: text => doc.createComment(text),
+    setText: (node, text) => {
+        node.nodeValue = text;
+    },
+    setElementText: (el, text) => {
+        el.textContent = text;
+    },
+    parentNode: node => node.parentNode,
+    nextSibling: node => node.nextSibling,
+    querySelector: selector => doc.querySelector(selector),
+    setScopeId(el, id) {
+        el.setAttribute(id, '');
+    },
+    cloneNode(el) {
+        const cloned = el.cloneNode(true);
+        // #3072
+        // - in `patchDOMProp`, we store the actual value in the `el._value` property.
+        // - normally, elements using `:value` bindings will not be hoisted, but if
+        //   the bound value is a constant, e.g. `:value="true"` - they do get
+        //   hoisted.
+        // - in production, hoisted nodes are cloned when subsequent inserts, but
+        //   cloneNode() does not copy the custom property we attached.
+        // - This may need to account for other custom DOM properties we attach to
+        //   elements in addition to `_value` in the future.
+        if (`_value` in el) {
+            cloned._value = el._value;
+        }
+        return cloned;
+    },
+    // __UNSAFE__
+    // Reason: innerHTML.
+    // Static content here can only come from compiled templates.
+    // As long as the user only uses trusted templates, this is safe.
+    insertStaticContent(content, parent, anchor, isSVG) {
+        // <parent> before | first ... last | anchor </parent>
+        const before = anchor ? anchor.previousSibling : parent.lastChild;
+        let template = staticTemplateCache.get(content);
+        if (!template) {
+            const t = doc.createElement('template');
+            t.innerHTML = isSVG ? `<svg>${content}</svg>` : content;
+            template = t.content;
+            if (isSVG) {
+                // remove outer svg wrapper
+                const wrapper = template.firstChild;
+                while (wrapper.firstChild) {
+                    template.appendChild(wrapper.firstChild);
+                }
+                template.removeChild(wrapper);
+            }
+            staticTemplateCache.set(content, template);
+        }
+        parent.insertBefore(template.cloneNode(true), anchor);
+        return [
+            // first
+            before ? before.nextSibling : parent.firstChild,
+            // last
+            anchor ? anchor.previousSibling : parent.lastChild
+        ];
+    }
+};
+
+// compiler should normalize class + :class bindings on the same element
+// into a single binding ['staticClass', dynamic]
+function patchClass(el, value, isSVG) {
+    // directly setting className should be faster than setAttribute in theory
+    // if this is an element during a transition, take the temporary transition
+    // classes into account.
+    const transitionClasses = el._vtc;
+    if (transitionClasses) {
+        value = (value ? [value, ...transitionClasses] : [...transitionClasses]).join(' ');
+    }
+    if (value == null) {
+        el.removeAttribute('class');
+    }
+    else if (isSVG) {
+        el.setAttribute('class', value);
+    }
+    else {
+        el.className = value;
+    }
+}
+
+function patchStyle(el, prev, next) {
+    const style = el.style;
+    const currentDisplay = style.display;
+    if (!next) {
+        el.removeAttribute('style');
+    }
+    else if (shared_esm_bundler_isString(next)) {
+        if (prev !== next) {
+            style.cssText = next;
+        }
+    }
+    else {
+        for (const key in next) {
+            setStyle(style, key, next[key]);
+        }
+        if (prev && !shared_esm_bundler_isString(prev)) {
+            for (const key in prev) {
+                if (next[key] == null) {
+                    setStyle(style, key, '');
+                }
+            }
+        }
+    }
+    // indicates that the `display` of the element is controlled by `v-show`,
+    // so we always keep the current `display` value regardless of the `style` value,
+    // thus handing over control to `v-show`.
+    if ('_vod' in el) {
+        style.display = currentDisplay;
+    }
+}
+const importantRE = /\s*!important$/;
+function setStyle(style, name, val) {
+    if (shared_esm_bundler_isArray(val)) {
+        val.forEach(v => setStyle(style, name, v));
+    }
+    else {
+        if (name.startsWith('--')) {
+            // custom property definition
+            style.setProperty(name, val);
+        }
+        else {
+            const prefixed = autoPrefix(style, name);
+            if (importantRE.test(val)) {
+                // !important
+                style.setProperty(shared_esm_bundler_hyphenate(prefixed), val.replace(importantRE, ''), 'important');
+            }
+            else {
+                style[prefixed] = val;
+            }
+        }
+    }
+}
+const prefixes = ['Webkit', 'Moz', 'ms'];
+const prefixCache = {};
+function autoPrefix(style, rawName) {
+    const cached = prefixCache[rawName];
+    if (cached) {
+        return cached;
+    }
+    let name = shared_esm_bundler_camelize(rawName);
+    if (name !== 'filter' && name in style) {
+        return (prefixCache[rawName] = name);
+    }
+    name = shared_esm_bundler_capitalize(name);
+    for (let i = 0; i < prefixes.length; i++) {
+        const prefixed = prefixes[i] + name;
+        if (prefixed in style) {
+            return (prefixCache[rawName] = prefixed);
+        }
+    }
+    return rawName;
+}
+
+const xlinkNS = 'http://www.w3.org/1999/xlink';
+function patchAttr(el, key, value, isSVG, instance) {
+    if (isSVG && key.startsWith('xlink:')) {
+        if (value == null) {
+            el.removeAttributeNS(xlinkNS, key.slice(6, key.length));
+        }
+        else {
+            el.setAttributeNS(xlinkNS, key, value);
+        }
+    }
+    else {
+        // note we are only checking boolean attributes that don't have a
+        // corresponding dom prop of the same name here.
+        const isBoolean = isSpecialBooleanAttr(key);
+        if (value == null || (isBoolean && !includeBooleanAttr(value))) {
+            el.removeAttribute(key);
+        }
+        else {
+            el.setAttribute(key, isBoolean ? '' : value);
+        }
+    }
+}
+
+// __UNSAFE__
+// functions. The user is responsible for using them with only trusted content.
+function patchDOMProp(el, key, value, 
+// the following args are passed only due to potential innerHTML/textContent
+// overriding existing VNodes, in which case the old tree must be properly
+// unmounted.
+prevChildren, parentComponent, parentSuspense, unmountChildren) {
+    if (key === 'innerHTML' || key === 'textContent') {
+        if (prevChildren) {
+            unmountChildren(prevChildren, parentComponent, parentSuspense);
+        }
+        el[key] = value == null ? '' : value;
+        return;
+    }
+    if (key === 'value' && el.tagName !== 'PROGRESS') {
+        // store value as _value as well since
+        // non-string values will be stringified.
+        el._value = value;
+        const newValue = value == null ? '' : value;
+        if (el.value !== newValue) {
+            el.value = newValue;
+        }
+        if (value == null) {
+            el.removeAttribute(key);
+        }
+        return;
+    }
+    if (value === '' || value == null) {
+        const type = typeof el[key];
+        if (type === 'boolean') {
+            // e.g. <select multiple> compiles to { multiple: '' }
+            el[key] = includeBooleanAttr(value);
+            return;
+        }
+        else if (value == null && type === 'string') {
+            // e.g. <div :id="null">
+            el[key] = '';
+            el.removeAttribute(key);
+            return;
+        }
+        else if (type === 'number') {
+            // e.g. <img :width="null">
+            // the value of some IDL attr must be greater than 0, e.g. input.size = 0 -> error
+            try {
+                el[key] = 0;
+            }
+            catch (_a) { }
+            el.removeAttribute(key);
+            return;
+        }
+    }
+    // some properties perform value validation and throw
+    try {
+        el[key] = value;
+    }
+    catch (e) {
+        if ((false)) {}
+    }
+}
+
+// Async edge case fix requires storing an event listener's attach timestamp.
+let _getNow = Date.now;
+let skipTimestampCheck = false;
+if (typeof window !== 'undefined') {
+    // Determine what event timestamp the browser is using. Annoyingly, the
+    // timestamp can either be hi-res (relative to page load) or low-res
+    // (relative to UNIX epoch), so in order to compare time we have to use the
+    // same timestamp type when saving the flush timestamp.
+    if (_getNow() > document.createEvent('Event').timeStamp) {
+        // if the low-res timestamp which is bigger than the event timestamp
+        // (which is evaluated AFTER) it means the event is using a hi-res timestamp,
+        // and we need to use the hi-res version for event listeners as well.
+        _getNow = () => performance.now();
+    }
+    // #3485: Firefox <= 53 has incorrect Event.timeStamp implementation
+    // and does not fire microtasks in between event propagation, so safe to exclude.
+    const ffMatch = navigator.userAgent.match(/firefox\/(\d+)/i);
+    skipTimestampCheck = !!(ffMatch && Number(ffMatch[1]) <= 53);
+}
+// To avoid the overhead of repeatedly calling performance.now(), we cache
+// and use the same timestamp for all event listeners attached in the same tick.
+let cachedNow = 0;
+const p = Promise.resolve();
+const runtime_dom_esm_bundler_reset = () => {
+    cachedNow = 0;
+};
+const getNow = () => cachedNow || (p.then(runtime_dom_esm_bundler_reset), (cachedNow = _getNow()));
+function runtime_dom_esm_bundler_addEventListener(el, event, handler, options) {
+    el.addEventListener(event, handler, options);
+}
+function runtime_dom_esm_bundler_removeEventListener(el, event, handler, options) {
+    el.removeEventListener(event, handler, options);
+}
+function patchEvent(el, rawName, prevValue, nextValue, instance = null) {
+    // vei = vue event invokers
+    const invokers = el._vei || (el._vei = {});
+    const existingInvoker = invokers[rawName];
+    if (nextValue && existingInvoker) {
+        // patch
+        existingInvoker.value = nextValue;
+    }
+    else {
+        const [name, options] = parseName(rawName);
+        if (nextValue) {
+            // add
+            const invoker = (invokers[rawName] = createInvoker(nextValue, instance));
+            runtime_dom_esm_bundler_addEventListener(el, name, invoker, options);
+        }
+        else if (existingInvoker) {
+            // remove
+            runtime_dom_esm_bundler_removeEventListener(el, name, existingInvoker, options);
+            invokers[rawName] = undefined;
+        }
+    }
+}
+const optionsModifierRE = /(?:Once|Passive|Capture)$/;
+function parseName(name) {
+    let options;
+    if (optionsModifierRE.test(name)) {
+        options = {};
+        let m;
+        while ((m = name.match(optionsModifierRE))) {
+            name = name.slice(0, name.length - m[0].length);
+            options[m[0].toLowerCase()] = true;
+        }
+    }
+    return [shared_esm_bundler_hyphenate(name.slice(2)), options];
+}
+function createInvoker(initialValue, instance) {
+    const invoker = (e) => {
+        // async edge case #6566: inner click event triggers patch, event handler
+        // attached to outer element during patch, and triggered again. This
+        // happens because browsers fire microtask ticks between event propagation.
+        // the solution is simple: we save the timestamp when a handler is attached,
+        // and the handler would only fire if the event passed to it was fired
+        // AFTER it was attached.
+        const timeStamp = e.timeStamp || _getNow();
+        if (skipTimestampCheck || timeStamp >= invoker.attached - 1) {
+            callWithAsyncErrorHandling(patchStopImmediatePropagation(e, invoker.value), instance, 5 /* NATIVE_EVENT_HANDLER */, [e]);
+        }
+    };
+    invoker.value = initialValue;
+    invoker.attached = getNow();
+    return invoker;
+}
+function patchStopImmediatePropagation(e, value) {
+    if (shared_esm_bundler_isArray(value)) {
+        const originalStop = e.stopImmediatePropagation;
+        e.stopImmediatePropagation = () => {
+            originalStop.call(e);
+            e._stopped = true;
+        };
+        return value.map(fn => (e) => !e._stopped && fn(e));
+    }
+    else {
+        return value;
+    }
+}
+
+const nativeOnRE = /^on[a-z]/;
+const patchProp = (el, key, prevValue, nextValue, isSVG = false, prevChildren, parentComponent, parentSuspense, unmountChildren) => {
+    if (key === 'class') {
+        patchClass(el, nextValue, isSVG);
+    }
+    else if (key === 'style') {
+        patchStyle(el, prevValue, nextValue);
+    }
+    else if (shared_esm_bundler_isOn(key)) {
+        // ignore v-model listeners
+        if (!isModelListener(key)) {
+            patchEvent(el, key, prevValue, nextValue, parentComponent);
+        }
+    }
+    else if (key[0] === '.'
+        ? ((key = key.slice(1)), true)
+        : key[0] === '^'
+            ? ((key = key.slice(1)), false)
+            : shouldSetAsProp(el, key, nextValue, isSVG)) {
+        patchDOMProp(el, key, nextValue, prevChildren, parentComponent, parentSuspense, unmountChildren);
+    }
+    else {
+        // special case for <input v-model type="checkbox"> with
+        // :true-value & :false-value
+        // store value as dom properties since non-string values will be
+        // stringified.
+        if (key === 'true-value') {
+            el._trueValue = nextValue;
+        }
+        else if (key === 'false-value') {
+            el._falseValue = nextValue;
+        }
+        patchAttr(el, key, nextValue, isSVG);
+    }
+};
+function shouldSetAsProp(el, key, value, isSVG) {
+    if (isSVG) {
+        // most keys must be set as attribute on svg elements to work
+        // ...except innerHTML & textContent
+        if (key === 'innerHTML' || key === 'textContent') {
+            return true;
+        }
+        // or native onclick with function values
+        if (key in el && nativeOnRE.test(key) && shared_esm_bundler_isFunction(value)) {
+            return true;
+        }
+        return false;
+    }
+    // spellcheck and draggable are numerated attrs, however their
+    // corresponding DOM properties are actually booleans - this leads to
+    // setting it with a string "false" value leading it to be coerced to
+    // `true`, so we need to always treat them as attributes.
+    // Note that `contentEditable` doesn't have this problem: its DOM
+    // property is also enumerated string values.
+    if (key === 'spellcheck' || key === 'draggable') {
+        return false;
+    }
+    // #1787, #2840 form property on form elements is readonly and must be set as
+    // attribute.
+    if (key === 'form') {
+        return false;
+    }
+    // #1526 <input list> must be set as attribute
+    if (key === 'list' && el.tagName === 'INPUT') {
+        return false;
+    }
+    // #2766 <textarea type> must be set as attribute
+    if (key === 'type' && el.tagName === 'TEXTAREA') {
+        return false;
+    }
+    // native onclick with string value, must be set as attribute
+    if (nativeOnRE.test(key) && shared_esm_bundler_isString(value)) {
+        return false;
+    }
+    return key in el;
+}
+
+function defineCustomElement(options, hydate) {
+    const Comp = defineComponent(options);
+    class VueCustomElement extends VueElement {
+        constructor(initialProps) {
+            super(Comp, initialProps, hydate);
+        }
+    }
+    VueCustomElement.def = Comp;
+    return VueCustomElement;
+}
+const defineSSRCustomElement = ((options) => {
+    // @ts-ignore
+    return defineCustomElement(options, hydrate);
+});
+const BaseClass = (typeof HTMLElement !== 'undefined' ? HTMLElement : class {
+});
+class VueElement extends (/* unused pure expression or super */ null && (BaseClass)) {
+    constructor(_def, _props = {}, hydrate) {
+        super();
+        this._def = _def;
+        this._props = _props;
+        /**
+         * @internal
+         */
+        this._instance = null;
+        this._connected = false;
+        this._resolved = false;
+        this._numberProps = null;
+        if (this.shadowRoot && hydrate) {
+            hydrate(this._createVNode(), this.shadowRoot);
+        }
+        else {
+            if (false) {}
+            this.attachShadow({ mode: 'open' });
+        }
+        // set initial attrs
+        for (let i = 0; i < this.attributes.length; i++) {
+            this._setAttr(this.attributes[i].name);
+        }
+        // watch future attr changes
+        new MutationObserver(mutations => {
+            for (const m of mutations) {
+                this._setAttr(m.attributeName);
+            }
+        }).observe(this, { attributes: true });
+    }
+    connectedCallback() {
+        this._connected = true;
+        if (!this._instance) {
+            this._resolveDef();
+            this._update();
+        }
+    }
+    disconnectedCallback() {
+        this._connected = false;
+        nextTick(() => {
+            if (!this._connected) {
+                render(null, this.shadowRoot);
+                this._instance = null;
+            }
+        });
+    }
+    /**
+     * resolve inner component definition (handle possible async component)
+     */
+    _resolveDef() {
+        if (this._resolved) {
+            return;
+        }
+        const resolve = (def) => {
+            this._resolved = true;
+            const { props, styles } = def;
+            const hasOptions = !isArray(props);
+            const rawKeys = props ? (hasOptions ? Object.keys(props) : props) : [];
+            // cast Number-type props set before resolve
+            let numberProps;
+            if (hasOptions) {
+                for (const key in this._props) {
+                    const opt = props[key];
+                    if (opt === Number || (opt && opt.type === Number)) {
+                        this._props[key] = toNumber(this._props[key]);
+                        (numberProps || (numberProps = Object.create(null)))[key] = true;
+                    }
+                }
+            }
+            if (numberProps) {
+                this._numberProps = numberProps;
+                this._update();
+            }
+            // check if there are props set pre-upgrade or connect
+            for (const key of Object.keys(this)) {
+                if (key[0] !== '_') {
+                    this._setProp(key, this[key]);
+                }
+            }
+            // defining getter/setters on prototype
+            for (const key of rawKeys.map(camelize$1)) {
+                Object.defineProperty(this, key, {
+                    get() {
+                        return this._getProp(key);
+                    },
+                    set(val) {
+                        this._setProp(key, val);
+                    }
+                });
+            }
+            this._applyStyles(styles);
+        };
+        const asyncDef = this._def.__asyncLoader;
+        if (asyncDef) {
+            asyncDef().then(resolve);
+        }
+        else {
+            resolve(this._def);
+        }
+    }
+    _setAttr(key) {
+        let value = this.getAttribute(key);
+        if (this._numberProps && this._numberProps[key]) {
+            value = toNumber(value);
+        }
+        this._setProp(camelize$1(key), value, false);
+    }
+    /**
+     * @internal
+     */
+    _getProp(key) {
+        return this._props[key];
+    }
+    /**
+     * @internal
+     */
+    _setProp(key, val, shouldReflect = true) {
+        if (val !== this._props[key]) {
+            this._props[key] = val;
+            if (this._instance) {
+                this._update();
+            }
+            // reflect
+            if (shouldReflect) {
+                if (val === true) {
+                    this.setAttribute(hyphenate(key), '');
+                }
+                else if (typeof val === 'string' || typeof val === 'number') {
+                    this.setAttribute(hyphenate(key), val + '');
+                }
+                else if (!val) {
+                    this.removeAttribute(hyphenate(key));
+                }
+            }
+        }
+    }
+    _update() {
+        render(this._createVNode(), this.shadowRoot);
+    }
+    _createVNode() {
+        const vnode = createVNode(this._def, extend({}, this._props));
+        if (!this._instance) {
+            vnode.ce = instance => {
+                this._instance = instance;
+                instance.isCE = true;
+                // HMR
+                if ((false)) {}
+                // intercept emit
+                instance.emit = (event, ...args) => {
+                    this.dispatchEvent(new CustomEvent(event, {
+                        detail: args
+                    }));
+                };
+                // locate nearest Vue custom element parent for provide/inject
+                let parent = this;
+                while ((parent =
+                    parent && (parent.parentNode || parent.host))) {
+                    if (parent instanceof VueElement) {
+                        instance.parent = parent._instance;
+                        break;
+                    }
+                }
+            };
+        }
+        return vnode;
+    }
+    _applyStyles(styles) {
+        if (styles) {
+            styles.forEach(css => {
+                const s = document.createElement('style');
+                s.textContent = css;
+                this.shadowRoot.appendChild(s);
+                // record for HMR
+                if ((false)) {}
+            });
+        }
+    }
+}
+
+function useCssModule(name = '$style') {
+    /* istanbul ignore else */
+    {
+        const instance = getCurrentInstance();
+        if (!instance) {
+            ( false) && 0;
+            return EMPTY_OBJ;
+        }
+        const modules = instance.type.__cssModules;
+        if (!modules) {
+            ( false) && 0;
+            return EMPTY_OBJ;
+        }
+        const mod = modules[name];
+        if (!mod) {
+            ( false) &&
+                0;
+            return EMPTY_OBJ;
+        }
+        return mod;
+    }
+}
+
+/**
+ * Runtime helper for SFC's CSS variable injection feature.
+ * @private
+ */
+function useCssVars(getter) {
+    const instance = getCurrentInstance();
+    /* istanbul ignore next */
+    if (!instance) {
+        ( false) &&
+            0;
+        return;
+    }
+    const setVars = () => setVarsOnVNode(instance.subTree, getter(instance.proxy));
+    watchPostEffect(setVars);
+    onMounted(() => {
+        const ob = new MutationObserver(setVars);
+        ob.observe(instance.subTree.el.parentNode, { childList: true });
+        onUnmounted(() => ob.disconnect());
+    });
+}
+function setVarsOnVNode(vnode, vars) {
+    if (vnode.shapeFlag & 128 /* SUSPENSE */) {
+        const suspense = vnode.suspense;
+        vnode = suspense.activeBranch;
+        if (suspense.pendingBranch && !suspense.isHydrating) {
+            suspense.effects.push(() => {
+                setVarsOnVNode(suspense.activeBranch, vars);
+            });
+        }
+    }
+    // drill down HOCs until it's a non-component vnode
+    while (vnode.component) {
+        vnode = vnode.component.subTree;
+    }
+    if (vnode.shapeFlag & 1 /* ELEMENT */ && vnode.el) {
+        setVarsOnNode(vnode.el, vars);
+    }
+    else if (vnode.type === Fragment) {
+        vnode.children.forEach(c => setVarsOnVNode(c, vars));
+    }
+    else if (vnode.type === Static) {
+        let { el, anchor } = vnode;
+        while (el) {
+            setVarsOnNode(el, vars);
+            if (el === anchor)
+                break;
+            el = el.nextSibling;
+        }
+    }
+}
+function setVarsOnNode(el, vars) {
+    if (el.nodeType === 1) {
+        const style = el.style;
+        for (const key in vars) {
+            style.setProperty(`--${key}`, vars[key]);
+        }
+    }
+}
+
+const TRANSITION = 'transition';
+const ANIMATION = 'animation';
+// DOM Transition is a higher-order-component based on the platform-agnostic
+// base Transition component, with DOM-specific logic.
+const Transition = (props, { slots }) => h(BaseTransition, resolveTransitionProps(props), slots);
+Transition.displayName = 'Transition';
+const DOMTransitionPropsValidators = {
+    name: String,
+    type: String,
+    css: {
+        type: Boolean,
+        default: true
+    },
+    duration: [String, Number, Object],
+    enterFromClass: String,
+    enterActiveClass: String,
+    enterToClass: String,
+    appearFromClass: String,
+    appearActiveClass: String,
+    appearToClass: String,
+    leaveFromClass: String,
+    leaveActiveClass: String,
+    leaveToClass: String
+};
+const TransitionPropsValidators = (Transition.props =
+    /*#__PURE__*/ shared_esm_bundler_extend({}, BaseTransition.props, DOMTransitionPropsValidators));
+/**
+ * #3227 Incoming hooks may be merged into arrays when wrapping Transition
+ * with custom HOCs.
+ */
+const runtime_dom_esm_bundler_callHook = (hook, args = []) => {
+    if (shared_esm_bundler_isArray(hook)) {
+        hook.forEach(h => h(...args));
+    }
+    else if (hook) {
+        hook(...args);
+    }
+};
+/**
+ * Check if a hook expects a callback (2nd arg), which means the user
+ * intends to explicitly control the end of the transition.
+ */
+const hasExplicitCallback = (hook) => {
+    return hook
+        ? shared_esm_bundler_isArray(hook)
+            ? hook.some(h => h.length > 1)
+            : hook.length > 1
+        : false;
+};
+function resolveTransitionProps(rawProps) {
+    const baseProps = {};
+    for (const key in rawProps) {
+        if (!(key in DOMTransitionPropsValidators)) {
+            baseProps[key] = rawProps[key];
+        }
+    }
+    if (rawProps.css === false) {
+        return baseProps;
+    }
+    const { name = 'v', type, duration, enterFromClass = `${name}-enter-from`, enterActiveClass = `${name}-enter-active`, enterToClass = `${name}-enter-to`, appearFromClass = enterFromClass, appearActiveClass = enterActiveClass, appearToClass = enterToClass, leaveFromClass = `${name}-leave-from`, leaveActiveClass = `${name}-leave-active`, leaveToClass = `${name}-leave-to` } = rawProps;
+    const durations = normalizeDuration(duration);
+    const enterDuration = durations && durations[0];
+    const leaveDuration = durations && durations[1];
+    const { onBeforeEnter, onEnter, onEnterCancelled, onLeave, onLeaveCancelled, onBeforeAppear = onBeforeEnter, onAppear = onEnter, onAppearCancelled = onEnterCancelled } = baseProps;
+    const finishEnter = (el, isAppear, done) => {
+        removeTransitionClass(el, isAppear ? appearToClass : enterToClass);
+        removeTransitionClass(el, isAppear ? appearActiveClass : enterActiveClass);
+        done && done();
+    };
+    const finishLeave = (el, done) => {
+        removeTransitionClass(el, leaveToClass);
+        removeTransitionClass(el, leaveActiveClass);
+        done && done();
+    };
+    const makeEnterHook = (isAppear) => {
+        return (el, done) => {
+            const hook = isAppear ? onAppear : onEnter;
+            const resolve = () => finishEnter(el, isAppear, done);
+            runtime_dom_esm_bundler_callHook(hook, [el, resolve]);
+            nextFrame(() => {
+                removeTransitionClass(el, isAppear ? appearFromClass : enterFromClass);
+                addTransitionClass(el, isAppear ? appearToClass : enterToClass);
+                if (!hasExplicitCallback(hook)) {
+                    whenTransitionEnds(el, type, enterDuration, resolve);
+                }
+            });
+        };
+    };
+    return shared_esm_bundler_extend(baseProps, {
+        onBeforeEnter(el) {
+            runtime_dom_esm_bundler_callHook(onBeforeEnter, [el]);
+            addTransitionClass(el, enterFromClass);
+            addTransitionClass(el, enterActiveClass);
+        },
+        onBeforeAppear(el) {
+            runtime_dom_esm_bundler_callHook(onBeforeAppear, [el]);
+            addTransitionClass(el, appearFromClass);
+            addTransitionClass(el, appearActiveClass);
+        },
+        onEnter: makeEnterHook(false),
+        onAppear: makeEnterHook(true),
+        onLeave(el, done) {
+            const resolve = () => finishLeave(el, done);
+            addTransitionClass(el, leaveFromClass);
+            // force reflow so *-leave-from classes immediately take effect (#2593)
+            forceReflow();
+            addTransitionClass(el, leaveActiveClass);
+            nextFrame(() => {
+                removeTransitionClass(el, leaveFromClass);
+                addTransitionClass(el, leaveToClass);
+                if (!hasExplicitCallback(onLeave)) {
+                    whenTransitionEnds(el, type, leaveDuration, resolve);
+                }
+            });
+            runtime_dom_esm_bundler_callHook(onLeave, [el, resolve]);
+        },
+        onEnterCancelled(el) {
+            finishEnter(el, false);
+            runtime_dom_esm_bundler_callHook(onEnterCancelled, [el]);
+        },
+        onAppearCancelled(el) {
+            finishEnter(el, true);
+            runtime_dom_esm_bundler_callHook(onAppearCancelled, [el]);
+        },
+        onLeaveCancelled(el) {
+            finishLeave(el);
+            runtime_dom_esm_bundler_callHook(onLeaveCancelled, [el]);
+        }
+    });
+}
+function normalizeDuration(duration) {
+    if (duration == null) {
+        return null;
+    }
+    else if (shared_esm_bundler_isObject(duration)) {
+        return [NumberOf(duration.enter), NumberOf(duration.leave)];
+    }
+    else {
+        const n = NumberOf(duration);
+        return [n, n];
+    }
+}
+function NumberOf(val) {
+    const res = shared_esm_bundler_toNumber(val);
+    if ((false))
+        {}
+    return res;
+}
+function validateDuration(val) {
+    if (typeof val !== 'number') {
+        warn(`<transition> explicit duration is not a valid number - ` +
+            `got ${JSON.stringify(val)}.`);
+    }
+    else if (isNaN(val)) {
+        warn(`<transition> explicit duration is NaN - ` +
+            'the duration expression might be incorrect.');
+    }
+}
+function addTransitionClass(el, cls) {
+    cls.split(/\s+/).forEach(c => c && el.classList.add(c));
+    (el._vtc ||
+        (el._vtc = new Set())).add(cls);
+}
+function removeTransitionClass(el, cls) {
+    cls.split(/\s+/).forEach(c => c && el.classList.remove(c));
+    const { _vtc } = el;
+    if (_vtc) {
+        _vtc.delete(cls);
+        if (!_vtc.size) {
+            el._vtc = undefined;
+        }
+    }
+}
+function nextFrame(cb) {
+    requestAnimationFrame(() => {
+        requestAnimationFrame(cb);
+    });
+}
+let endId = 0;
+function whenTransitionEnds(el, expectedType, explicitTimeout, resolve) {
+    const id = (el._endId = ++endId);
+    const resolveIfNotStale = () => {
+        if (id === el._endId) {
+            resolve();
+        }
+    };
+    if (explicitTimeout) {
+        return setTimeout(resolveIfNotStale, explicitTimeout);
+    }
+    const { type, timeout, propCount } = getTransitionInfo(el, expectedType);
+    if (!type) {
+        return resolve();
+    }
+    const endEvent = type + 'end';
+    let ended = 0;
+    const end = () => {
+        el.removeEventListener(endEvent, onEnd);
+        resolveIfNotStale();
+    };
+    const onEnd = (e) => {
+        if (e.target === el && ++ended >= propCount) {
+            end();
+        }
+    };
+    setTimeout(() => {
+        if (ended < propCount) {
+            end();
+        }
+    }, timeout + 1);
+    el.addEventListener(endEvent, onEnd);
+}
+function getTransitionInfo(el, expectedType) {
+    const styles = window.getComputedStyle(el);
+    // JSDOM may return undefined for transition properties
+    const getStyleProperties = (key) => (styles[key] || '').split(', ');
+    const transitionDelays = getStyleProperties(TRANSITION + 'Delay');
+    const transitionDurations = getStyleProperties(TRANSITION + 'Duration');
+    const transitionTimeout = getTimeout(transitionDelays, transitionDurations);
+    const animationDelays = getStyleProperties(ANIMATION + 'Delay');
+    const animationDurations = getStyleProperties(ANIMATION + 'Duration');
+    const animationTimeout = getTimeout(animationDelays, animationDurations);
+    let type = null;
+    let timeout = 0;
+    let propCount = 0;
+    /* istanbul ignore if */
+    if (expectedType === TRANSITION) {
+        if (transitionTimeout > 0) {
+            type = TRANSITION;
+            timeout = transitionTimeout;
+            propCount = transitionDurations.length;
+        }
+    }
+    else if (expectedType === ANIMATION) {
+        if (animationTimeout > 0) {
+            type = ANIMATION;
+            timeout = animationTimeout;
+            propCount = animationDurations.length;
+        }
+    }
+    else {
+        timeout = Math.max(transitionTimeout, animationTimeout);
+        type =
+            timeout > 0
+                ? transitionTimeout > animationTimeout
+                    ? TRANSITION
+                    : ANIMATION
+                : null;
+        propCount = type
+            ? type === TRANSITION
+                ? transitionDurations.length
+                : animationDurations.length
+            : 0;
+    }
+    const hasTransform = type === TRANSITION &&
+        /\b(transform|all)(,|$)/.test(styles[TRANSITION + 'Property']);
+    return {
+        type,
+        timeout,
+        propCount,
+        hasTransform
+    };
+}
+function getTimeout(delays, durations) {
+    while (delays.length < durations.length) {
+        delays = delays.concat(delays);
+    }
+    return Math.max(...durations.map((d, i) => toMs(d) + toMs(delays[i])));
+}
+// Old versions of Chromium (below 61.0.3163.100) formats floating pointer
+// numbers in a locale-dependent way, using a comma instead of a dot.
+// If comma is not replaced with a dot, the input will be rounded down
+// (i.e. acting as a floor function) causing unexpected behaviors
+function toMs(s) {
+    return Number(s.slice(0, -1).replace(',', '.')) * 1000;
+}
+// synchronously force layout to put elements into a certain state
+function forceReflow() {
+    return document.body.offsetHeight;
+}
+
+const positionMap = new WeakMap();
+const newPositionMap = new WeakMap();
+const TransitionGroupImpl = {
+    name: 'TransitionGroup',
+    props: /*#__PURE__*/ shared_esm_bundler_extend({}, TransitionPropsValidators, {
+        tag: String,
+        moveClass: String
+    }),
+    setup(props, { slots }) {
+        const instance = runtime_core_esm_bundler_getCurrentInstance();
+        const state = useTransitionState();
+        let prevChildren;
+        let children;
+        onUpdated(() => {
+            // children is guaranteed to exist after initial render
+            if (!prevChildren.length) {
+                return;
+            }
+            const moveClass = props.moveClass || `${props.name || 'v'}-move`;
+            if (!hasCSSTransform(prevChildren[0].el, instance.vnode.el, moveClass)) {
+                return;
+            }
+            // we divide the work into three loops to avoid mixing DOM reads and writes
+            // in each iteration - which helps prevent layout thrashing.
+            prevChildren.forEach(callPendingCbs);
+            prevChildren.forEach(recordPosition);
+            const movedChildren = prevChildren.filter(applyTranslation);
+            // force reflow to put everything in position
+            forceReflow();
+            movedChildren.forEach(c => {
+                const el = c.el;
+                const style = el.style;
+                addTransitionClass(el, moveClass);
+                style.transform = style.webkitTransform = style.transitionDuration = '';
+                const cb = (el._moveCb = (e) => {
+                    if (e && e.target !== el) {
+                        return;
+                    }
+                    if (!e || /transform$/.test(e.propertyName)) {
+                        el.removeEventListener('transitionend', cb);
+                        el._moveCb = null;
+                        removeTransitionClass(el, moveClass);
+                    }
+                });
+                el.addEventListener('transitionend', cb);
+            });
+        });
+        return () => {
+            const rawProps = reactivity_esm_bundler_toRaw(props);
+            const cssTransitionProps = resolveTransitionProps(rawProps);
+            let tag = rawProps.tag || runtime_core_esm_bundler_Fragment;
+            prevChildren = children;
+            children = slots.default ? getTransitionRawChildren(slots.default()) : [];
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+                if (child.key != null) {
+                    setTransitionHooks(child, resolveTransitionHooks(child, cssTransitionProps, state, instance));
+                }
+                else if ((false)) {}
+            }
+            if (prevChildren) {
+                for (let i = 0; i < prevChildren.length; i++) {
+                    const child = prevChildren[i];
+                    setTransitionHooks(child, resolveTransitionHooks(child, cssTransitionProps, state, instance));
+                    positionMap.set(child, child.el.getBoundingClientRect());
+                }
+            }
+            return runtime_core_esm_bundler_createVNode(tag, null, children);
+        };
+    }
+};
+const TransitionGroup = (/* unused pure expression or super */ null && (TransitionGroupImpl));
+function callPendingCbs(c) {
+    const el = c.el;
+    if (el._moveCb) {
+        el._moveCb();
+    }
+    if (el._enterCb) {
+        el._enterCb();
+    }
+}
+function recordPosition(c) {
+    newPositionMap.set(c, c.el.getBoundingClientRect());
+}
+function applyTranslation(c) {
+    const oldPos = positionMap.get(c);
+    const newPos = newPositionMap.get(c);
+    const dx = oldPos.left - newPos.left;
+    const dy = oldPos.top - newPos.top;
+    if (dx || dy) {
+        const s = c.el.style;
+        s.transform = s.webkitTransform = `translate(${dx}px,${dy}px)`;
+        s.transitionDuration = '0s';
+        return c;
+    }
+}
+function hasCSSTransform(el, root, moveClass) {
+    // Detect whether an element with the move class applied has
+    // CSS transitions. Since the element may be inside an entering
+    // transition at this very moment, we make a clone of it and remove
+    // all other transition classes applied to ensure only the move class
+    // is applied.
+    const clone = el.cloneNode();
+    if (el._vtc) {
+        el._vtc.forEach(cls => {
+            cls.split(/\s+/).forEach(c => c && clone.classList.remove(c));
+        });
+    }
+    moveClass.split(/\s+/).forEach(c => c && clone.classList.add(c));
+    clone.style.display = 'none';
+    const container = (root.nodeType === 1 ? root : root.parentNode);
+    container.appendChild(clone);
+    const { hasTransform } = getTransitionInfo(clone);
+    container.removeChild(clone);
+    return hasTransform;
+}
+
+const getModelAssigner = (vnode) => {
+    const fn = vnode.props['onUpdate:modelValue'];
+    return shared_esm_bundler_isArray(fn) ? value => shared_esm_bundler_invokeArrayFns(fn, value) : fn;
+};
+function onCompositionStart(e) {
+    e.target.composing = true;
+}
+function onCompositionEnd(e) {
+    const target = e.target;
+    if (target.composing) {
+        target.composing = false;
+        runtime_dom_esm_bundler_trigger(target, 'input');
+    }
+}
+function runtime_dom_esm_bundler_trigger(el, type) {
+    const e = document.createEvent('HTMLEvents');
+    e.initEvent(type, true, true);
+    el.dispatchEvent(e);
+}
+// We are exporting the v-model runtime directly as vnode hooks so that it can
+// be tree-shaken in case v-model is never used.
+const vModelText = {
+    created(el, { modifiers: { lazy, trim, number } }, vnode) {
+        el._assign = getModelAssigner(vnode);
+        const castToNumber = number || (vnode.props && vnode.props.type === 'number');
+        runtime_dom_esm_bundler_addEventListener(el, lazy ? 'change' : 'input', e => {
+            if (e.target.composing)
+                return;
+            let domValue = el.value;
+            if (trim) {
+                domValue = domValue.trim();
+            }
+            else if (castToNumber) {
+                domValue = shared_esm_bundler_toNumber(domValue);
+            }
+            el._assign(domValue);
+        });
+        if (trim) {
+            runtime_dom_esm_bundler_addEventListener(el, 'change', () => {
+                el.value = el.value.trim();
+            });
+        }
+        if (!lazy) {
+            runtime_dom_esm_bundler_addEventListener(el, 'compositionstart', onCompositionStart);
+            runtime_dom_esm_bundler_addEventListener(el, 'compositionend', onCompositionEnd);
+            // Safari < 10.2 & UIWebView doesn't fire compositionend when
+            // switching focus before confirming composition choice
+            // this also fixes the issue where some browsers e.g. iOS Chrome
+            // fires "change" instead of "input" on autocomplete.
+            runtime_dom_esm_bundler_addEventListener(el, 'change', onCompositionEnd);
+        }
+    },
+    // set value on mounted so it's after min/max for type="range"
+    mounted(el, { value }) {
+        el.value = value == null ? '' : value;
+    },
+    beforeUpdate(el, { value, modifiers: { lazy, trim, number } }, vnode) {
+        el._assign = getModelAssigner(vnode);
+        // avoid clearing unresolved text. #2302
+        if (el.composing)
+            return;
+        if (document.activeElement === el) {
+            if (lazy) {
+                return;
+            }
+            if (trim && el.value.trim() === value) {
+                return;
+            }
+            if ((number || el.type === 'number') && shared_esm_bundler_toNumber(el.value) === value) {
+                return;
+            }
+        }
+        const newValue = value == null ? '' : value;
+        if (el.value !== newValue) {
+            el.value = newValue;
+        }
+    }
+};
+const vModelCheckbox = {
+    // #4096 array checkboxes need to be deep traversed
+    deep: true,
+    created(el, _, vnode) {
+        el._assign = getModelAssigner(vnode);
+        runtime_dom_esm_bundler_addEventListener(el, 'change', () => {
+            const modelValue = el._modelValue;
+            const elementValue = getValue(el);
+            const checked = el.checked;
+            const assign = el._assign;
+            if (shared_esm_bundler_isArray(modelValue)) {
+                const index = looseIndexOf(modelValue, elementValue);
+                const found = index !== -1;
+                if (checked && !found) {
+                    assign(modelValue.concat(elementValue));
+                }
+                else if (!checked && found) {
+                    const filtered = [...modelValue];
+                    filtered.splice(index, 1);
+                    assign(filtered);
+                }
+            }
+            else if (isSet(modelValue)) {
+                const cloned = new Set(modelValue);
+                if (checked) {
+                    cloned.add(elementValue);
+                }
+                else {
+                    cloned.delete(elementValue);
+                }
+                assign(cloned);
+            }
+            else {
+                assign(getCheckboxValue(el, checked));
+            }
+        });
+    },
+    // set initial checked on mount to wait for true-value/false-value
+    mounted: setChecked,
+    beforeUpdate(el, binding, vnode) {
+        el._assign = getModelAssigner(vnode);
+        setChecked(el, binding, vnode);
+    }
+};
+function setChecked(el, { value, oldValue }, vnode) {
+    el._modelValue = value;
+    if (shared_esm_bundler_isArray(value)) {
+        el.checked = looseIndexOf(value, vnode.props.value) > -1;
+    }
+    else if (isSet(value)) {
+        el.checked = value.has(vnode.props.value);
+    }
+    else if (value !== oldValue) {
+        el.checked = looseEqual(value, getCheckboxValue(el, true));
+    }
+}
+const vModelRadio = {
+    created(el, { value }, vnode) {
+        el.checked = looseEqual(value, vnode.props.value);
+        el._assign = getModelAssigner(vnode);
+        runtime_dom_esm_bundler_addEventListener(el, 'change', () => {
+            el._assign(getValue(el));
+        });
+    },
+    beforeUpdate(el, { value, oldValue }, vnode) {
+        el._assign = getModelAssigner(vnode);
+        if (value !== oldValue) {
+            el.checked = looseEqual(value, vnode.props.value);
+        }
+    }
+};
+const vModelSelect = {
+    // <select multiple> value need to be deep traversed
+    deep: true,
+    created(el, { value, modifiers: { number } }, vnode) {
+        const isSetModel = isSet(value);
+        runtime_dom_esm_bundler_addEventListener(el, 'change', () => {
+            const selectedVal = Array.prototype.filter
+                .call(el.options, (o) => o.selected)
+                .map((o) => number ? shared_esm_bundler_toNumber(getValue(o)) : getValue(o));
+            el._assign(el.multiple
+                ? isSetModel
+                    ? new Set(selectedVal)
+                    : selectedVal
+                : selectedVal[0]);
+        });
+        el._assign = getModelAssigner(vnode);
+    },
+    // set value in mounted & updated because <select> relies on its children
+    // <option>s.
+    mounted(el, { value }) {
+        setSelected(el, value);
+    },
+    beforeUpdate(el, _binding, vnode) {
+        el._assign = getModelAssigner(vnode);
+    },
+    updated(el, { value }) {
+        setSelected(el, value);
+    }
+};
+function setSelected(el, value) {
+    const isMultiple = el.multiple;
+    if (isMultiple && !shared_esm_bundler_isArray(value) && !isSet(value)) {
+        ( false) &&
+            0;
+        return;
+    }
+    for (let i = 0, l = el.options.length; i < l; i++) {
+        const option = el.options[i];
+        const optionValue = getValue(option);
+        if (isMultiple) {
+            if (shared_esm_bundler_isArray(value)) {
+                option.selected = looseIndexOf(value, optionValue) > -1;
+            }
+            else {
+                option.selected = value.has(optionValue);
+            }
+        }
+        else {
+            if (looseEqual(getValue(option), value)) {
+                if (el.selectedIndex !== i)
+                    el.selectedIndex = i;
+                return;
+            }
+        }
+    }
+    if (!isMultiple && el.selectedIndex !== -1) {
+        el.selectedIndex = -1;
+    }
+}
+// retrieve raw value set via :value bindings
+function getValue(el) {
+    return '_value' in el ? el._value : el.value;
+}
+// retrieve raw value for true-value and false-value set via :true-value or :false-value bindings
+function getCheckboxValue(el, checked) {
+    const key = checked ? '_trueValue' : '_falseValue';
+    return key in el ? el[key] : checked;
+}
+const vModelDynamic = {
+    created(el, binding, vnode) {
+        callModelHook(el, binding, vnode, null, 'created');
+    },
+    mounted(el, binding, vnode) {
+        callModelHook(el, binding, vnode, null, 'mounted');
+    },
+    beforeUpdate(el, binding, vnode, prevVNode) {
+        callModelHook(el, binding, vnode, prevVNode, 'beforeUpdate');
+    },
+    updated(el, binding, vnode, prevVNode) {
+        callModelHook(el, binding, vnode, prevVNode, 'updated');
+    }
+};
+function callModelHook(el, binding, vnode, prevVNode, hook) {
+    let modelToUse;
+    switch (el.tagName) {
+        case 'SELECT':
+            modelToUse = vModelSelect;
+            break;
+        case 'TEXTAREA':
+            modelToUse = vModelText;
+            break;
+        default:
+            switch (vnode.props && vnode.props.type) {
+                case 'checkbox':
+                    modelToUse = vModelCheckbox;
+                    break;
+                case 'radio':
+                    modelToUse = vModelRadio;
+                    break;
+                default:
+                    modelToUse = vModelText;
+            }
+    }
+    const fn = modelToUse[hook];
+    fn && fn(el, binding, vnode, prevVNode);
+}
+
+const systemModifiers = ['ctrl', 'shift', 'alt', 'meta'];
+const modifierGuards = {
+    stop: e => e.stopPropagation(),
+    prevent: e => e.preventDefault(),
+    self: e => e.target !== e.currentTarget,
+    ctrl: e => !e.ctrlKey,
+    shift: e => !e.shiftKey,
+    alt: e => !e.altKey,
+    meta: e => !e.metaKey,
+    left: e => 'button' in e && e.button !== 0,
+    middle: e => 'button' in e && e.button !== 1,
+    right: e => 'button' in e && e.button !== 2,
+    exact: (e, modifiers) => systemModifiers.some(m => e[`${m}Key`] && !modifiers.includes(m))
+};
+/**
+ * @private
+ */
+const withModifiers = (fn, modifiers) => {
+    return (event, ...args) => {
+        for (let i = 0; i < modifiers.length; i++) {
+            const guard = modifierGuards[modifiers[i]];
+            if (guard && guard(event, modifiers))
+                return;
+        }
+        return fn(event, ...args);
+    };
+};
+// Kept for 2.x compat.
+// Note: IE11 compat for `spacebar` and `del` is removed for now.
+const keyNames = {
+    esc: 'escape',
+    space: ' ',
+    up: 'arrow-up',
+    left: 'arrow-left',
+    right: 'arrow-right',
+    down: 'arrow-down',
+    delete: 'backspace'
+};
+/**
+ * @private
+ */
+const withKeys = (fn, modifiers) => {
+    return (event) => {
+        if (!('key' in event)) {
+            return;
+        }
+        const eventKey = hyphenate(event.key);
+        if (modifiers.some(k => k === eventKey || keyNames[k] === eventKey)) {
+            return fn(event);
+        }
+    };
+};
+
+const vShow = {
+    beforeMount(el, { value }, { transition }) {
+        el._vod = el.style.display === 'none' ? '' : el.style.display;
+        if (transition && value) {
+            transition.beforeEnter(el);
+        }
+        else {
+            setDisplay(el, value);
+        }
+    },
+    mounted(el, { value }, { transition }) {
+        if (transition && value) {
+            transition.enter(el);
+        }
+    },
+    updated(el, { value, oldValue }, { transition }) {
+        if (!value === !oldValue)
+            return;
+        if (transition) {
+            if (value) {
+                transition.beforeEnter(el);
+                setDisplay(el, true);
+                transition.enter(el);
+            }
+            else {
+                transition.leave(el, () => {
+                    setDisplay(el, false);
+                });
+            }
+        }
+        else {
+            setDisplay(el, value);
+        }
+    },
+    beforeUnmount(el, { value }) {
+        setDisplay(el, value);
+    }
+};
+function setDisplay(el, value) {
+    el.style.display = value ? el._vod : 'none';
+}
+
+const rendererOptions = shared_esm_bundler_extend({ patchProp }, nodeOps);
+// lazy create the renderer - this makes core renderer logic tree-shakable
+// in case the user only imports reactivity utilities from Vue.
+let renderer;
+let enabledHydration = false;
+function ensureRenderer() {
+    return (renderer ||
+        (renderer = createRenderer(rendererOptions)));
+}
+function ensureHydrationRenderer() {
+    renderer = enabledHydration
+        ? renderer
+        : createHydrationRenderer(rendererOptions);
+    enabledHydration = true;
+    return renderer;
+}
+// use explicit type casts here to avoid import() calls in rolled-up d.ts
+const render = ((...args) => {
+    ensureRenderer().render(...args);
+});
+const hydrate = ((...args) => {
+    ensureHydrationRenderer().hydrate(...args);
+});
+const createApp = ((...args) => {
+    const app = ensureRenderer().createApp(...args);
+    if ((false)) {}
+    const { mount } = app;
+    app.mount = (containerOrSelector) => {
+        const container = normalizeContainer(containerOrSelector);
+        if (!container)
+            return;
+        const component = app._component;
+        if (!isFunction(component) && !component.render && !component.template) {
+            // __UNSAFE__
+            // Reason: potential execution of JS expressions in in-DOM template.
+            // The user must make sure the in-DOM template is trusted. If it's
+            // rendered by the server, the template should not contain any user data.
+            component.template = container.innerHTML;
+        }
+        // clear content before mounting
+        container.innerHTML = '';
+        const proxy = mount(container, false, container instanceof SVGElement);
+        if (container instanceof Element) {
+            container.removeAttribute('v-cloak');
+            container.setAttribute('data-v-app', '');
+        }
+        return proxy;
+    };
+    return app;
+});
+const createSSRApp = ((...args) => {
+    const app = ensureHydrationRenderer().createApp(...args);
+    if ((false)) {}
+    const { mount } = app;
+    app.mount = (containerOrSelector) => {
+        const container = normalizeContainer(containerOrSelector);
+        if (container) {
+            return mount(container, true, container instanceof SVGElement);
+        }
+    };
+    return app;
+});
+function injectNativeTagCheck(app) {
+    // Inject `isNativeTag`
+    // this is used for component name validation (dev only)
+    Object.defineProperty(app.config, 'isNativeTag', {
+        value: (tag) => isHTMLTag(tag) || isSVGTag(tag),
+        writable: false
+    });
+}
+// dev only
+function injectCompilerOptionsCheck(app) {
+    if (isRuntimeOnly()) {
+        const isCustomElement = app.config.isCustomElement;
+        Object.defineProperty(app.config, 'isCustomElement', {
+            get() {
+                return isCustomElement;
+            },
+            set() {
+                warn(`The \`isCustomElement\` config option is deprecated. Use ` +
+                    `\`compilerOptions.isCustomElement\` instead.`);
+            }
+        });
+        const compilerOptions = app.config.compilerOptions;
+        const msg = `The \`compilerOptions\` config option is only respected when using ` +
+            `a build of Vue.js that includes the runtime compiler (aka "full build"). ` +
+            `Since you are using the runtime-only build, \`compilerOptions\` ` +
+            `must be passed to \`@vue/compiler-dom\` in the build setup instead.\n` +
+            `- For vue-loader: pass it via vue-loader's \`compilerOptions\` loader option.\n` +
+            `- For vue-cli: see https://cli.vuejs.org/guide/webpack.html#modifying-options-of-a-loader\n` +
+            `- For vite: pass it via @vitejs/plugin-vue options. See https://github.com/vitejs/vite/tree/main/packages/plugin-vue#example-for-passing-options-to-vuecompiler-dom`;
+        Object.defineProperty(app.config, 'compilerOptions', {
+            get() {
+                warn(msg);
+                return compilerOptions;
+            },
+            set() {
+                warn(msg);
+            }
+        });
+    }
+}
+function normalizeContainer(container) {
+    if (isString(container)) {
+        const res = document.querySelector(container);
+        if (false) {}
+        return res;
+    }
+    if (false) {}
+    return container;
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/TradingVue.vue?vue&type=template&id=66442834
+
+var _hoisted_1 = ["id"];
+function TradingVuevue_type_template_id_66442834_render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_toolbar = resolveComponent("toolbar");
+
+  var _component_widgets = resolveComponent("widgets");
+
+  var _component_chart = resolveComponent("chart");
+
+  var _component_the_tip = resolveComponent("the-tip");
+
+  return openBlock(), createElementBlock(runtime_core_esm_bundler_Fragment, null, [createCommentVNode(" Main component  "), createBaseVNode("div", {
+    id: $props.id,
+    "class": "trading-vue",
+    style: normalizeStyle({
+      color: this.chart_props.colors.text,
+      font: this.font_comp,
+      width: this.width + 'px',
+      height: this.height + 'px'
+    }),
+    onMousedown: _cache[1] || (_cache[1] = function () {
+      return $options.mousedown && $options.mousedown.apply($options, arguments);
+    }),
+    onMouseleave: _cache[2] || (_cache[2] = function () {
+      return $options.mouseleave && $options.mouseleave.apply($options, arguments);
+    })
+  }, [$props.toolbar ? (openBlock(), createBlock(_component_toolbar, mergeProps({
+    key: 0,
+    ref: "toolbar"
+  }, $options.chart_props, {
+    config: $options.chart_config,
+    onCustomEvent: $options.custom_event
+  }), null, 16
+  /* FULL_PROPS */
+  , ["config", "onCustomEvent"])) : createCommentVNode("v-if", true), _ctx.controllers.length ? (openBlock(), createBlock(_component_widgets, {
+    key: 1,
+    ref: "widgets",
+    map: _ctx.ws,
+    width: $props.width,
+    height: $props.height,
+    tv: this,
+    dc: $props.data
+  }, null, 8
+  /* PROPS */
+  , ["map", "width", "height", "dc"])) : createCommentVNode("v-if", true), runtime_core_esm_bundler_createVNode(_component_chart, mergeProps({
+    key: $data.reset,
+    ref: "chart"
+  }, $options.chart_props, {
+    tv_id: $props.id,
+    config: $options.chart_config,
+    onCustomEvent: $options.custom_event,
+    onRangeChanged: $options.range_changed,
+    onLegendButtonClick: $options.legend_button
+  }), null, 16
+  /* FULL_PROPS */
+  , ["tv_id", "config", "onCustomEvent", "onRangeChanged", "onLegendButtonClick"]), runtime_core_esm_bundler_createVNode(Transition, {
+    name: "tvjs-drift"
+  }, {
+    "default": withCtx(function () {
+      return [$data.tip ? (openBlock(), createBlock(_component_the_tip, {
+        key: 0,
+        data: $data.tip,
+        onRemoveMe: _cache[0] || (_cache[0] = function ($event) {
+          return $data.tip = null;
+        })
+      }, null, 8
+      /* PROPS */
+      , ["data"])) : createCommentVNode("v-if", true)];
+    }),
+    _: 1
+    /* STABLE */
+
+  })], 44
+  /* STYLE, PROPS, HYDRATE_EVENTS */
+  , _hoisted_1)], 2112
+  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+  );
+}
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
@@ -669,56 +10971,53 @@ var MAP_UNIT = {
   map_unit: MAP_UNIT,
   IB_TF_WARN: IB_TF_WARN
 });
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Chart.vue?vue&type=template&id=4d06a4de&
-var Chartvue_type_template_id_4d06a4de_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "trading-vue-chart", style: _vm.styles },
-    [
-      _c("keyboard", { ref: "keyboard" }),
-      _vm._v(" "),
-      _vm._l(this._layout.grids, function(grid, i) {
-        return _c("grid-section", {
-          key: grid.id,
-          ref: "sec",
-          refInFor: true,
-          attrs: { common: _vm.section_props(i), grid_id: i },
-          on: {
-            "register-kb-listener": _vm.register_kb,
-            "remove-kb-listener": _vm.remove_kb,
-            "range-changed": _vm.range_changed,
-            "cursor-changed": _vm.cursor_changed,
-            "cursor-locked": _vm.cursor_locked,
-            "sidebar-transform": _vm.set_ytransform,
-            "layer-meta-props": _vm.layer_meta_props,
-            "custom-event": _vm.emit_custom_event,
-            "legend-button-click": _vm.legend_button_click
-          }
-        })
-      }),
-      _vm._v(" "),
-      _c(
-        "botbar",
-        _vm._b(
-          { attrs: { shaders: _vm.shaders, timezone: _vm.timezone } },
-          "botbar",
-          _vm.botbar_props,
-          false
-        )
-      )
-    ],
-    2
-  )
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Chart.vue?vue&type=template&id=f7d40a04
+
+function Chartvue_type_template_id_f7d40a04_render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_keyboard = resolveComponent("keyboard");
+
+  var _component_grid_section = resolveComponent("grid-section");
+
+  var _component_botbar = resolveComponent("botbar");
+
+  return openBlock(), createElementBlock(runtime_core_esm_bundler_Fragment, null, [createCommentVNode(" Chart components combined together "), createBaseVNode("div", {
+    "class": "trading-vue-chart",
+    style: normalizeStyle($options.styles)
+  }, [runtime_core_esm_bundler_createVNode(_component_keyboard, {
+    ref: "keyboard"
+  }, null, 512
+  /* NEED_PATCH */
+  ), (openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, null, renderList(this._layout.grids, function (grid, i) {
+    return openBlock(), createBlock(_component_grid_section, {
+      key: grid.id,
+      ref: "sec",
+      common: $options.section_props(i),
+      grid_id: i,
+      onRegisterKbListener: $options.register_kb,
+      onRemoveKbListener: $options.remove_kb,
+      onRangeChanged: $options.range_changed,
+      onCursorChanged: $options.cursor_changed,
+      onCursorLocked: $options.cursor_locked,
+      onSidebarTransform: $options.set_ytransform,
+      onLayerMetaProps: $options.layer_meta_props,
+      onCustomEvent: $options.emit_custom_event,
+      onLegendButtonClick: $options.legend_button_click
+    }, null, 8
+    /* PROPS */
+    , ["common", "grid_id", "onRegisterKbListener", "onRemoveKbListener", "onRangeChanged", "onCursorChanged", "onCursorLocked", "onSidebarTransform", "onLayerMetaProps", "onCustomEvent", "onLegendButtonClick"]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), runtime_core_esm_bundler_createVNode(_component_botbar, mergeProps($options.botbar_props, {
+    shaders: _ctx.shaders,
+    timezone: $props.timezone
+  }), null, 16
+  /* FULL_PROPS */
+  , ["shaders", "timezone"])], 4
+  /* STYLE */
+  )], 2112
+  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+  );
 }
-var Chartvue_type_template_id_4d06a4de_staticRenderFns = []
-Chartvue_type_template_id_4d06a4de_render._withStripped = true
-
-
-;// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=template&id=4d06a4de&
-
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
@@ -2220,72 +12519,54 @@ var CursorUpdater = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ const updater = (CursorUpdater);
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Section.vue?vue&type=template&id=8fbe9336&
-var Sectionvue_type_template_id_8fbe9336_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "trading-vue-section" },
-    [
-      _c("chart-legend", {
-        ref: "legend",
-        attrs: {
-          values: _vm.section_values,
-          grid_id: _vm.grid_id,
-          common: _vm.legend_props,
-          meta_props: _vm.get_meta_props
-        },
-        on: { "legend-button-click": _vm.button_click }
-      }),
-      _vm._v(" "),
-      _c(
-        "grid",
-        _vm._b(
-          {
-            ref: "grid",
-            attrs: { grid_id: _vm.grid_id },
-            on: {
-              "register-kb-listener": _vm.register_kb,
-              "remove-kb-listener": _vm.remove_kb,
-              "range-changed": _vm.range_changed,
-              "cursor-changed": _vm.cursor_changed,
-              "cursor-locked": _vm.cursor_locked,
-              "layer-meta-props": _vm.emit_meta_props,
-              "custom-event": _vm.emit_custom_event,
-              "sidebar-transform": _vm.sidebar_transform,
-              "rezoom-range": _vm.rezoom_range
-            }
-          },
-          "grid",
-          _vm.grid_props,
-          false
-        )
-      ),
-      _vm._v(" "),
-      _c(
-        "sidebar",
-        _vm._b(
-          {
-            ref: "sb-" + _vm.grid_id,
-            attrs: { grid_id: _vm.grid_id, rerender: _vm.rerender },
-            on: { "sidebar-transform": _vm.sidebar_transform }
-          },
-          "sidebar",
-          _vm.sidebar_props,
-          false
-        )
-      )
-    ],
-    1
-  )
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Section.vue?vue&type=template&id=6a086200
+
+var Sectionvue_type_template_id_6a086200_hoisted_1 = {
+  "class": "trading-vue-section"
+};
+function Sectionvue_type_template_id_6a086200_render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_chart_legend = resolveComponent("chart-legend");
+
+  var _component_grid = resolveComponent("grid");
+
+  var _component_sidebar = resolveComponent("sidebar");
+
+  return openBlock(), createElementBlock(runtime_core_esm_bundler_Fragment, null, [createCommentVNode(" Horizontal section: (grid + sidebar) "), createBaseVNode("div", Sectionvue_type_template_id_6a086200_hoisted_1, [runtime_core_esm_bundler_createVNode(_component_chart_legend, {
+    ref: "legend",
+    values: $options.section_values,
+    grid_id: $props.grid_id,
+    common: $options.legend_props,
+    meta_props: $options.get_meta_props,
+    onLegendButtonClick: $options.button_click
+  }, null, 8
+  /* PROPS */
+  , ["values", "grid_id", "common", "meta_props", "onLegendButtonClick"]), runtime_core_esm_bundler_createVNode(_component_grid, mergeProps($options.grid_props, {
+    ref: "grid",
+    grid_id: $props.grid_id,
+    onRegisterKbListener: $options.register_kb,
+    onRemoveKbListener: $options.remove_kb,
+    onRangeChanged: $options.range_changed,
+    onCursorChanged: $options.cursor_changed,
+    onCursorLocked: $options.cursor_locked,
+    onLayerMetaProps: $options.emit_meta_props,
+    onCustomEvent: $options.emit_custom_event,
+    onSidebarTransform: $options.sidebar_transform,
+    onRezoomRange: $options.rezoom_range
+  }), null, 16
+  /* FULL_PROPS */
+  , ["grid_id", "onRegisterKbListener", "onRemoveKbListener", "onRangeChanged", "onCursorChanged", "onCursorLocked", "onLayerMetaProps", "onCustomEvent", "onSidebarTransform", "onRezoomRange"]), runtime_core_esm_bundler_createVNode(_component_sidebar, mergeProps({
+    ref: 'sb-' + $props.grid_id
+  }, $options.sidebar_props, {
+    grid_id: $props.grid_id,
+    rerender: $data.rerender,
+    onSidebarTransform: $options.sidebar_transform
+  }), null, 16
+  /* FULL_PROPS */
+  , ["grid_id", "rerender", "onSidebarTransform"])])], 2112
+  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+  );
 }
-var Sectionvue_type_template_id_8fbe9336_staticRenderFns = []
-Sectionvue_type_template_id_8fbe9336_render._withStripped = true
-
-
-;// CONCATENATED MODULE: ./src/components/Section.vue?vue&type=template&id=8fbe9336&
+;// CONCATENATED MODULE: ./src/components/Section.vue?vue&type=template&id=6a086200
 
 ;// CONCATENATED MODULE: ./src/stuff/frame.js
 
@@ -3202,10 +13483,10 @@ var Crosshair = /*#__PURE__*/function () {
 }();
 
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Crosshair.vue?vue&type=script&lang=js&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Crosshair.vue?vue&type=script&lang=js
 
 
-/* harmony default export */ const Crosshairvue_type_script_lang_js_ = ({
+/* harmony default export */ const Crosshairvue_type_script_lang_js = ({
   name: 'Crosshair',
   props: ['cursor', 'colors', 'layout', 'sub'],
   methods: {
@@ -3242,137 +13523,15 @@ var Crosshair = /*#__PURE__*/function () {
     return h();
   }
 });
-;// CONCATENATED MODULE: ./src/components/Crosshair.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Crosshairvue_type_script_lang_js_ = (Crosshairvue_type_script_lang_js_); 
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () {
-        injectStyles.call(
-          this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
-        )
-      }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functional component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
+;// CONCATENATED MODULE: ./src/components/Crosshair.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/Crosshair.vue
-var Crosshair_render, Crosshair_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var component = normalizeComponent(
-  components_Crosshairvue_type_script_lang_js_,
-  Crosshair_render,
-  Crosshair_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "src/components/Crosshair.vue"
-/* harmony default export */ const components_Crosshair = (component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/KeyboardListener.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-/* harmony default export */ const KeyboardListenervue_type_script_lang_js_ = ({
+/* harmony default export */ const components_Crosshair = (Crosshairvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/KeyboardListener.vue?vue&type=script&lang=js
+/* harmony default export */ const KeyboardListenervue_type_script_lang_js = ({
   name: 'KeyboardListener',
   render: function render(h) {
     return h();
@@ -3402,154 +13561,82 @@ component.options.__file = "src/components/Crosshair.vue"
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/KeyboardListener.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_KeyboardListenervue_type_script_lang_js_ = (KeyboardListenervue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/KeyboardListener.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/KeyboardListener.vue
-var KeyboardListener_render, KeyboardListener_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var KeyboardListener_component = normalizeComponent(
-  components_KeyboardListenervue_type_script_lang_js_,
-  KeyboardListener_render,
-  KeyboardListener_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
+/* harmony default export */ const KeyboardListener = (KeyboardListenervue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/UxLayer.vue?vue&type=template&id=072774c0
 
-/* hot reload */
-if (false) { var KeyboardListener_api; }
-KeyboardListener_component.options.__file = "src/components/KeyboardListener.vue"
-/* harmony default export */ const KeyboardListener = (KeyboardListener_component.exports);
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/UxLayer.vue?vue&type=template&id=390ccf6e&
-var UxLayervue_type_template_id_390ccf6e_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "span",
-    { class: "trading-vue-grid-ux-" + _vm.id, style: _vm.style },
-    _vm._l(_vm.uxs, function(ux) {
-      return _c("ux-wrapper", {
-        key: ux.uuid,
-        attrs: {
-          ux: ux,
-          updater: _vm.updater,
-          colors: _vm.colors,
-          config: _vm.config
-        },
-        on: { "custom-event": _vm.on_custom_event }
-      })
+function UxLayervue_type_template_id_072774c0_render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_ux_wrapper = resolveComponent("ux-wrapper");
+
+  return openBlock(), createElementBlock("span", {
+    "class": normalizeClass("trading-vue-grid-ux-".concat($props.id)),
+    style: normalizeStyle($options.style)
+  }, [(openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, null, renderList($props.uxs, function (ux) {
+    return openBlock(), createBlock(_component_ux_wrapper, {
+      onCustomEvent: $options.on_custom_event,
+      key: ux.uuid,
+      ux: ux,
+      updater: $props.updater,
+      colors: $props.colors,
+      config: $props.config
+    }, null, 8
+    /* PROPS */
+    , ["onCustomEvent", "ux", "updater", "colors", "config"]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))], 6
+  /* CLASS, STYLE */
+  );
+}
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/UxWrapper.vue?vue&type=template&id=26d7be98
+
+var UxWrappervue_type_template_id_26d7be98_hoisted_1 = ["id"];
+var _hoisted_2 = {
+  key: 1,
+  "class": "tvjs-ux-wrapper-head"
+};
+function UxWrappervue_type_template_id_26d7be98_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return $data.visible ? (openBlock(), createElementBlock("div", {
+    key: 0,
+    "class": "trading-vue-ux-wrapper",
+    id: "tvjs-ux-wrapper-".concat($props.ux.uuid),
+    style: normalizeStyle($options.style)
+  }, [(openBlock(), createBlock(resolveDynamicComponent($props.ux.component), {
+    onCustomEvent: $options.on_custom_event,
+    ux: $props.ux,
+    updater: $props.updater,
+    wrapper: $options.wrapper,
+    colors: $props.colors
+  }, null, 8
+  /* PROPS */
+  , ["onCustomEvent", "ux", "updater", "wrapper", "colors"])), $props.ux.show_pin ? (openBlock(), createElementBlock("div", {
+    key: 0,
+    style: normalizeStyle($options.pin_style),
+    "class": "tvjs-ux-wrapper-pin"
+  }, null, 4
+  /* STYLE */
+  )) : createCommentVNode("v-if", true), $props.ux.win_header !== false ? (openBlock(), createElementBlock("div", _hoisted_2, [createBaseVNode("div", {
+    "class": "tvjs-ux-wrapper-close",
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.close && $options.close.apply($options, arguments);
     }),
-    1
-  )
+    style: normalizeStyle($options.btn_style)
+  }, "×", 4
+  /* STYLE */
+  )])) : createCommentVNode("v-if", true)], 12
+  /* STYLE, PROPS */
+  , UxWrappervue_type_template_id_26d7be98_hoisted_1)) : createCommentVNode("v-if", true);
 }
-var UxLayervue_type_template_id_390ccf6e_staticRenderFns = []
-UxLayervue_type_template_id_390ccf6e_render._withStripped = true
+;// CONCATENATED MODULE: ./src/components/UxWrapper.vue?vue&type=template&id=26d7be98
 
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/UxWrapper.vue?vue&type=script&lang=js
 
-;// CONCATENATED MODULE: ./src/components/UxLayer.vue?vue&type=template&id=390ccf6e&
-
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/UxWrapper.vue?vue&type=template&id=4bc32070&
-var UxWrappervue_type_template_id_4bc32070_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm.visible
-    ? _c(
-        "div",
-        {
-          staticClass: "trading-vue-ux-wrapper",
-          style: _vm.style,
-          attrs: { id: "tvjs-ux-wrapper-" + _vm.ux.uuid }
-        },
-        [
-          _c(_vm.ux.component, {
-            tag: "component",
-            attrs: {
-              ux: _vm.ux,
-              updater: _vm.updater,
-              wrapper: _vm.wrapper,
-              colors: _vm.colors
-            },
-            on: { "custom-event": _vm.on_custom_event }
-          }),
-          _vm._v(" "),
-          _vm.ux.show_pin
-            ? _c("div", {
-                staticClass: "tvjs-ux-wrapper-pin",
-                style: _vm.pin_style
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.ux.win_header !== false
-            ? _c("div", { staticClass: "tvjs-ux-wrapper-head" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "tvjs-ux-wrapper-close",
-                    style: _vm.btn_style,
-                    on: { click: _vm.close }
-                  },
-                  [_vm._v("×")]
-                )
-              ])
-            : _vm._e()
-        ],
-        1
-      )
-    : _vm._e()
-}
-var UxWrappervue_type_template_id_4bc32070_staticRenderFns = []
-UxWrappervue_type_template_id_4bc32070_render._withStripped = true
-
-
-;// CONCATENATED MODULE: ./src/components/UxWrapper.vue?vue&type=template&id=4bc32070&
-
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/UxWrapper.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ const UxWrappervue_type_script_lang_js_ = ({
+/* harmony default export */ const UxWrappervue_type_script_lang_js = ({
   name: 'UxWrapper',
   props: ['ux', 'updater', 'colors', 'config'],
   mounted: function mounted() {
@@ -3764,55 +13851,24 @@ UxWrappervue_type_template_id_4bc32070_render._withStripped = true
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/UxWrapper.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_UxWrappervue_type_script_lang_js_ = (UxWrappervue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/UxWrapper.vue?vue&type=style&index=0&lang=css&
-var UxWrappervue_type_style_index_0_lang_css_ = __webpack_require__(565);
-;// CONCATENATED MODULE: ./src/components/UxWrapper.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/UxWrapper.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/UxWrapper.vue?vue&type=style&index=0&id=26d7be98&lang=css
+var UxWrappervue_type_style_index_0_id_26d7be98_lang_css = __webpack_require__(297);
+;// CONCATENATED MODULE: ./src/components/UxWrapper.vue?vue&type=style&index=0&id=26d7be98&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/UxWrapper.vue
 
 
 
+
 ;
+UxWrappervue_type_script_lang_js.render = UxWrappervue_type_template_id_26d7be98_render
 
+/* harmony default export */ const UxWrapper = (UxWrappervue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/UxLayer.vue?vue&type=script&lang=js
 
-/* normalize component */
-
-var UxWrapper_component = normalizeComponent(
-  components_UxWrappervue_type_script_lang_js_,
-  UxWrappervue_type_template_id_4bc32070_render,
-  UxWrappervue_type_template_id_4bc32070_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var UxWrapper_api; }
-UxWrapper_component.options.__file = "src/components/UxWrapper.vue"
-/* harmony default export */ const UxWrapper = (UxWrapper_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/UxLayer.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ const UxLayervue_type_script_lang_js_ = ({
+/* harmony default export */ const UxLayervue_type_script_lang_js = ({
   name: 'UxLayer',
   props: ['tv_id', 'id', 'uxs', 'updater', 'colors', 'config'],
   components: {
@@ -3841,31 +13897,15 @@ UxWrapper_component.options.__file = "src/components/UxWrapper.vue"
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/UxLayer.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_UxLayervue_type_script_lang_js_ = (UxLayervue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/UxLayer.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/UxLayer.vue
 
 
 
+UxLayervue_type_script_lang_js.render = UxLayervue_type_template_id_072774c0_render
 
-
-/* normalize component */
-;
-var UxLayer_component = normalizeComponent(
-  components_UxLayervue_type_script_lang_js_,
-  UxLayervue_type_template_id_390ccf6e_render,
-  UxLayervue_type_template_id_390ccf6e_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var UxLayer_api; }
-UxLayer_component.options.__file = "src/components/UxLayer.vue"
-/* harmony default export */ const UxLayer = (UxLayer_component.exports);
+/* harmony default export */ const UxLayer = (UxLayervue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./src/stuff/mouse.js
 
 
@@ -4088,13 +14128,13 @@ var Mouse = /*#__PURE__*/function () {
     return h();
   }
 });
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Spline.vue?vue&type=script&lang=js&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Spline.vue?vue&type=script&lang=js
 // Spline renderer. (SMAs, EMAs, TEMAs...
 // you know what I mean)
 // TODO: make a real spline, not a bunch of lines...
 // Adds all necessary stuff for you.
 
-/* harmony default export */ const Splinevue_type_script_lang_js_ = ({
+/* harmony default export */ const Splinevue_type_script_lang_js = ({
   name: 'Spline',
   mixins: [overlay],
   methods: {
@@ -4201,35 +14241,17 @@ var Mouse = /*#__PURE__*/function () {
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Spline.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Splinevue_type_script_lang_js_ = (Splinevue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Spline.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Spline.vue
-var Spline_render, Spline_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Spline_component = normalizeComponent(
-  overlays_Splinevue_type_script_lang_js_,
-  Spline_render,
-  Spline_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Spline_api; }
-Spline_component.options.__file = "src/components/overlays/Spline.vue"
-/* harmony default export */ const Spline = (Spline_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Splines.vue?vue&type=script&lang=js&
+/* harmony default export */ const Spline = (Splinevue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Splines.vue?vue&type=script&lang=js
 // Channel renderer. (Keltner, Bollinger)
 
-/* harmony default export */ const Splinesvue_type_script_lang_js_ = ({
+/* harmony default export */ const Splinesvue_type_script_lang_js = ({
   name: 'Splines',
   mixins: [overlay],
   methods: {
@@ -4326,36 +14348,18 @@ Spline_component.options.__file = "src/components/overlays/Spline.vue"
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Splines.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Splinesvue_type_script_lang_js_ = (Splinesvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Splines.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Splines.vue
-var Splines_render, Splines_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Splines_component = normalizeComponent(
-  overlays_Splinesvue_type_script_lang_js_,
-  Splines_render,
-  Splines_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Splines_api; }
-Splines_component.options.__file = "src/components/overlays/Splines.vue"
-/* harmony default export */ const Splines = (Splines_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Range.vue?vue&type=script&lang=js&
+/* harmony default export */ const Splines = (Splinesvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Range.vue?vue&type=script&lang=js
 // R S I . Because we love it
 // Adds all necessary stuff for you.
 
-/* harmony default export */ const Rangevue_type_script_lang_js_ = ({
+/* harmony default export */ const Rangevue_type_script_lang_js = ({
   name: 'Range',
   mixins: [overlay],
   methods: {
@@ -4457,34 +14461,16 @@ Splines_component.options.__file = "src/components/overlays/Splines.vue"
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Range.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Rangevue_type_script_lang_js_ = (Rangevue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Range.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Range.vue
-var Range_render, Range_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Range_component = normalizeComponent(
-  overlays_Rangevue_type_script_lang_js_,
-  Range_render,
-  Range_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
+/* harmony default export */ const Range = (Rangevue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Trades.vue?vue&type=script&lang=js
 
-/* hot reload */
-if (false) { var Range_api; }
-Range_component.options.__file = "src/components/overlays/Range.vue"
-/* harmony default export */ const Range = (Range_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Trades.vue?vue&type=script&lang=js&
-
-/* harmony default export */ const Tradesvue_type_script_lang_js_ = ({
+/* harmony default export */ const Tradesvue_type_script_lang_js = ({
   name: 'Trades',
   mixins: [overlay],
   methods: {
@@ -4579,37 +14565,19 @@ Range_component.options.__file = "src/components/overlays/Range.vue"
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Trades.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Tradesvue_type_script_lang_js_ = (Tradesvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Trades.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Trades.vue
-var Trades_render, Trades_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Trades_component = normalizeComponent(
-  overlays_Tradesvue_type_script_lang_js_,
-  Trades_render,
-  Trades_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Trades_api; }
-Trades_component.options.__file = "src/components/overlays/Trades.vue"
-/* harmony default export */ const Trades = (Trades_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Channel.vue?vue&type=script&lang=js&
+/* harmony default export */ const Trades = (Tradesvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Channel.vue?vue&type=script&lang=js
 // Channel renderer. (Keltner, Bollinger)
 // TODO: allow color transparency
 // TODO: improve performance: draw in one solid chunk
 
-/* harmony default export */ const Channelvue_type_script_lang_js_ = ({
+/* harmony default export */ const Channelvue_type_script_lang_js = ({
   name: 'Channel',
   mixins: [overlay],
   methods: {
@@ -4762,35 +14730,17 @@ Trades_component.options.__file = "src/components/overlays/Trades.vue"
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Channel.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Channelvue_type_script_lang_js_ = (Channelvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Channel.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Channel.vue
-var Channel_render, Channel_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Channel_component = normalizeComponent(
-  overlays_Channelvue_type_script_lang_js_,
-  Channel_render,
-  Channel_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Channel_api; }
-Channel_component.options.__file = "src/components/overlays/Channel.vue"
-/* harmony default export */ const Channel = (Channel_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Segment.vue?vue&type=script&lang=js&
+/* harmony default export */ const Channel = (Channelvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Segment.vue?vue&type=script&lang=js
 // Segment renderer.
 
-/* harmony default export */ const Segmentvue_type_script_lang_js_ = ({
+/* harmony default export */ const Segmentvue_type_script_lang_js = ({
   name: 'Segment',
   mixins: [overlay],
   methods: {
@@ -4846,31 +14796,13 @@ Channel_component.options.__file = "src/components/overlays/Channel.vue"
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Segment.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Segmentvue_type_script_lang_js_ = (Segmentvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Segment.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Segment.vue
-var Segment_render, Segment_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Segment_component = normalizeComponent(
-  overlays_Segmentvue_type_script_lang_js_,
-  Segment_render,
-  Segment_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Segment_api; }
-Segment_component.options.__file = "src/components/overlays/Segment.vue"
-/* harmony default export */ const Segment = (Segment_component.exports);
+/* harmony default export */ const Segment = (Segmentvue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./src/components/js/layout_cnv.js
 
 
@@ -5199,7 +15131,7 @@ var Price = /*#__PURE__*/function () {
 }();
 
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Candles.vue?vue&type=script&lang=js&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Candles.vue?vue&type=script&lang=js
 // Renedrer for candlesticks + volume (optional)
 // It can be used as the main chart or an indicator
 
@@ -5207,7 +15139,7 @@ var Price = /*#__PURE__*/function () {
 
 
 
-/* harmony default export */ const Candlesvue_type_script_lang_js_ = ({
+/* harmony default export */ const Candlesvue_type_script_lang_js = ({
   name: 'Candles',
   mixins: [overlay],
   methods: {
@@ -5304,32 +15236,14 @@ var Price = /*#__PURE__*/function () {
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Candles.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Candlesvue_type_script_lang_js_ = (Candlesvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Candles.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Candles.vue
-var Candles_render, Candles_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Candles_component = normalizeComponent(
-  overlays_Candlesvue_type_script_lang_js_,
-  Candles_render,
-  Candles_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Candles_api; }
-Candles_component.options.__file = "src/components/overlays/Candles.vue"
-/* harmony default export */ const Candles = (Candles_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Volume.vue?vue&type=script&lang=js&
+/* harmony default export */ const Candles = (Candlesvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Volume.vue?vue&type=script&lang=js
 
 
 function Volumevue_type_script_lang_js_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = Volumevue_type_script_lang_js_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -5342,7 +15256,7 @@ function Volumevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == n
 
 
 
-/* harmony default export */ const Volumevue_type_script_lang_js_ = ({
+/* harmony default export */ const Volumevue_type_script_lang_js = ({
   name: 'Volume',
   mixins: [overlay],
   methods: {
@@ -5425,35 +15339,17 @@ function Volumevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == n
     return {};
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Volume.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Volumevue_type_script_lang_js_ = (Volumevue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Volume.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Volume.vue
-var Volume_render, Volume_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Volume_component = normalizeComponent(
-  overlays_Volumevue_type_script_lang_js_,
-  Volume_render,
-  Volume_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Volume_api; }
-Volume_component.options.__file = "src/components/overlays/Volume.vue"
-/* harmony default export */ const Volume = (Volume_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/Splitters.vue?vue&type=script&lang=js&
+/* harmony default export */ const Volume = (Volumevue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/Splitters.vue?vue&type=script&lang=js
 // Data section splitters (with labels)
 
-/* harmony default export */ const Splittersvue_type_script_lang_js_ = ({
+/* harmony default export */ const Splittersvue_type_script_lang_js = ({
   name: 'Splitters',
   mixins: [overlay],
   methods: {
@@ -5533,31 +15429,13 @@ Volume_component.options.__file = "src/components/overlays/Volume.vue"
     return {};
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/Splitters.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_Splittersvue_type_script_lang_js_ = (Splittersvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/Splitters.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/Splitters.vue
-var Splitters_render, Splitters_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Splitters_component = normalizeComponent(
-  overlays_Splittersvue_type_script_lang_js_,
-  Splitters_render,
-  Splitters_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Splitters_api; }
-Splitters_component.options.__file = "src/components/overlays/Splitters.vue"
-/* harmony default export */ const Splitters = (Splitters_component.exports);
+/* harmony default export */ const Splitters = (Splittersvue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./src/stuff/keys.js
 
 
@@ -6210,7 +16088,7 @@ var Ray = /*#__PURE__*/function (_Line) {
 }(Line);
 
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/LineTool.vue?vue&type=script&lang=js&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/LineTool.vue?vue&type=script&lang=js
 // Line drawing tool
 // TODO: make an angle-snap when "Shift" is pressed
 
@@ -6220,7 +16098,7 @@ var Ray = /*#__PURE__*/function (_Line) {
 
 
 
-/* harmony default export */ const LineToolvue_type_script_lang_js_ = ({
+/* harmony default export */ const LineToolvue_type_script_lang_js = ({
   name: 'LineTool',
   mixins: [overlay, tool],
   methods: {
@@ -6324,32 +16202,14 @@ var Ray = /*#__PURE__*/function (_Line) {
     return {};
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/LineTool.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_LineToolvue_type_script_lang_js_ = (LineToolvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/LineTool.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/LineTool.vue
-var LineTool_render, LineTool_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var LineTool_component = normalizeComponent(
-  overlays_LineToolvue_type_script_lang_js_,
-  LineTool_render,
-  LineTool_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var LineTool_api; }
-LineTool_component.options.__file = "src/components/overlays/LineTool.vue"
-/* harmony default export */ const LineTool = (LineTool_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/overlays/RangeTool.vue?vue&type=script&lang=js&
+/* harmony default export */ const LineTool = (LineToolvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/overlays/RangeTool.vue?vue&type=script&lang=js
 
 // Price/Time measurment tool
 
@@ -6357,7 +16217,7 @@ LineTool_component.options.__file = "src/components/overlays/LineTool.vue"
 
 
 
-/* harmony default export */ const RangeToolvue_type_script_lang_js_ = ({
+/* harmony default export */ const RangeToolvue_type_script_lang_js = ({
   name: 'RangeTool',
   mixins: [overlay, tool],
   methods: {
@@ -6632,32 +16492,14 @@ LineTool_component.options.__file = "src/components/overlays/LineTool.vue"
     return {};
   }
 });
-;// CONCATENATED MODULE: ./src/components/overlays/RangeTool.vue?vue&type=script&lang=js&
- /* harmony default export */ const overlays_RangeToolvue_type_script_lang_js_ = (RangeToolvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/overlays/RangeTool.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/overlays/RangeTool.vue
-var RangeTool_render, RangeTool_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var RangeTool_component = normalizeComponent(
-  overlays_RangeToolvue_type_script_lang_js_,
-  RangeTool_render,
-  RangeTool_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var RangeTool_api; }
-RangeTool_component.options.__file = "src/components/overlays/RangeTool.vue"
-/* harmony default export */ const RangeTool = (RangeTool_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Grid.vue?vue&type=script&lang=js&
+/* harmony default export */ const RangeTool = (RangeToolvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Grid.vue?vue&type=script&lang=js
 function Gridvue_type_script_lang_js_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = Gridvue_type_script_lang_js_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function Gridvue_type_script_lang_js_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return Gridvue_type_script_lang_js_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return Gridvue_type_script_lang_js_arrayLikeToArray(o, minLen); }
@@ -6682,7 +16524,7 @@ function Gridvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == nul
 
 
 
-/* harmony default export */ const Gridvue_type_script_lang_js_ = ({
+/* harmony default export */ const Gridvue_type_script_lang_js = ({
   name: 'Grid',
   props: ['sub', 'layout', 'range', 'interval', 'cursor', 'colors', 'overlays', 'width', 'height', 'data', 'grid_id', 'y_transform', 'font', 'tv_id', 'config', 'meta', 'shaders'],
   mixins: [canvas, uxlist],
@@ -7009,31 +16851,13 @@ function Gridvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == nul
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/Grid.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Gridvue_type_script_lang_js_ = (Gridvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/Grid.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/Grid.vue
-var Grid_render, Grid_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Grid_component = normalizeComponent(
-  components_Gridvue_type_script_lang_js_,
-  Grid_render,
-  Grid_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Grid_api; }
-Grid_component.options.__file = "src/components/Grid.vue"
-/* harmony default export */ const components_Grid = (Grid_component.exports);
+/* harmony default export */ const components_Grid = (Gridvue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./src/components/js/sidebar.js
 
 
@@ -7370,11 +17194,11 @@ var Sidebar = /*#__PURE__*/function () {
 }();
 
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Sidebar.vue?vue&type=script&lang=js&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Sidebar.vue?vue&type=script&lang=js
 // The side bar (yep, that thing with a bunch of $$$)
 
 
-/* harmony default export */ const Sidebarvue_type_script_lang_js_ = ({
+/* harmony default export */ const Sidebarvue_type_script_lang_js = ({
   name: 'Sidebar',
   props: ['sub', 'layout', 'range', 'interval', 'cursor', 'colors', 'font', 'width', 'height', 'grid_id', 'rerender', 'y_transform', 'tv_id', 'config', 'shaders'],
   mixins: [canvas],
@@ -7427,253 +17251,207 @@ var Sidebar = /*#__PURE__*/function () {
     if (this.renderer) this.renderer.destroy();
   }
 });
-;// CONCATENATED MODULE: ./src/components/Sidebar.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Sidebarvue_type_script_lang_js_ = (Sidebarvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/Sidebar.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/Sidebar.vue
-var Sidebar_render, Sidebar_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Sidebar_component = normalizeComponent(
-  components_Sidebarvue_type_script_lang_js_,
-  Sidebar_render,
-  Sidebar_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
+/* harmony default export */ const components_Sidebar = (Sidebarvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Legend.vue?vue&type=template&id=21bda2b3
 
-/* hot reload */
-if (false) { var Sidebar_api; }
-Sidebar_component.options.__file = "src/components/Sidebar.vue"
-/* harmony default export */ const components_Sidebar = (Sidebar_component.exports);
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Legend.vue?vue&type=template&id=34724886&
-var Legendvue_type_template_id_34724886_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "trading-vue-legend", style: _vm.calc_style },
-    [
-      _vm.grid_id === 0
-        ? _c(
-            "div",
-            {
-              staticClass: "trading-vue-ohlcv",
-              style: { "max-width": _vm.common.width + "px" }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "t-vue-title",
-                  style: { color: _vm.common.colors.title }
-                },
-                [
-                  _vm._v(
-                    "\n              " +
-                      _vm._s(_vm.common.title_txt) +
-                      "\n        "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _vm.show_values
-                ? _c("span", [
-                    _vm._v("\n            O"),
-                    _c("span", { staticClass: "t-vue-lspan" }, [
-                      _vm._v(_vm._s(_vm.ohlcv[0]))
-                    ]),
-                    _vm._v("\n            H"),
-                    _c("span", { staticClass: "t-vue-lspan" }, [
-                      _vm._v(_vm._s(_vm.ohlcv[1]))
-                    ]),
-                    _vm._v("\n            L"),
-                    _c("span", { staticClass: "t-vue-lspan" }, [
-                      _vm._v(_vm._s(_vm.ohlcv[2]))
-                    ]),
-                    _vm._v("\n            C"),
-                    _c("span", { staticClass: "t-vue-lspan" }, [
-                      _vm._v(_vm._s(_vm.ohlcv[3]))
-                    ]),
-                    _vm._v("\n            V"),
-                    _c("span", { staticClass: "t-vue-lspan" }, [
-                      _vm._v(_vm._s(_vm.ohlcv[4]))
-                    ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.show_values
-                ? _c(
-                    "span",
-                    {
-                      staticClass: "t-vue-lspan",
-                      style: { color: _vm.common.colors.text }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s((_vm.common.meta.last || [])[4]) +
-                          "\n        "
-                      )
-                    ]
-                  )
-                : _vm._e()
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm._l(this.indicators, function(ind) {
-        return _c(
-          "div",
-          { staticClass: "t-vue-ind" },
-          [
-            _c("span", { staticClass: "t-vue-iname" }, [
-              _vm._v(_vm._s(ind.name))
-            ]),
-            _vm._v(" "),
-            _c("button-group", {
-              attrs: {
-                buttons: _vm.common.buttons,
-                config: _vm.common.config,
-                ov_id: ind.id,
-                grid_id: _vm.grid_id,
-                index: ind.index,
-                tv_id: _vm.common.tv_id,
-                display: ind.v
-              },
-              on: { "legend-button-click": _vm.button_click }
-            }),
-            _vm._v(" "),
-            ind.v
-              ? _c(
-                  "span",
-                  { staticClass: "t-vue-ivalues" },
-                  _vm._l(ind.values, function(v) {
-                    return _vm.show_values
-                      ? _c(
-                          "span",
-                          {
-                            staticClass: "t-vue-lspan t-vue-ivalue",
-                            style: { color: v.color }
-                          },
-                          [
-                            _vm._v(
-                              "\n                " +
-                                _vm._s(v.value) +
-                                "\n            "
-                            )
-                          ]
-                        )
-                      : _vm._e()
-                  }),
-                  0
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            ind.unk
-              ? _c("span", { staticClass: "t-vue-unknown" }, [
-                  _vm._v("\n            (Unknown type)\n        ")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "transition",
-              { attrs: { name: "tvjs-appear" } },
-              [
-                ind.loading
-                  ? _c("spinner", { attrs: { colors: _vm.common.colors } })
-                  : _vm._e()
-              ],
-              1
-            )
-          ],
-          1
-        )
-      })
-    ],
-    2
-  )
+var Legendvue_type_template_id_21bda2b3_hoisted_1 = {
+  key: 0
+};
+
+var Legendvue_type_template_id_21bda2b3_hoisted_2 = /*#__PURE__*/createTextVNode(" O");
+
+var _hoisted_3 = {
+  "class": "t-vue-lspan"
+};
+
+var _hoisted_4 = /*#__PURE__*/createTextVNode(" H");
+
+var _hoisted_5 = {
+  "class": "t-vue-lspan"
+};
+
+var _hoisted_6 = /*#__PURE__*/createTextVNode(" L");
+
+var _hoisted_7 = {
+  "class": "t-vue-lspan"
+};
+
+var _hoisted_8 = /*#__PURE__*/createTextVNode(" C");
+
+var _hoisted_9 = {
+  "class": "t-vue-lspan"
+};
+
+var _hoisted_10 = /*#__PURE__*/createTextVNode(" V");
+
+var _hoisted_11 = {
+  "class": "t-vue-lspan"
+};
+var _hoisted_12 = {
+  "class": "t-vue-ind"
+};
+var _hoisted_13 = {
+  "class": "t-vue-iname"
+};
+var _hoisted_14 = {
+  key: 0,
+  "class": "t-vue-ivalues"
+};
+var _hoisted_15 = {
+  key: 1,
+  "class": "t-vue-unknown"
+};
+function Legendvue_type_template_id_21bda2b3_render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_button_group = resolveComponent("button-group");
+
+  var _component_spinner = resolveComponent("spinner");
+
+  return openBlock(), createElementBlock("div", {
+    "class": "trading-vue-legend",
+    style: normalizeStyle($options.calc_style)
+  }, [$props.grid_id === 0 ? (openBlock(), createElementBlock("div", {
+    key: 0,
+    "class": "trading-vue-ohlcv",
+    style: normalizeStyle({
+      'max-width': $props.common.width + 'px'
+    })
+  }, [createBaseVNode("span", {
+    "class": "t-vue-title",
+    style: normalizeStyle({
+      color: $props.common.colors.title
+    })
+  }, toDisplayString($props.common.title_txt), 5
+  /* TEXT, STYLE */
+  ), $options.show_values ? (openBlock(), createElementBlock("span", Legendvue_type_template_id_21bda2b3_hoisted_1, [Legendvue_type_template_id_21bda2b3_hoisted_2, createBaseVNode("span", _hoisted_3, toDisplayString($options.ohlcv[0]), 1
+  /* TEXT */
+  ), _hoisted_4, createBaseVNode("span", _hoisted_5, toDisplayString($options.ohlcv[1]), 1
+  /* TEXT */
+  ), _hoisted_6, createBaseVNode("span", _hoisted_7, toDisplayString($options.ohlcv[2]), 1
+  /* TEXT */
+  ), _hoisted_8, createBaseVNode("span", _hoisted_9, toDisplayString($options.ohlcv[3]), 1
+  /* TEXT */
+  ), _hoisted_10, createBaseVNode("span", _hoisted_11, toDisplayString($options.ohlcv[4]), 1
+  /* TEXT */
+  )])) : createCommentVNode("v-if", true), !$options.show_values ? (openBlock(), createElementBlock("span", {
+    key: 1,
+    "class": "t-vue-lspan",
+    style: normalizeStyle({
+      color: $props.common.colors.text
+    })
+  }, toDisplayString(($props.common.meta.last || [])[4]), 5
+  /* TEXT, STYLE */
+  )) : createCommentVNode("v-if", true)], 4
+  /* STYLE */
+  )) : createCommentVNode("v-if", true), (openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, null, renderList(this.indicators, function (ind) {
+    return openBlock(), createElementBlock("div", _hoisted_12, [createBaseVNode("span", _hoisted_13, toDisplayString(ind.name), 1
+    /* TEXT */
+    ), runtime_core_esm_bundler_createVNode(_component_button_group, {
+      buttons: $props.common.buttons,
+      config: $props.common.config,
+      ov_id: ind.id,
+      grid_id: $props.grid_id,
+      index: ind.index,
+      tv_id: $props.common.tv_id,
+      display: ind.v,
+      onLegendButtonClick: $options.button_click
+    }, null, 8
+    /* PROPS */
+    , ["buttons", "config", "ov_id", "grid_id", "index", "tv_id", "display", "onLegendButtonClick"]), ind.v ? (openBlock(), createElementBlock("span", _hoisted_14, [$options.show_values ? (openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, {
+      key: 0
+    }, renderList(ind.values, function (v) {
+      return openBlock(), createElementBlock("span", {
+        "class": "t-vue-lspan t-vue-ivalue",
+        style: normalizeStyle({
+          color: v.color
+        })
+      }, toDisplayString(v.value), 5
+      /* TEXT, STYLE */
+      );
+    }), 256
+    /* UNKEYED_FRAGMENT */
+    )) : createCommentVNode("v-if", true)])) : createCommentVNode("v-if", true), ind.unk ? (openBlock(), createElementBlock("span", _hoisted_15, " (Unknown type) ")) : createCommentVNode("v-if", true), runtime_core_esm_bundler_createVNode(Transition, {
+      name: "tvjs-appear"
+    }, {
+      "default": withCtx(function () {
+        return [ind.loading ? (openBlock(), createBlock(_component_spinner, {
+          key: 0,
+          colors: $props.common.colors
+        }, null, 8
+        /* PROPS */
+        , ["colors"])) : createCommentVNode("v-if", true)];
+      }),
+      _: 2
+      /* DYNAMIC */
+
+    }, 1024
+    /* DYNAMIC_SLOTS */
+    )]);
+  }), 256
+  /* UNKEYED_FRAGMENT */
+  ))], 4
+  /* STYLE */
+  );
 }
-var Legendvue_type_template_id_34724886_staticRenderFns = []
-Legendvue_type_template_id_34724886_render._withStripped = true
+;// CONCATENATED MODULE: ./src/components/Legend.vue?vue&type=template&id=21bda2b3
 
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ButtonGroup.vue?vue&type=template&id=aee8964e
 
-;// CONCATENATED MODULE: ./src/components/Legend.vue?vue&type=template&id=34724886&
+var ButtonGroupvue_type_template_id_aee8964e_hoisted_1 = {
+  "class": "t-vue-lbtn-grp"
+};
+function ButtonGroupvue_type_template_id_aee8964e_render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_legend_button = resolveComponent("legend-button");
 
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ButtonGroup.vue?vue&type=template&id=6f826426&
-var ButtonGroupvue_type_template_id_6f826426_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "span",
-    { staticClass: "t-vue-lbtn-grp" },
-    _vm._l(_vm.buttons, function(b, i) {
-      return _c("legend-button", {
-        key: i,
-        attrs: {
-          id: b.name || b,
-          tv_id: _vm.tv_id,
-          ov_id: _vm.ov_id,
-          grid_id: _vm.grid_id,
-          index: _vm.index,
-          display: _vm.display,
-          icon: b.icon,
-          config: _vm.config
-        },
-        on: { "legend-button-click": _vm.button_click }
-      })
+  return openBlock(), createElementBlock("span", ButtonGroupvue_type_template_id_aee8964e_hoisted_1, [(openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, null, renderList($props.buttons, function (b, i) {
+    return openBlock(), createBlock(_component_legend_button, {
+      key: i,
+      id: b.name || b,
+      tv_id: $props.tv_id,
+      ov_id: $props.ov_id,
+      grid_id: $props.grid_id,
+      index: $props.index,
+      display: $props.display,
+      icon: b.icon,
+      config: $props.config,
+      onLegendButtonClick: $options.button_click
+    }, null, 8
+    /* PROPS */
+    , ["id", "tv_id", "ov_id", "grid_id", "index", "display", "icon", "config", "onLegendButtonClick"]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))]);
+}
+;// CONCATENATED MODULE: ./src/components/ButtonGroup.vue?vue&type=template&id=aee8964e
+
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/LegendButton.vue?vue&type=template&id=7271720b
+
+var LegendButtonvue_type_template_id_7271720b_hoisted_1 = ["src", "id"];
+function LegendButtonvue_type_template_id_7271720b_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("img", {
+    "class": "t-vue-lbtn",
+    src: $options.base64,
+    id: $options.uuid,
+    style: normalizeStyle({
+      width: $props.config.L_BTN_SIZE + 'px',
+      height: $props.config.L_BTN_SIZE + 'px',
+      margin: $props.config.L_BTN_MARGIN
     }),
-    1
-  )
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.onclick && $options.onclick.apply($options, arguments);
+    })
+  }, null, 12
+  /* STYLE, PROPS */
+  , LegendButtonvue_type_template_id_7271720b_hoisted_1);
 }
-var ButtonGroupvue_type_template_id_6f826426_staticRenderFns = []
-ButtonGroupvue_type_template_id_6f826426_render._withStripped = true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/LegendButton.vue?vue&type=script&lang=js
 
-
-;// CONCATENATED MODULE: ./src/components/ButtonGroup.vue?vue&type=template&id=6f826426&
-
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/LegendButton.vue?vue&type=template&id=1ad87362&
-var LegendButtonvue_type_template_id_1ad87362_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("img", {
-    staticClass: "t-vue-lbtn",
-    style: {
-      width: _vm.config.L_BTN_SIZE + "px",
-      height: _vm.config.L_BTN_SIZE + "px",
-      margin: _vm.config.L_BTN_MARGIN
-    },
-    attrs: { src: _vm.base64, id: _vm.uuid },
-    on: { click: _vm.onclick }
-  })
-}
-var LegendButtonvue_type_template_id_1ad87362_staticRenderFns = []
-LegendButtonvue_type_template_id_1ad87362_render._withStripped = true
-
-
-;// CONCATENATED MODULE: ./src/components/LegendButton.vue?vue&type=template&id=1ad87362&
-
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/LegendButton.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ const LegendButtonvue_type_script_lang_js_ = ({
+/* harmony default export */ const LegendButtonvue_type_script_lang_js = ({
   name: 'LegendButton',
   props: ['id', 'tv_id', 'grid_id', 'ov_id', 'index', 'display', 'icon', 'config'],
   mounted: function mounted() {},
@@ -7715,56 +17493,24 @@ LegendButtonvue_type_template_id_1ad87362_render._withStripped = true
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/LegendButton.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_LegendButtonvue_type_script_lang_js_ = (LegendButtonvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/LegendButton.vue?vue&type=style&index=0&lang=css&
-var LegendButtonvue_type_style_index_0_lang_css_ = __webpack_require__(169);
-;// CONCATENATED MODULE: ./src/components/LegendButton.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/LegendButton.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/LegendButton.vue?vue&type=style&index=0&id=7271720b&lang=css
+var LegendButtonvue_type_style_index_0_id_7271720b_lang_css = __webpack_require__(125);
+;// CONCATENATED MODULE: ./src/components/LegendButton.vue?vue&type=style&index=0&id=7271720b&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/LegendButton.vue
 
 
 
+
 ;
+LegendButtonvue_type_script_lang_js.render = LegendButtonvue_type_template_id_7271720b_render
 
+/* harmony default export */ const LegendButton = (LegendButtonvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ButtonGroup.vue?vue&type=script&lang=js
 
-/* normalize component */
-
-var LegendButton_component = normalizeComponent(
-  components_LegendButtonvue_type_script_lang_js_,
-  LegendButtonvue_type_template_id_1ad87362_render,
-  LegendButtonvue_type_template_id_1ad87362_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var LegendButton_api; }
-LegendButton_component.options.__file = "src/components/LegendButton.vue"
-/* harmony default export */ const LegendButton = (LegendButton_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ButtonGroup.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ const ButtonGroupvue_type_script_lang_js_ = ({
+/* harmony default export */ const ButtonGroupvue_type_script_lang_js = ({
   name: 'ButtonGroup',
   props: ['buttons', 'tv_id', 'ov_id', 'grid_id', 'index', 'display', 'config'],
   components: {
@@ -7776,152 +17522,66 @@ LegendButton_component.options.__file = "src/components/LegendButton.vue"
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/ButtonGroup.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_ButtonGroupvue_type_script_lang_js_ = (ButtonGroupvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ButtonGroup.vue?vue&type=style&index=0&lang=css&
-var ButtonGroupvue_type_style_index_0_lang_css_ = __webpack_require__(886);
-;// CONCATENATED MODULE: ./src/components/ButtonGroup.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/ButtonGroup.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ButtonGroup.vue?vue&type=style&index=0&id=aee8964e&lang=css
+var ButtonGroupvue_type_style_index_0_id_aee8964e_lang_css = __webpack_require__(186);
+;// CONCATENATED MODULE: ./src/components/ButtonGroup.vue?vue&type=style&index=0&id=aee8964e&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/ButtonGroup.vue
 
 
 
+
 ;
+ButtonGroupvue_type_script_lang_js.render = ButtonGroupvue_type_template_id_aee8964e_render
 
+/* harmony default export */ const ButtonGroup = (ButtonGroupvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Spinner.vue?vue&type=template&id=a6fff878
 
-/* normalize component */
-
-var ButtonGroup_component = normalizeComponent(
-  components_ButtonGroupvue_type_script_lang_js_,
-  ButtonGroupvue_type_template_id_6f826426_render,
-  ButtonGroupvue_type_template_id_6f826426_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var ButtonGroup_api; }
-ButtonGroup_component.options.__file = "src/components/ButtonGroup.vue"
-/* harmony default export */ const ButtonGroup = (ButtonGroup_component.exports);
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Spinner.vue?vue&type=template&id=39432f99&
-var Spinnervue_type_template_id_39432f99_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "tvjs-spinner" },
-    _vm._l(4, function(i) {
-      return _c("div", { key: i, style: { background: _vm.colors.text } })
-    }),
-    0
-  )
+var Spinnervue_type_template_id_a6fff878_hoisted_1 = {
+  "class": "tvjs-spinner"
+};
+function Spinnervue_type_template_id_a6fff878_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", Spinnervue_type_template_id_a6fff878_hoisted_1, [(openBlock(), createElementBlock(runtime_core_esm_bundler_Fragment, null, renderList(4, function (i) {
+    return createBaseVNode("div", {
+      key: i,
+      style: normalizeStyle({
+        background: $props.colors.text
+      })
+    }, null, 4
+    /* STYLE */
+    );
+  }), 64
+  /* STABLE_FRAGMENT */
+  ))]);
 }
-var Spinnervue_type_template_id_39432f99_staticRenderFns = []
-Spinnervue_type_template_id_39432f99_render._withStripped = true
+;// CONCATENATED MODULE: ./src/components/Spinner.vue?vue&type=template&id=a6fff878
 
-
-;// CONCATENATED MODULE: ./src/components/Spinner.vue?vue&type=template&id=39432f99&
-
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Spinner.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const Spinnervue_type_script_lang_js_ = ({
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Spinner.vue?vue&type=script&lang=js
+/* harmony default export */ const Spinnervue_type_script_lang_js = ({
   name: 'Spinner',
   props: ['colors']
 });
-;// CONCATENATED MODULE: ./src/components/Spinner.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Spinnervue_type_script_lang_js_ = (Spinnervue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Spinner.vue?vue&type=style&index=0&lang=css&
-var Spinnervue_type_style_index_0_lang_css_ = __webpack_require__(372);
-;// CONCATENATED MODULE: ./src/components/Spinner.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/Spinner.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Spinner.vue?vue&type=style&index=0&id=a6fff878&lang=css
+var Spinnervue_type_style_index_0_id_a6fff878_lang_css = __webpack_require__(437);
+;// CONCATENATED MODULE: ./src/components/Spinner.vue?vue&type=style&index=0&id=a6fff878&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/Spinner.vue
 
 
 
+
 ;
+Spinnervue_type_script_lang_js.render = Spinnervue_type_template_id_a6fff878_render
+
+/* harmony default export */ const Spinner = (Spinnervue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Legend.vue?vue&type=script&lang=js
 
 
-/* normalize component */
-
-var Spinner_component = normalizeComponent(
-  components_Spinnervue_type_script_lang_js_,
-  Spinnervue_type_template_id_39432f99_render,
-  Spinnervue_type_template_id_39432f99_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Spinner_api; }
-Spinner_component.options.__file = "src/components/Spinner.vue"
-/* harmony default export */ const Spinner = (Spinner_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Legend.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ const Legendvue_type_script_lang_js_ = ({
+/* harmony default export */ const Legendvue_type_script_lang_js = ({
   name: 'ChartLegend',
   props: ['common', 'values', 'grid_id', 'meta_props'],
   components: {
@@ -8031,36 +17691,21 @@ Spinner_component.options.__file = "src/components/Spinner.vue"
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/Legend.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Legendvue_type_script_lang_js_ = (Legendvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Legend.vue?vue&type=style&index=0&lang=css&
-var Legendvue_type_style_index_0_lang_css_ = __webpack_require__(600);
-;// CONCATENATED MODULE: ./src/components/Legend.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/Legend.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Legend.vue?vue&type=style&index=0&id=21bda2b3&lang=css
+var Legendvue_type_style_index_0_id_21bda2b3_lang_css = __webpack_require__(884);
+;// CONCATENATED MODULE: ./src/components/Legend.vue?vue&type=style&index=0&id=21bda2b3&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/Legend.vue
 
 
 
+
 ;
+Legendvue_type_script_lang_js.render = Legendvue_type_template_id_21bda2b3_render
 
-
-/* normalize component */
-
-var Legend_component = normalizeComponent(
-  components_Legendvue_type_script_lang_js_,
-  Legendvue_type_template_id_34724886_render,
-  Legendvue_type_template_id_34724886_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Legend_api; }
-Legend_component.options.__file = "src/components/Legend.vue"
-/* harmony default export */ const Legend = (Legend_component.exports);
+/* harmony default export */ const Legend = (Legendvue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./src/mixins/shaders.js
 function shaders_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = shaders_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
@@ -8124,45 +17769,13 @@ function shaders_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
     };
   }
 });
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Section.vue?vue&type=script&lang=js&
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Section.vue?vue&type=script&lang=js
 
 
 
 
-/* harmony default export */ const Sectionvue_type_script_lang_js_ = ({
+
+/* harmony default export */ const Sectionvue_type_script_lang_js = ({
   name: 'GridSection',
   props: ['common', 'grid_id'],
   mixins: [shaders],
@@ -8320,36 +17933,21 @@ function shaders_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/Section.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Sectionvue_type_script_lang_js_ = (Sectionvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Section.vue?vue&type=style&index=0&lang=css&
-var Sectionvue_type_style_index_0_lang_css_ = __webpack_require__(11);
-;// CONCATENATED MODULE: ./src/components/Section.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/Section.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Section.vue?vue&type=style&index=0&id=6a086200&lang=css
+var Sectionvue_type_style_index_0_id_6a086200_lang_css = __webpack_require__(604);
+;// CONCATENATED MODULE: ./src/components/Section.vue?vue&type=style&index=0&id=6a086200&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/Section.vue
 
 
 
+
 ;
+Sectionvue_type_script_lang_js.render = Sectionvue_type_template_id_6a086200_render
 
-
-/* normalize component */
-
-var Section_component = normalizeComponent(
-  components_Sectionvue_type_script_lang_js_,
-  Sectionvue_type_template_id_8fbe9336_render,
-  Sectionvue_type_template_id_8fbe9336_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Section_api; }
-Section_component.options.__file = "src/components/Section.vue"
-/* harmony default export */ const Section = (Section_component.exports);
+/* harmony default export */ const Section = (Sectionvue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./src/components/js/botbar.js
 
 
@@ -8566,11 +18164,11 @@ var Botbar = /*#__PURE__*/function () {
 }();
 
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Botbar.vue?vue&type=script&lang=js&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Botbar.vue?vue&type=script&lang=js
 // The bottom bar (yep, that thing with a bunch of dates)
 
 
-/* harmony default export */ const Botbarvue_type_script_lang_js_ = ({
+/* harmony default export */ const Botbarvue_type_script_lang_js = ({
   name: 'Botbar',
   props: ['sub', 'layout', 'range', 'interval', 'cursor', 'colors', 'font', 'width', 'height', 'rerender', 'tv_id', 'config', 'shaders', 'timezone'],
   mixins: [canvas],
@@ -8626,42 +18224,21 @@ var Botbar = /*#__PURE__*/function () {
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/Botbar.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Botbarvue_type_script_lang_js_ = (Botbarvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Botbar.vue?vue&type=style&index=0&lang=css&
-var Botbarvue_type_style_index_0_lang_css_ = __webpack_require__(124);
-;// CONCATENATED MODULE: ./src/components/Botbar.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/Botbar.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Botbar.vue?vue&type=style&index=0&id=46ebcacf&lang=css
+var Botbarvue_type_style_index_0_id_46ebcacf_lang_css = __webpack_require__(936);
+;// CONCATENATED MODULE: ./src/components/Botbar.vue?vue&type=style&index=0&id=46ebcacf&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/Botbar.vue
-var Botbar_render, Botbar_staticRenderFns
-;
+
+
 
 ;
 
-
-/* normalize component */
-
-var Botbar_component = normalizeComponent(
-  components_Botbarvue_type_script_lang_js_,
-  Botbar_render,
-  Botbar_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Botbar_api; }
-Botbar_component.options.__file = "src/components/Botbar.vue"
-/* harmony default export */ const components_Botbar = (Botbar_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Keyboard.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-/* harmony default export */ const Keyboardvue_type_script_lang_js_ = ({
+/* harmony default export */ const components_Botbar = (Botbarvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Keyboard.vue?vue&type=script&lang=js
+/* harmony default export */ const Keyboardvue_type_script_lang_js = ({
   name: 'Keyboard',
   created: function created() {
     window.addEventListener('keydown', this.keydown);
@@ -8719,31 +18296,13 @@ Botbar_component.options.__file = "src/components/Botbar.vue"
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/Keyboard.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Keyboardvue_type_script_lang_js_ = (Keyboardvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/Keyboard.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/Keyboard.vue
-var Keyboard_render, Keyboard_staticRenderFns
-;
 
 
 
-/* normalize component */
-;
-var Keyboard_component = normalizeComponent(
-  components_Keyboardvue_type_script_lang_js_,
-  Keyboard_render,
-  Keyboard_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Keyboard_api; }
-Keyboard_component.options.__file = "src/components/Keyboard.vue"
-/* harmony default export */ const Keyboard = (Keyboard_component.exports);
+/* harmony default export */ const Keyboard = (Keyboardvue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./src/mixins/datatrack.js
 // Data tracker/watcher
 
@@ -9070,34 +18629,7 @@ var TI = /*#__PURE__*/function () {
 }();
 
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Chart.vue?vue&type=script&lang=js&
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Chart.vue?vue&type=script&lang=js
 
 
 
@@ -9109,7 +18641,9 @@ var TI = /*#__PURE__*/function () {
 
 
 
-/* harmony default export */ const Chartvue_type_script_lang_js_ = ({
+
+
+/* harmony default export */ const Chartvue_type_script_lang_js = ({
   name: 'Chart',
   props: ['title_txt', 'data', 'width', 'height', 'font', 'colors', 'overlays', 'tv_id', 'config', 'buttons', 'toolbar', 'ib', 'skin', 'timezone'],
   mixins: [shaders, datatrack],
@@ -9517,198 +19051,139 @@ var TI = /*#__PURE__*/function () {
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Chartvue_type_script_lang_js_ = (Chartvue_type_script_lang_js_); 
+;// CONCATENATED MODULE: ./src/components/Chart.vue?vue&type=script&lang=js
+ 
 ;// CONCATENATED MODULE: ./src/components/Chart.vue
 
 
 
+Chartvue_type_script_lang_js.render = Chartvue_type_template_id_f7d40a04_render
 
+/* harmony default export */ const Chart = (Chartvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Toolbar.vue?vue&type=template&id=1d908e28
 
-/* normalize component */
-;
-var Chart_component = normalizeComponent(
-  components_Chartvue_type_script_lang_js_,
-  Chartvue_type_template_id_4d06a4de_render,
-  Chartvue_type_template_id_4d06a4de_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
+function Toolbarvue_type_template_id_1d908e28_render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_toolbar_item = resolveComponent("toolbar-item");
 
-/* hot reload */
-if (false) { var Chart_api; }
-Chart_component.options.__file = "src/components/Chart.vue"
-/* harmony default export */ const Chart = (Chart_component.exports);
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Toolbar.vue?vue&type=template&id=021887fb&
-var Toolbarvue_type_template_id_021887fb_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      key: _vm.tool_count,
-      staticClass: "trading-vue-toolbar",
-      style: _vm.styles
-    },
-    _vm._l(_vm.groups, function(tool, i) {
-      return tool.icon && !tool.hidden
-        ? _c("toolbar-item", {
-            key: i,
-            attrs: {
-              data: tool,
-              subs: _vm.sub_map,
-              dc: _vm.data,
-              config: _vm.config,
-              colors: _vm.colors,
-              selected: _vm.is_selected(tool)
-            },
-            on: { "item-selected": _vm.selected }
-          })
-        : _vm._e()
+  return openBlock(), createElementBlock("div", {
+    "class": "trading-vue-toolbar",
+    style: normalizeStyle($options.styles),
+    key: $data.tool_count
+  }, [_ctx.tool.icon && !_ctx.tool.hidden ? (openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, {
+    key: 0
+  }, renderList($options.groups, function (tool, i) {
+    return openBlock(), createBlock(_component_toolbar_item, {
+      onItemSelected: $options.selected,
+      key: i,
+      data: tool,
+      subs: $data.sub_map,
+      dc: $props.data,
+      config: $props.config,
+      colors: $props.colors,
+      selected: $options.is_selected(tool)
+    }, null, 8
+    /* PROPS */
+    , ["onItemSelected", "data", "subs", "dc", "config", "colors", "selected"]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )) : createCommentVNode("v-if", true)], 4
+  /* STYLE */
+  );
+}
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ToolbarItem.vue?vue&type=template&id=24cfb58a
+
+function ToolbarItemvue_type_template_id_24cfb58a_render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_item_list = resolveComponent("item-list");
+
+  return openBlock(), createElementBlock("div", {
+    "class": normalizeClass(['trading-vue-tbitem', $props.selected ? 'selected-item' : '']),
+    onClick: _cache[4] || (_cache[4] = function ($event) {
+      return $options.emit_selected('click');
     }),
-    1
-  )
-}
-var Toolbarvue_type_template_id_021887fb_staticRenderFns = []
-Toolbarvue_type_template_id_021887fb_render._withStripped = true
-
-
-;// CONCATENATED MODULE: ./src/components/Toolbar.vue?vue&type=template&id=021887fb&
-
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ToolbarItem.vue?vue&type=template&id=227b3c2e&
-var ToolbarItemvue_type_template_id_227b3c2e_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      class: ["trading-vue-tbitem", _vm.selected ? "selected-item" : ""],
-      style: _vm.item_style,
-      on: {
-        click: function($event) {
-          return _vm.emit_selected("click")
-        },
-        mousedown: _vm.mousedown,
-        touchstart: _vm.mousedown,
-        touchend: function($event) {
-          return _vm.emit_selected("touch")
-        }
-      }
-    },
-    [
-      _c("div", {
-        staticClass: "trading-vue-tbicon tvjs-pixelated",
-        style: _vm.icon_style
-      }),
-      _vm._v(" "),
-      _vm.data.group
-        ? _c(
-            "div",
-            {
-              staticClass: "trading-vue-tbitem-exp",
-              style: _vm.exp_style,
-              on: {
-                click: _vm.exp_click,
-                mousedown: _vm.expmousedown,
-                mouseover: _vm.expmouseover,
-                mouseleave: _vm.expmouseleave
-              }
-            },
-            [_vm._v("\n        ᐳ\n    ")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.show_exp_list
-        ? _c("item-list", {
-            attrs: {
-              config: _vm.config,
-              items: _vm.data.items,
-              colors: _vm.colors,
-              dc: _vm.dc
-            },
-            on: {
-              "close-list": _vm.close_list,
-              "item-selected": _vm.emit_selected_sub
-            }
-          })
-        : _vm._e()
-    ],
-    1
-  )
-}
-var ToolbarItemvue_type_template_id_227b3c2e_staticRenderFns = []
-ToolbarItemvue_type_template_id_227b3c2e_render._withStripped = true
-
-
-;// CONCATENATED MODULE: ./src/components/ToolbarItem.vue?vue&type=template&id=227b3c2e&
-
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ItemList.vue?vue&type=template&id=c50b23fe&
-var ItemListvue_type_template_id_c50b23fe_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "tvjs-item-list",
-      style: _vm.list_style(),
-      on: { mousedown: _vm.thismousedown }
-    },
-    _vm._l(_vm.items, function(item) {
-      return !item.hidden
-        ? _c(
-            "div",
-            {
-              class: _vm.item_class(item),
-              style: _vm.item_style(item),
-              on: {
-                click: function(e) {
-                  return _vm.item_click(e, item)
-                }
-              }
-            },
-            [
-              _c("div", {
-                staticClass: "trading-vue-tbicon tvjs-pixelated",
-                style: _vm.icon_style(item)
-              }),
-              _vm._v(" "),
-              _c("div", [_vm._v(_vm._s(item.type))])
-            ]
-          )
-        : _vm._e()
+    onMousedown: _cache[5] || (_cache[5] = function () {
+      return $options.mousedown && $options.mousedown.apply($options, arguments);
     }),
-    0
-  )
+    onTouchstart: _cache[6] || (_cache[6] = function () {
+      return $options.mousedown && $options.mousedown.apply($options, arguments);
+    }),
+    onTouchend: _cache[7] || (_cache[7] = function ($event) {
+      return $options.emit_selected('touch');
+    }),
+    style: normalizeStyle($options.item_style)
+  }, [createBaseVNode("div", {
+    "class": "trading-vue-tbicon tvjs-pixelated",
+    style: normalizeStyle($options.icon_style)
+  }, null, 4
+  /* STYLE */
+  ), $props.data.group ? (openBlock(), createElementBlock("div", {
+    key: 0,
+    "class": "trading-vue-tbitem-exp",
+    style: normalizeStyle($options.exp_style),
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.exp_click && $options.exp_click.apply($options, arguments);
+    }),
+    onMousedown: _cache[1] || (_cache[1] = function () {
+      return $options.expmousedown && $options.expmousedown.apply($options, arguments);
+    }),
+    onMouseover: _cache[2] || (_cache[2] = function () {
+      return $options.expmouseover && $options.expmouseover.apply($options, arguments);
+    }),
+    onMouseleave: _cache[3] || (_cache[3] = function () {
+      return $options.expmouseleave && $options.expmouseleave.apply($options, arguments);
+    })
+  }, " ᐳ ", 36
+  /* STYLE, HYDRATE_EVENTS */
+  )) : createCommentVNode("v-if", true), $data.show_exp_list ? (openBlock(), createBlock(_component_item_list, {
+    key: 1,
+    config: $props.config,
+    items: $props.data.items,
+    colors: $props.colors,
+    dc: $props.dc,
+    onCloseList: $options.close_list,
+    onItemSelected: $options.emit_selected_sub
+  }, null, 8
+  /* PROPS */
+  , ["config", "items", "colors", "dc", "onCloseList", "onItemSelected"])) : createCommentVNode("v-if", true)], 38
+  /* CLASS, STYLE, HYDRATE_EVENTS */
+  );
 }
-var ItemListvue_type_template_id_c50b23fe_staticRenderFns = []
-ItemListvue_type_template_id_c50b23fe_render._withStripped = true
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ItemList.vue?vue&type=template&id=428f7654
 
-
-;// CONCATENATED MODULE: ./src/components/ItemList.vue?vue&type=template&id=c50b23fe&
-
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ItemList.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const ItemListvue_type_script_lang_js_ = ({
+var ItemListvue_type_template_id_428f7654_hoisted_1 = ["onClick"];
+function ItemListvue_type_template_id_428f7654_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", {
+    "class": "tvjs-item-list",
+    style: normalizeStyle($options.list_style()),
+    onMousedown: _cache[0] || (_cache[0] = function () {
+      return $options.thismousedown && $options.thismousedown.apply($options, arguments);
+    })
+  }, [!_ctx.item.hidden ? (openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, {
+    key: 0
+  }, renderList($props.items, function (item) {
+    return openBlock(), createElementBlock("div", {
+      "class": normalizeClass($options.item_class(item)),
+      onClick: function onClick(e) {
+        return $options.item_click(e, item);
+      },
+      style: normalizeStyle($options.item_style(item))
+    }, [createBaseVNode("div", {
+      "class": "trading-vue-tbicon tvjs-pixelated",
+      style: normalizeStyle($options.icon_style(item))
+    }, null, 4
+    /* STYLE */
+    ), createBaseVNode("div", null, toDisplayString(item.type), 1
+    /* TEXT */
+    )], 14
+    /* CLASS, STYLE, PROPS */
+    , ItemListvue_type_template_id_428f7654_hoisted_1);
+  }), 256
+  /* UNKEYED_FRAGMENT */
+  )) : createCommentVNode("v-if", true)], 36
+  /* STYLE, HYDRATE_EVENTS */
+  );
+}
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ItemList.vue?vue&type=script&lang=js
+/* harmony default export */ const ItemListvue_type_script_lang_js = ({
   name: 'ItemList',
   props: ['config', 'items', 'colors', 'dc'],
   mounted: function mounted() {
@@ -9776,66 +19251,25 @@ ItemListvue_type_template_id_c50b23fe_render._withStripped = true
     return {};
   }
 });
-;// CONCATENATED MODULE: ./src/components/ItemList.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_ItemListvue_type_script_lang_js_ = (ItemListvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ItemList.vue?vue&type=style&index=0&lang=css&
-var ItemListvue_type_style_index_0_lang_css_ = __webpack_require__(807);
-;// CONCATENATED MODULE: ./src/components/ItemList.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/ItemList.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ItemList.vue?vue&type=style&index=0&id=428f7654&lang=css
+var ItemListvue_type_style_index_0_id_428f7654_lang_css = __webpack_require__(211);
+;// CONCATENATED MODULE: ./src/components/ItemList.vue?vue&type=style&index=0&id=428f7654&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/ItemList.vue
 
 
 
+
 ;
+ItemListvue_type_script_lang_js.render = ItemListvue_type_template_id_428f7654_render
+
+/* harmony default export */ const ItemList = (ItemListvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ToolbarItem.vue?vue&type=script&lang=js
 
 
-/* normalize component */
-
-var ItemList_component = normalizeComponent(
-  components_ItemListvue_type_script_lang_js_,
-  ItemListvue_type_template_id_c50b23fe_render,
-  ItemListvue_type_template_id_c50b23fe_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var ItemList_api; }
-ItemList_component.options.__file = "src/components/ItemList.vue"
-/* harmony default export */ const ItemList = (ItemList_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ToolbarItem.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ const ToolbarItemvue_type_script_lang_js_ = ({
+/* harmony default export */ const ToolbarItemvue_type_script_lang_js = ({
   name: 'ToolbarItem',
   props: ['data', 'selected', 'colors', 'tv_id', 'config', 'dc', 'subs'],
   components: {
@@ -9962,63 +19396,30 @@ ItemList_component.options.__file = "src/components/ItemList.vue"
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/ToolbarItem.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_ToolbarItemvue_type_script_lang_js_ = (ToolbarItemvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/ToolbarItem.vue?vue&type=style&index=0&lang=css&
-var ToolbarItemvue_type_style_index_0_lang_css_ = __webpack_require__(501);
-;// CONCATENATED MODULE: ./src/components/ToolbarItem.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/ToolbarItem.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/ToolbarItem.vue?vue&type=style&index=0&id=24cfb58a&lang=css
+var ToolbarItemvue_type_style_index_0_id_24cfb58a_lang_css = __webpack_require__(727);
+;// CONCATENATED MODULE: ./src/components/ToolbarItem.vue?vue&type=style&index=0&id=24cfb58a&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/ToolbarItem.vue
 
 
 
+
 ;
+ToolbarItemvue_type_script_lang_js.render = ToolbarItemvue_type_template_id_24cfb58a_render
 
-
-/* normalize component */
-
-var ToolbarItem_component = normalizeComponent(
-  components_ToolbarItemvue_type_script_lang_js_,
-  ToolbarItemvue_type_template_id_227b3c2e_render,
-  ToolbarItemvue_type_template_id_227b3c2e_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var ToolbarItem_api; }
-ToolbarItem_component.options.__file = "src/components/ToolbarItem.vue"
-/* harmony default export */ const ToolbarItem = (ToolbarItem_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Toolbar.vue?vue&type=script&lang=js&
+/* harmony default export */ const ToolbarItem = (ToolbarItemvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Toolbar.vue?vue&type=script&lang=js
 function Toolbarvue_type_script_lang_js_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = Toolbarvue_type_script_lang_js_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function Toolbarvue_type_script_lang_js_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return Toolbarvue_type_script_lang_js_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return Toolbarvue_type_script_lang_js_arrayLikeToArray(o, minLen); }
 
 function Toolbarvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-/* harmony default export */ const Toolbarvue_type_script_lang_js_ = ({
+/* harmony default export */ const Toolbarvue_type_script_lang_js = ({
   name: 'Toolbar',
   props: ['data', 'height', 'colors', 'tv_id', 'config'],
   components: {
@@ -10122,86 +19523,51 @@ function Toolbarvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == 
     };
   }
 });
-;// CONCATENATED MODULE: ./src/components/Toolbar.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Toolbarvue_type_script_lang_js_ = (Toolbarvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Toolbar.vue?vue&type=style&index=0&lang=css&
-var Toolbarvue_type_style_index_0_lang_css_ = __webpack_require__(153);
-;// CONCATENATED MODULE: ./src/components/Toolbar.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/Toolbar.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Toolbar.vue?vue&type=style&index=0&id=1d908e28&lang=css
+var Toolbarvue_type_style_index_0_id_1d908e28_lang_css = __webpack_require__(690);
+;// CONCATENATED MODULE: ./src/components/Toolbar.vue?vue&type=style&index=0&id=1d908e28&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/Toolbar.vue
 
 
 
+
 ;
+Toolbarvue_type_script_lang_js.render = Toolbarvue_type_template_id_1d908e28_render
 
+/* harmony default export */ const Toolbar = (Toolbarvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Widgets.vue?vue&type=template&id=00dc0900
 
-/* normalize component */
-
-var Toolbar_component = normalizeComponent(
-  components_Toolbarvue_type_script_lang_js_,
-  Toolbarvue_type_template_id_021887fb_render,
-  Toolbarvue_type_template_id_021887fb_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Toolbar_api; }
-Toolbar_component.options.__file = "src/components/Toolbar.vue"
-/* harmony default export */ const Toolbar = (Toolbar_component.exports);
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Widgets.vue?vue&type=template&id=5fe4312f&
-var Widgetsvue_type_template_id_5fe4312f_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "tvjs-widgets",
-      style: { width: _vm.width + "px", height: _vm.height + "px" }
-    },
-    _vm._l(Object.keys(_vm.map), function(id) {
-      return _c(_vm.initw(id), {
-        key: id,
-        tag: "component",
-        attrs: {
-          id: id,
-          main: _vm.map[id].ctrl,
-          data: _vm.map[id].data,
-          tv: _vm.tv,
-          dc: _vm.dc
-        }
-      })
-    }),
-    1
-  )
+function Widgetsvue_type_template_id_00dc0900_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock(runtime_core_esm_bundler_Fragment, null, [createCommentVNode(" WidgetS Layer "), createBaseVNode("div", {
+    "class": "tvjs-widgets",
+    style: normalizeStyle({
+      width: $props.width + 'px',
+      height: $props.height + 'px'
+    })
+  }, [(openBlock(true), createElementBlock(runtime_core_esm_bundler_Fragment, null, renderList(Object.keys($props.map), function (id) {
+    return openBlock(), createBlock(resolveDynamicComponent($options.initw(id)), {
+      key: id,
+      id: id,
+      main: $props.map[id].ctrl,
+      data: $props.map[id].data,
+      tv: $props.tv,
+      dc: $props.dc
+    }, null, 8
+    /* PROPS */
+    , ["id", "main", "data", "tv", "dc"]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))], 4
+  /* STYLE */
+  )], 2112
+  /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+  );
 }
-var Widgetsvue_type_template_id_5fe4312f_staticRenderFns = []
-Widgetsvue_type_template_id_5fe4312f_render._withStripped = true
-
-
-;// CONCATENATED MODULE: ./src/components/Widgets.vue?vue&type=template&id=5fe4312f&
-
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Widgets.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const Widgetsvue_type_script_lang_js_ = ({
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Widgets.vue?vue&type=script&lang=js
+/* harmony default export */ const Widgetsvue_type_script_lang_js = ({
   name: 'Widgets',
   props: ['width', 'height', 'map', 'tv', 'dc'],
   methods: {
@@ -10210,66 +19576,38 @@ Widgetsvue_type_template_id_5fe4312f_render._withStripped = true
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/Widgets.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_Widgetsvue_type_script_lang_js_ = (Widgetsvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Widgets.vue?vue&type=style&index=0&lang=css&
-var Widgetsvue_type_style_index_0_lang_css_ = __webpack_require__(5);
-;// CONCATENATED MODULE: ./src/components/Widgets.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/Widgets.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/Widgets.vue?vue&type=style&index=0&id=00dc0900&lang=css
+var Widgetsvue_type_style_index_0_id_00dc0900_lang_css = __webpack_require__(92);
+;// CONCATENATED MODULE: ./src/components/Widgets.vue?vue&type=style&index=0&id=00dc0900&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/Widgets.vue
 
 
 
+
 ;
+Widgetsvue_type_script_lang_js.render = Widgetsvue_type_template_id_00dc0900_render
 
+/* harmony default export */ const Widgets = (Widgetsvue_type_script_lang_js);
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/TheTip.vue?vue&type=template&id=66c58c8a
 
-/* normalize component */
-
-var Widgets_component = normalizeComponent(
-  components_Widgetsvue_type_script_lang_js_,
-  Widgetsvue_type_template_id_5fe4312f_render,
-  Widgetsvue_type_template_id_5fe4312f_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var Widgets_api; }
-Widgets_component.options.__file = "src/components/Widgets.vue"
-/* harmony default export */ const Widgets = (Widgets_component.exports);
-;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/TheTip.vue?vue&type=template&id=2c1770cc&
-var TheTipvue_type_template_id_2c1770cc_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", {
-    staticClass: "tvjs-the-tip",
-    style: _vm.style,
-    domProps: { innerHTML: _vm._s(_vm.data.text) },
-    on: {
-      mousedown: function($event) {
-        return _vm.$emit("remove-me")
-      }
-    }
-  })
+var TheTipvue_type_template_id_66c58c8a_hoisted_1 = ["innerHTML"];
+function TheTipvue_type_template_id_66c58c8a_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", {
+    "class": "tvjs-the-tip",
+    innerHTML: $props.data.text,
+    onMousedown: _cache[0] || (_cache[0] = function ($event) {
+      return _ctx.$emit('remove-me');
+    }),
+    style: normalizeStyle($options.style)
+  }, null, 44
+  /* STYLE, PROPS, HYDRATE_EVENTS */
+  , TheTipvue_type_template_id_66c58c8a_hoisted_1);
 }
-var TheTipvue_type_template_id_2c1770cc_staticRenderFns = []
-TheTipvue_type_template_id_2c1770cc_render._withStripped = true
-
-
-;// CONCATENATED MODULE: ./src/components/TheTip.vue?vue&type=template&id=2c1770cc&
-
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/TheTip.vue?vue&type=script&lang=js&
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const TheTipvue_type_script_lang_js_ = ({
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/TheTip.vue?vue&type=script&lang=js
+/* harmony default export */ const TheTipvue_type_script_lang_js = ({
   name: 'TheTip',
   props: ['data'],
   mounted: function mounted() {
@@ -10287,36 +19625,21 @@ TheTipvue_type_template_id_2c1770cc_render._withStripped = true
     }
   }
 });
-;// CONCATENATED MODULE: ./src/components/TheTip.vue?vue&type=script&lang=js&
- /* harmony default export */ const components_TheTipvue_type_script_lang_js_ = (TheTipvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/TheTip.vue?vue&type=style&index=0&lang=css&
-var TheTipvue_type_style_index_0_lang_css_ = __webpack_require__(477);
-;// CONCATENATED MODULE: ./src/components/TheTip.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/components/TheTip.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/components/TheTip.vue?vue&type=style&index=0&id=66c58c8a&lang=css
+var TheTipvue_type_style_index_0_id_66c58c8a_lang_css = __webpack_require__(648);
+;// CONCATENATED MODULE: ./src/components/TheTip.vue?vue&type=style&index=0&id=66c58c8a&lang=css
 
 ;// CONCATENATED MODULE: ./src/components/TheTip.vue
 
 
 
+
 ;
+TheTipvue_type_script_lang_js.render = TheTipvue_type_template_id_66c58c8a_render
 
-
-/* normalize component */
-
-var TheTip_component = normalizeComponent(
-  components_TheTipvue_type_script_lang_js_,
-  TheTipvue_type_template_id_2c1770cc_render,
-  TheTipvue_type_template_id_2c1770cc_staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var TheTip_api; }
-TheTip_component.options.__file = "src/components/TheTip.vue"
-/* harmony default export */ const TheTip = (TheTip_component.exports);
+/* harmony default export */ const TheTip = (TheTipvue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./src/mixins/xcontrol.js
 function xcontrol_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = xcontrol_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
@@ -10526,7 +19849,7 @@ function xcontrol_arrayLikeToArray(arr, len) { if (len == null || len > arr.leng
     };
   }
 });
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/TradingVue.vue?vue&type=script&lang=js&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/TradingVue.vue?vue&type=script&lang=js
 
 
 function TradingVuevue_type_script_lang_js_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = TradingVuevue_type_script_lang_js_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -10535,51 +19858,14 @@ function TradingVuevue_type_script_lang_js_unsupportedIterableToArray(o, minLen)
 
 function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 
 
 
-/* harmony default export */ const TradingVuevue_type_script_lang_js_ = ({
-  name: 'TradingVue',
+/* harmony default export */ const TradingVuevue_type_script_lang_js = ({
+  name: "TradingVue",
   components: {
     Chart: Chart,
     Toolbar: Toolbar,
@@ -10590,11 +19876,11 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
   props: {
     titleTxt: {
       type: String,
-      "default": 'TradingVue.js'
+      "default": "TradingVue.js"
     },
     id: {
       type: String,
-      "default": 'trading-vue-js'
+      "default": "trading-vue-js"
     },
     width: {
       type: Number,
@@ -10606,71 +19892,71 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
     },
     colorTitle: {
       type: String,
-      "default": '#42b883'
+      "default": "#42b883"
     },
     colorBack: {
       type: String,
-      "default": '#121826'
+      "default": "#121826"
     },
     colorGrid: {
       type: String,
-      "default": '#2f3240'
+      "default": "#2f3240"
     },
     colorText: {
       type: String,
-      "default": '#dedddd'
+      "default": "#dedddd"
     },
     colorTextHL: {
       type: String,
-      "default": '#fff'
+      "default": "#fff"
     },
     colorScale: {
       type: String,
-      "default": '#838383'
+      "default": "#838383"
     },
     colorCross: {
       type: String,
-      "default": '#8091a0'
+      "default": "#8091a0"
     },
     colorCandleUp: {
       type: String,
-      "default": '#23a776'
+      "default": "#23a776"
     },
     colorCandleDw: {
       type: String,
-      "default": '#e54150'
+      "default": "#e54150"
     },
     colorWickUp: {
       type: String,
-      "default": '#23a77688'
+      "default": "#23a77688"
     },
     colorWickDw: {
       type: String,
-      "default": '#e5415088'
+      "default": "#e5415088"
     },
     colorWickSm: {
       type: String,
-      "default": 'transparent' // deprecated
+      "default": "transparent" // deprecated
 
     },
     colorVolUp: {
       type: String,
-      "default": '#79999e42'
+      "default": "#79999e42"
     },
     colorVolDw: {
       type: String,
-      "default": '#ef535042'
+      "default": "#ef535042"
     },
     colorPanel: {
       type: String,
-      "default": '#565c68'
+      "default": "#565c68"
     },
     colorTbBack: {
       type: String
     },
     colorTbBorder: {
       type: String,
-      "default": '#8282827d'
+      "default": "#8282827d"
     },
     colors: {
       type: Object
@@ -10732,6 +20018,12 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
       type: Number,
       "default": 0
     }
+  },
+  data: function data() {
+    return {
+      reset: 0,
+      tip: null
+    };
   },
   computed: {
     // Copy a subset of TradingVue props
@@ -10802,15 +20094,9 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
       return this.skin_proto && this.skin_proto.font ? this.skin_proto.font : this.font;
     }
   },
-  data: function data() {
-    return {
-      reset: 0,
-      tip: null
-    };
-  },
   beforeDestroy: function beforeDestroy() {
     this.custom_event({
-      event: 'before-destroy'
+      event: "before-destroy"
     });
     this.ctrl_destroy();
   },
@@ -10834,7 +20120,7 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
 
       this.$nextTick(function () {
         return _this.custom_event({
-          event: 'chart-reset',
+          event: "chart-reset",
           args: []
         });
       });
@@ -10894,12 +20180,12 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
     },
     legend_button: function legend_button(event) {
       this.custom_event({
-        event: 'legend-button-click',
+        event: "legend-button-click",
         args: [event]
       });
     },
     custom_event: function custom_event(d) {
-      if ('args' in d) {
+      if ("args" in d) {
         this.$emit.apply(this, [d.event].concat(_toConsumableArray(d.args)));
       } else {
         this.$emit(d.event);
@@ -10924,9 +20210,9 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
         });
       }
 
-      this.$emit('range-changed', r);
+      this.$emit("range-changed", r);
       this.custom_event({
-        event: 'range-changed',
+        event: "range-changed",
         args: [r]
       });
       if (this.onrange) this.onrange(r);
@@ -10935,15 +20221,15 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
       var _this2 = this;
 
       this.onrange = function (r) {
-        var pf = _this2.chart_props.ib ? '_ms' : '';
-        var tf = _this2.$refs.chart['interval' + pf];
+        var pf = _this2.chart_props.ib ? "_ms" : "";
+        var tf = _this2.$refs.chart["interval" + pf];
         dc.range_changed(r, tf);
       };
     },
     parse_colors: function parse_colors(colors) {
       for (var k in this.$props) {
-        if (k.indexOf('color') === 0 && k !== 'colors') {
-          var k2 = k.replace('color', '');
+        if (k.indexOf("color") === 0 && k !== "colors") {
+          var k2 = k.replace("color", "");
           k2 = k2[0].toLowerCase() + k2.slice(1);
           if (colors[k2]) continue;
           colors[k2] = this.$props[k];
@@ -10958,36 +20244,21 @@ function TradingVuevue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
     }
   }
 });
-;// CONCATENATED MODULE: ./src/TradingVue.vue?vue&type=script&lang=js&
- /* harmony default export */ const src_TradingVuevue_type_script_lang_js_ = (TradingVuevue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/TradingVue.vue?vue&type=style&index=0&lang=css&
-var TradingVuevue_type_style_index_0_lang_css_ = __webpack_require__(863);
-;// CONCATENATED MODULE: ./src/TradingVue.vue?vue&type=style&index=0&lang=css&
+;// CONCATENATED MODULE: ./src/TradingVue.vue?vue&type=script&lang=js
+ 
+// EXTERNAL MODULE: ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[7].use[0]!./src/TradingVue.vue?vue&type=style&index=0&id=66442834&lang=css
+var TradingVuevue_type_style_index_0_id_66442834_lang_css = __webpack_require__(540);
+;// CONCATENATED MODULE: ./src/TradingVue.vue?vue&type=style&index=0&id=66442834&lang=css
 
 ;// CONCATENATED MODULE: ./src/TradingVue.vue
 
 
 
+
 ;
+TradingVuevue_type_script_lang_js.render = TradingVuevue_type_template_id_66442834_render
 
-
-/* normalize component */
-
-var TradingVue_component = normalizeComponent(
-  src_TradingVuevue_type_script_lang_js_,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var TradingVue_api; }
-TradingVue_component.options.__file = "src/TradingVue.vue"
-/* harmony default export */ const TradingVue = (TradingVue_component.exports);
+/* harmony default export */ const TradingVue = (TradingVuevue_type_script_lang_js);
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
@@ -11028,7 +20299,7 @@ function _asyncToGenerator(fn) {
 var regenerator = __webpack_require__(757);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 ;// CONCATENATED MODULE: ./src/helpers/tmp/ww$$$.json
-const ww$$$_namespaceObject = JSON.parse('["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"]');
+const ww$$$_namespaceObject = JSON.parse('["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"]');
 // EXTERNAL MODULE: ./node_modules/lz-string/libs/lz-string.js
 var lz_string = __webpack_require__(961);
 var lz_string_default = /*#__PURE__*/__webpack_require__.n(lz_string);
@@ -12567,7 +21838,7 @@ var DCCore = /*#__PURE__*/function (_DCEvents) {
 
   }, {
     key: "init_data",
-    value: function init_data($root) {
+    value: function init_data() {
       if (!('chart' in this.data)) {
         this.tv.$set(this.data, 'chart', {
           type: 'Candles',
@@ -13688,21 +22959,21 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 /***/ }),
 
-/***/ 418:
+/***/ 640:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(645);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Anit-boostrap tactix */\n.trading-vue *, ::after, ::before {\n    box-sizing: content-box;\n}\n.trading-vue img {\n    vertical-align: initial;\n}\n", ""]);
+exports.push([module.id, "\n/* Anit-boostrap tactix */\n.trading-vue *,\n::after,\n::before {\n  box-sizing: content-box;\n}\n.trading-vue img {\n  vertical-align: initial;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
 
 /***/ }),
 
-/***/ 976:
+/***/ 576:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13716,7 +22987,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 449:
+/***/ 787:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13730,7 +23001,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 108:
+/***/ 937:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13744,7 +23015,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 988:
+/***/ 543:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13758,7 +23029,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 423:
+/***/ 13:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13772,7 +23043,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 661:
+/***/ 470:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13786,7 +23057,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 168:
+/***/ 835:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13800,7 +23071,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 29:
+/***/ 969:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13814,7 +23085,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 935:
+/***/ 423:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13828,7 +23099,7 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 379:
+/***/ 609:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -13842,21 +23113,21 @@ module.exports = exports;
 
 /***/ }),
 
-/***/ 72:
+/***/ 204:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(645);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.id, "\n.trading-vue-ux-wrapper {\n    position: absolute;\n    display: flex;\n}\n.tvjs-ux-wrapper-pin {\n    position: absolute;\n    width: 9px;\n    height: 9px;\n    z-index: 100;\n    background-color: #23a776;\n    border-radius: 10px;\n    margin-left: -6px;\n    margin-top: -6px;\n    pointer-events: none;\n}\n.tvjs-ux-wrapper-head {\n    position: absolute;\n    height: 23px;\n    width: 100%;\n}\n.tvjs-ux-wrapper-close {\n    position: absolute;\n    width: 11px;\n    height: 11px;\n    font-size: 1.5em;\n    line-height: 0.5em;\n    padding: 1px 1px 1px 1px;\n    border-radius: 10px;\n    right: 5px;\n    top: 5px;\n    user-select: none;\n    text-align: center;\n    z-index: 100;\n}\n.tvjs-ux-wrapper-close-hb {\n}\n.tvjs-ux-wrapper-close:hover {\n    background-color: #FF605C !important;\n    color: #692324 !important;\n}\n.tvjs-ux-wrapper-full {\n}\n", ""]);
+exports.push([module.id, "\n.trading-vue-ux-wrapper {\n        position: absolute;\n        display: flex;\n}\n.tvjs-ux-wrapper-pin {\n        position: absolute;\n        width: 9px;\n        height: 9px;\n        z-index: 100;\n        background-color: #23a776;\n        border-radius: 10px;\n        margin-left: -6px;\n        margin-top: -6px;\n        pointer-events: none;\n}\n.tvjs-ux-wrapper-head {\n        position: absolute;\n        height: 23px;\n        width: 100%;\n}\n.tvjs-ux-wrapper-close {\n        position: absolute;\n        width: 11px;\n        height: 11px;\n        font-size: 1.5em;\n        line-height: 0.5em;\n        padding: 1px 1px 1px 1px;\n        border-radius: 10px;\n        right: 5px;\n        top: 5px;\n        user-select: none;\n        text-align: center;\n        z-index: 100;\n}\n.tvjs-ux-wrapper-close-hb {\n}\n.tvjs-ux-wrapper-close:hover {\n        background-color: #FF605C !important;\n        color: #692324 !important;\n}\n.tvjs-ux-wrapper-full {\n}\n", ""]);
 // Exports
 module.exports = exports;
 
 
 /***/ }),
 
-/***/ 983:
+/***/ 505:
 /***/ ((module, exports, __webpack_require__) => {
 
 // Imports
@@ -18211,97 +27482,169 @@ try {
 
 /***/ }),
 
-/***/ 863:
+/***/ 540:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(418);
+var content = __webpack_require__(640);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("550b47ab", content, false, {});
+var update = add("6c608aee", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ 124:
+/***/ 936:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(976);
+var content = __webpack_require__(576);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("1b34bfeb", content, false, {});
+var update = add("163b46a6", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ 886:
+/***/ 186:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(449);
+var content = __webpack_require__(787);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("9895d3a6", content, false, {});
+var update = add("40223a0e", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ 807:
+/***/ 211:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(108);
+var content = __webpack_require__(937);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("8139036a", content, false, {});
+var update = add("14e149ed", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ 600:
+/***/ 884:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(988);
+var content = __webpack_require__(543);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("1db01c0b", content, false, {});
+var update = add("afdc7ba8", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ 169:
+/***/ 125:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(13);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(346)/* .default */ .Z
+var update = add("0b9921b1", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ 604:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(470);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(346)/* .default */ .Z
+var update = add("1dce6c58", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ 437:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(835);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(346)/* .default */ .Z
+var update = add("25ac2311", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ 648:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(969);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(346)/* .default */ .Z
+var update = add("8eb32b7a", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ 690:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -18313,133 +27656,61 @@ if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("68f243ea", content, false, {});
+var update = add("65e5dbf4", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ 11:
+/***/ 727:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(661);
+var content = __webpack_require__(609);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("12d2309d", content, false, {});
+var update = add("3031c6aa", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ 372:
+/***/ 297:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(168);
+var content = __webpack_require__(204);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("5b620605", content, false, {});
+var update = add("952eb07c", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
 /***/ }),
 
-/***/ 477:
+/***/ 92:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(29);
+var content = __webpack_require__(505);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.id, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(346)/* .default */ .Z
-var update = add("143dffab", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ 153:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(935);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(346)/* .default */ .Z
-var update = add("f32fd36e", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ 501:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(379);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(346)/* .default */ .Z
-var update = add("604bf5ef", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ 565:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(72);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(346)/* .default */ .Z
-var update = add("21fde573", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ 5:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(983);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(346)/* .default */ .Z
-var update = add("fd83689e", content, false, {});
+var update = add("64d7f89e", content, false, {});
 // Hot Module Replacement
 if(false) {}
 
@@ -18761,6 +28032,18 @@ function applyToTag (styleElement, obj) {
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -18782,7 +28065,7 @@ function applyToTag (styleElement, obj) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(851);
+/******/ 	var __webpack_exports__ = __webpack_require__(299);
 /******/ 	
 /******/ 	return __webpack_exports__;
 /******/ })()

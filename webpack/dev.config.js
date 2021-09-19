@@ -1,4 +1,4 @@
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WWPlugin = require('./ww_plugin.js')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -10,26 +10,26 @@ module.exports = (env, options) => ({
     entry: './src/main.js',
     module: {
         rules: [{
-                test: /\.vue$/,
-                exclude: /node_modules/,
-                loader: 'vue-loader'
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    'vue-style-loader',
-                    'css-loader'
-                ]
-            },
-            {
-                test: /script_ww\.js$/,
-                loader: 'worker-loader'
-            }
+            test: /\.vue$/,
+            exclude: /node_modules/,
+            loader: 'vue-loader'
+        },
+        {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+        },
+        {
+            test: /\.css$/,
+            use: [
+                'vue-style-loader',
+                'css-loader'
+            ]
+        },
+        {
+            test: /script_ww\.js$/,
+            loader: 'worker-loader'
+        }
         ]
     },
     plugins: [
@@ -44,16 +44,16 @@ module.exports = (env, options) => ({
     ],
     devServer: {
         host: '0.0.0.0',
-        onListening: function(server) {
+        onListening: function (server) {
             const port = server.listeningApp.address().port
             global.port = port
         },
-        before(app){
-            app.get("/debug", function(req, res) {
+        before(app) {
+            app.get("/debug", function (req, res) {
                 try {
                     let argv = JSON.parse(req.query.argv)
                     console.log(...argv)
-                } catch(e) {}
+                } catch (e) { }
                 res.send("[OK]")
             })
         }
