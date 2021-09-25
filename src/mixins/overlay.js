@@ -29,7 +29,7 @@ export default {
             new Function('return ' + this.$emit)()
             this._$emit = this.$emit
             this.$emit = this.custom_event
-        } catch(e) {
+        } catch (e) {
             return
         }
 
@@ -38,9 +38,9 @@ export default {
             id: this.$props.id,
             renderer: this,
             display: 'display' in this.$props.settings ?
-               this.$props.settings['display'] : true,
+                this.$props.settings['display'] : true,
             z: this.$props.settings['z-index'] ||
-               this.$props.settings['zIndex'] || (main ? 0 : -1),
+                this.$props.settings['zIndex'] || (main ? 0 : -1),
         })
 
         // Overlay meta-props (adjusting behaviour)
@@ -65,7 +65,7 @@ export default {
             /* override it (mandatory) */
             console.warn('use_for() should be implemented')
             console.warn(
-            `Format: use_for() {
+                `Format: use_for() {
                   return ['type1', 'type2', ...]
             }`)
         },
@@ -75,7 +75,7 @@ export default {
             console.warn(
                 `${id} meta_info() is req. for publishing`)
             console.warn(
-            `Format: meta_info() {
+                `Format: meta_info() {
                 author: 'Satoshi Smith',
                 version: '1.0.0',
                 contact (opt) '<email>'
@@ -103,7 +103,7 @@ export default {
             // TODO(2): this prevents call overflow, but
             // the root of evil is in (1)
             if (event === 'custom-event') return
-            this._$emit('custom-event', {event, args})
+            this._$emit('custom-event', { event, args })
         },
         // TODO: the event is not firing when the same
         // overlay type is added to the offchart[]
@@ -118,7 +118,7 @@ export default {
     },
     watch: {
         settings: {
-            handler: function(n, p) {
+            handler: function (n, p) {
                 if (this.watch_uuid) this.watch_uuid(n, p)
                 this._$emit('show-grid-layer', {
                     id: this.$props.id,
@@ -130,5 +130,5 @@ export default {
         }
     },
     data() { return { uxs_count: 0, last_ux_id: null } },
-    render(h) { return h() }
+    render() { }
 }

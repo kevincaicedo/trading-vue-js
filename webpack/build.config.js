@@ -24,6 +24,11 @@ let common = {
         'trading-vue': './src/index.js',
         'trading-vue.min': './src/index.js',
     },
+    resolve: {
+        alias: {
+            vue: '@vue/compat'
+        }
+    },
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: '[name].js',
@@ -44,7 +49,14 @@ let common = {
             {
                 test: /\.vue$/,
                 exclude: /node_modules/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: {
+                    compilerOptions: {
+                        compatConfig: {
+                            MODE: 2
+                        }
+                    }
+                }
             },
             {
                 test: /\.js$/,

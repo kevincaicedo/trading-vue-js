@@ -7,11 +7,23 @@ global.port = '8080'
 
 module.exports = {
     entry: './test/index.js',
+    resolve: {
+        alias: {
+            vue: '@vue/compat'
+        }
+    },
     module: {
         rules: [{
             test: /\.vue$/,
             exclude: /node_modules/,
-            loader: 'vue-loader'
+            loader: 'vue-loader',
+            options: {
+                compilerOptions: {
+                    compatConfig: {
+                        MODE: 2
+                    }
+                }
+            }
         },
         {
             test: /\.js$/,
